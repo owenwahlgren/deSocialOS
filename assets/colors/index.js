@@ -7,7 +7,7 @@ const colors = {
     primary: '#42B0FF',
     white: '#FFFFFF',
     black: '#000000',
-    tabBar: 'rgba(0,0,0,.5)'
+    tabBar: 'rgba(0,0,0,.75)'
 }
 
 export default colors;

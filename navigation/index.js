@@ -4,6 +4,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import HomeScreen from '../screens/home';
 import ProfileScreen from '../screens/profile'
+import CameraScreen from '../screens/camera'
 import colors from '../assets/colors'
 
 const Tab = createBottomTabNavigator();
@@ -26,8 +27,8 @@ export default function Navigator() {
                 : require('../assets/images/ProfileInactive.png');
             } else if (route.name === 'Camera') {
               iconName = focused 
-                ? require('../assets/images/camera.png')
-                : require('../assets/images/camera.png');
+                ? require('../assets/images/CameraIcon.png')
+                : require('../assets/images/CameraIcon.png');
                 return <Image source={iconName} style={{width: 34, height: 34}}
             resizeMode='contain' />;
             }
@@ -37,13 +38,16 @@ export default function Navigator() {
             resizeMode='contain' />;
           },
           tabBarStyle: {
-              borderTopColor: colors.black,
-              backgroundColor: colors.white
+              borderTopColor: colors.dark,
+              backgroundColor: colors.tabBar,
+              position: 'absolute',
+              elevation: 0,
           },
           tabBarLabel: () => null,
         })}
       >
         <Tab.Screen name="Home" component={HomeScreen} options={{headerShown: false}} />
+        <Tab.Screen name="Camera" component={CameraScreen} options={{headerShown: false}} />
         <Tab.Screen name="Profile" component={ProfileScreen} options={{tabBarBadge: 1}} />
       </Tab.Navigator>
     </NavigationContainer>
