@@ -12,8 +12,14 @@ const Navigator = ({navigation}) => {
   return (
       <NavigationContainer>
         <Stack.Navigator screenOptions={{headerShown: false}}>
-          <Stack.Screen name="HomeTabs" component={BottomTabNavigator} />
-          <Stack.Screen name="CreatePost" component={CreatePost} />
+          <Stack.Screen name="HomeTabs" component={BottomTabNavigator} options={{title: 'Preview'}} />
+          <Stack.Screen 
+          name="CreatePost" 
+          component={CreatePost} 
+          options={{
+            headerShown: true,
+            title: 'Post'
+          }}/>
         </Stack.Navigator>
       </NavigationContainer>
   );

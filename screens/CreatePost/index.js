@@ -1,10 +1,10 @@
 import React from 'react';
-import {View, StyleSheet} from 'react-native';
+import {View, StyleSheet, Text} from 'react-native';
 
 const CreatePost = () => {
     return (
         <View style={styles.container}>
-            <Text>CreatePost</Text>
+            <Text>Create Post hehehee</Text>
         </View>
     )
 }
