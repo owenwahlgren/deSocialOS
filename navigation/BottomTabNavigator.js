@@ -37,10 +37,10 @@ export default function BottomTabNavigator() {
             resizeMode='contain' />;
           },
           tabBarStyle: {
-              borderTopColor: colors.dark,
-              backgroundColor: colors.tabBar,
-              position: 'absolute',
-              elevation: 0,
+              borderTopColor: colors.gray,
+              backgroundColor: colors.black,
+              // position: 'absolute',
+              // elevation: 0,
           },
           tabBarLabel: () => null,
         })}
