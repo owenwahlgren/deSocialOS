@@ -30,7 +30,7 @@ const CreatePost = () => {
                 style={{flex: 1, padding: 10}}
                 onClick={() => {
                     this.setState({
-                        isChecked:!this.state.isChecked
+                        isChecked: !this.state.isChecked
                     })
                 }}
                 isChecked={this.state.isChecked}
