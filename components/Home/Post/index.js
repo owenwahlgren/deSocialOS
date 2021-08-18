@@ -32,7 +32,6 @@ const Post = (props) => {
         return <AppLoading />;
       } else {
     return (
-        <View>
             <TouchableOpacity>
             <Video 
                 source={{uri: post.videoUri}}
@@ -58,7 +57,6 @@ const Post = (props) => {
                 </View>
             </View>
             </TouchableOpacity>
-        </View>
     )
     }
 }

@@ -28,7 +28,7 @@ export default function CameraScreen() {
 
   const changeFlashMode = () => {
     if (flashMode == 'off') {
-      setFlashMode('on');
+      setFlashMode('torch');
     } else {
       setFlashMode('off');
     }
@@ -82,6 +82,7 @@ export default function CameraScreen() {
     navigation.navigate('CreatePost', {
       videoUri: videoPath,
       fileName: fileName,
+      videoPreview,
     });
   }
   function close() {
@@ -166,24 +167,27 @@ export default function CameraScreen() {
           onPressOut={recordVideo}>
           <View
             style={{
-              borderWidth: 4,
+              borderWidth: 5,
               borderRadius: 100,
               borderColor: 'rgba(255,255,255,0.5)',
-              height: 80,
-              width: 80,
+              height: 70,
+              width: 70,
               display: 'flex',
               justifyContent: 'center',
               alignItems: 'center',
             }}>
             <View
               style={{
-                borderWidth: 4,
+                borderWidth: 5,
                 borderRadius: 100,
                 borderColor: recording
                   ? 'rgba(255,0,0,0.75)'
                   : 'rgba(255,255,255,0.5)',
-                height: 80,
-                width: 80,
+                backgroundColor: recording
+                  ? 'rgba(255,0,0,0.75)'
+                  : 'transparent',
+                height: 70,
+                width: 70,
               }}
             />
           </View>

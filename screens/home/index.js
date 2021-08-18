@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React, {useState, useEffect} from 'react';
-import { FlatList, StyleSheet, Text, View, Image, Dimensions, TouchableOpacity, SafeAreaView} from 'react-native';
+import { FlatList, StyleSheet, Text, View, Image, Dimensions, TouchableOpacity, SafeAreaView, ScrollView} from 'react-native';
 import AppLoading from 'expo-app-loading';
 import colors from '../../assets/colors'
 import Post from '../../components/Home/Post'
@@ -24,20 +24,21 @@ const fetchMore = () => {
 };
 
 return (
-    <SafeAreaView style={styles.container}>
-        <FlatList 
-        data={posts} 
-        style={styles.list}
-        numColumns={2}
-        onEndReached={fetchMore}
-        initialNumToRender={6}
-        showsVerticalScrollIndicator={false}
-        keyExtractor={e => e}
-        renderItem={({item}) => (
-            <Post post={item}/>
-        )}
-        />
-    </SafeAreaView>
+    <View style={styles.container}>
+        <SafeAreaView style={styles.content} contentInsetAdjustmentBehavior='automatic'>
+            <FlatList 
+            data={posts} 
+            numColumns={2}
+            onEndReached={fetchMore}
+            initialNumToRender={6}
+            showsVerticalScrollIndicator={false}
+            keyExtractor={e => e}
+            renderItem={({item}) => (
+                <Post post={item}/>
+            )}
+            />
+        </SafeAreaView>    
+    </View>
 );
 }
 
@@ -45,21 +46,15 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: colors.black,
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: '100%',
   },
-  background: {
-      position: 'absolute',
-      backgroundColor: colors.black,
-      top: 0,
-      left: 0,
-      bottom: 0,
-      right: 0,
-      height: '100%'
+  content: {
+      flex: 1,
+      flexDirection: 'row',
+      flexWrap: 'wrap',
+      justifyContent: 'space-evenly',
   },
   list: {
-      width: '100%',
+      flex: 1,
       backgroundColor: colors.black,
   }
 });
