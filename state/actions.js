@@ -1,18 +1,23 @@
-import { setFeedData, setAccountData, setWallet } from './reducer'
+import { setFeedData, setAccountData, setPrivateKey } from './reducer'
 import { fetchFeedData } from '../data/posts'
-import { fetchWallet, storeWallet } from '../utils/wallet'
+import * as SecureStore from 'expo-secure-store';
 
+//fetch data from feed util
 export const fetchFeedDataAsync = () => async (dispatch) => {
 	const feed = await fetchFeedData()
 	dispatch(setFeedData(feed))
 }
 
+//load wallet data from storage into state
 export const loadWalletAsync = () => async (dispatch) => {
-	const wallet = await fetchWallet()
-	dispatch(setWallet(wallet.privateKey))
+	const key = await SecureStore.getItemAsync("key")
+	dispatch(setPrivateKey(key))
 }
 
+//save wallet to storage & set to state
 export const saveWallet = (wallet) => async (dispatch) => {
-	await storeWallet(wallet)
-	dispatch(setWallet(wallet))
+	console.log("saving wallet")
+	const key = wallet.privateKey.toString()
+	await SecureStore.setItemAsync("key", key)
+	dispatch(setPrivateKey(key))
 }

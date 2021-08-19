@@ -28,7 +28,7 @@ export default function CameraScreen() {
 
   const changeFlashMode = () => {
     if (flashMode == 'off') {
-      setFlashMode('on');
+      setFlashMode('torch');
     } else {
       setFlashMode('off');
     }
@@ -136,7 +136,7 @@ export default function CameraScreen() {
           <AntDesign
             name="close"
             color="rgba(255,255,255,0.75)"
-            size={34}
+            size={30}
             onPress={() => navigation.navigate('Home')}
           />
         </View>
@@ -166,24 +166,27 @@ export default function CameraScreen() {
           onPressOut={recordVideo}>
           <View
             style={{
-              borderWidth: 4,
+              borderWidth: 5,
               borderRadius: 100,
               borderColor: 'rgba(255,255,255,0.5)',
-              height: 80,
-              width: 80,
+              height: 70,
+              width: 70,
               display: 'flex',
               justifyContent: 'center',
               alignItems: 'center',
             }}>
             <View
               style={{
-                borderWidth: 4,
+                borderWidth: 5,
                 borderRadius: 100,
                 borderColor: recording
                   ? 'rgba(255,0,0,0.75)'
                   : 'rgba(255,255,255,0.5)',
-                height: 80,
-                width: 80,
+                backgroundColor: recording
+                  ? 'rgba(255,0,0,0.75)'
+                  : 'transparent',
+                height: 70,
+                width: 70,
               }}
             />
           </View>
@@ -223,13 +226,12 @@ const styles = StyleSheet.create({
   },
   sideItem: {
     position: 'absolute',
-    top: 12,
-    right: 12,
+    alignSelf: 'flex-end',
+    marginTop: 16,
   },
   sideIcons: {
-    width: 44,
-    height: 44,
-    marginBottom: 24,
+    marginBottom: 40,
+    marginRight: 16,
   },
   btn: {
     padding: 16,
@@ -240,8 +242,8 @@ const styles = StyleSheet.create({
   },
   header: {
     position: 'absolute',
-    top: 12,
-    left: 12,
+    marginTop: 16,
+    marginLeft: 16,
     justifyContent: 'space-between',
   },
 });

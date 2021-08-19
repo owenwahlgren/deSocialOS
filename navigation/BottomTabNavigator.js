@@ -37,10 +37,8 @@ export default function BottomTabNavigator() {
             resizeMode='contain' />;
           },
           tabBarStyle: {
-              borderTopColor: colors.gray,
+              borderTopColor: 'transparent',
               backgroundColor: colors.black,
-              // position: 'absolute',
-              // elevation: 0,
           },
           tabBarLabel: () => null,
         })}
@@ -58,9 +56,10 @@ export default function BottomTabNavigator() {
         options={{
           title: 'user address/ens', 
           headerStyle: {
-            backgroundColor: colors.black
+            backgroundColor: colors.black,
+            shadowColor: 'transparent'
           },headerTitleStyle: {
-            color: colors.white
+            color: colors.white,
           }
           }} />
       </Tab.Navigator>

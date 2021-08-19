@@ -20,10 +20,10 @@ export const walletSlice = createSlice({
 	name: 'wallet',
 	initialState,
 	reducers: {
-		setWallet: (state, action) => {
+		setPrivateKey: (state, action) => {
 			state.private_key = action.payload
 		}
 	}
 })
 
-export const { setWallet } = walletSlice.actions
+export const { setPrivateKey } = walletSlice.actions
