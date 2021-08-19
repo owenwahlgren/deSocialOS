@@ -8,9 +8,24 @@ import HeaderBar from '../../components/Profile/HeaderBar'
 
 import colors from '../../assets/colors';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { setWallet, useWallet} from '../../state/hooks'
+import { createNewWallet } from '../../utils/wallet'
 
 export default function ProfileScreen() {
+
+  let wallet = useWallet()
+    
+  if (wallet == null) {
+
+      wallet = createNewWallet()
+      console.log(wallet.mnemonic.phrase) 
+      setWallet(wallet)
+
+  } else {
+    
+    console.log(wallet)
+  }
+
   return (
     <View style={{flex: 1}}>
     <HeaderBar />

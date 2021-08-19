@@ -39,7 +39,7 @@ const Post = (props) => {
             <View style={styles.videoContainer}>
                 <TouchableOpacity
                 onPress={()=>console.log(props)}
-                onPress={() => navigation.navigate('PostDetails',{videoUri: props.videoUri, title: props.title})}
+                // onPress={() => navigation.navigate('PostDetails',{videoUri: props.videoUri, title: props.title})}
                 >
                 <Video 
                     source={{uri: post.videoUri}}

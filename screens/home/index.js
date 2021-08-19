@@ -4,10 +4,11 @@ import { FlatList, StyleSheet, Text, View, Image, Dimensions, TouchableOpacity, 
 import AppLoading from 'expo-app-loading';
 import colors from '../../assets/colors'
 import Post from '../../components/Home/Post'
+// import posts from '../../data/posts'
+import {useFeedData} from '../../state/hooks'
 import posts from '../../data/posts'
 import Header from '../../components/Home/Header'
 import {useNavigation} from '@react-navigation/native';
-
 // const BASE_URI = 'https://source.unsplash.com/random?sig=';
 
 export default function HomeScreen() {
@@ -32,6 +33,7 @@ const fetchMore = () => {
     ]);
 };
 
+const posts = useFeedData()
 return (
     <View style={styles.container}>
         <Animated.View
