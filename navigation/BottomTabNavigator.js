@@ -54,13 +54,7 @@ export default function BottomTabNavigator() {
         name="Profile" 
         component={ProfileScreen}
         options={{
-          title: 'user address/ens', 
-          headerStyle: {
-            backgroundColor: colors.black,
-            shadowColor: 'transparent'
-          },headerTitleStyle: {
-            color: colors.white,
-          }
+          headerShown: false
           }} />
       </Tab.Navigator>
   );

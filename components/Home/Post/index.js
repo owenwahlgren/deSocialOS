@@ -7,7 +7,7 @@ import { AntDesign } from '@expo/vector-icons';
 import {useNavigation} from '@react-navigation/native';
 
 
-const width = Dimensions.get("window").width / 2 - 4;
+const width = Dimensions.get("window").width / 2 - 2;
 const height = width * 2;
 
 import { 
@@ -79,12 +79,13 @@ const styles = StyleSheet.create({
         width: '100%',
         height: '100%',
         position: 'absolute',
+        borderRadius: 2,
     },
     videoContainer: {
         width,
         height,
-        marginHorizontal: 1.5,
-        marginBottom: 3,
+        marginHorizontal: 1,
+        marginBottom: 2,
     },
     uiContainer: {
         height,

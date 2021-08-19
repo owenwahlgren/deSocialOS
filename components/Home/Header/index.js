@@ -32,7 +32,7 @@ const Header = () => {
     return (
             <View style={styles.container}>
                 <View style={styles.buttonsContainer}>
-                    <TouchableOpacity>
+                    {/* <TouchableOpacity>
                         <Text style={styles.buttonText}>
                         🔥Hot  
                         </Text>
@@ -41,12 +41,12 @@ const Header = () => {
                         <Text style={styles.buttonText}>
                         ✨New    
                         </Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity>
-                        <Text style={styles.buttonText}>
-                        👀Following    
-                        </Text>
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
+                    <Image 
+                        style={{height: 24, marginBottom: 4}}
+                        source={require('../../../assets/images/logowhite.png')}
+                        resizeMode={'contain'}
+                    />
                 </View>
                 <TouchableOpacity 
                 style={{flex: 1, justifyContent: 'center'}}
@@ -66,33 +66,27 @@ export default Header;
 
 const styles = StyleSheet.create({
     container: {
-        height: 46,
+        height: 40,
         position: 'absolute',
         flexDirection: 'row',
         top: 0,
         left: 0,
         right: 0,
         marginTop: Constant.statusBarHeight,
+        backgroundColor: colors.primary,
     },
     buttonsContainer: {
         flexDirection: 'row',
         alignItems: 'center',
+        backgroundColor: 'black',
+        width: '100%',
+        justifyContent: 'center',
     },
     buttonText: {
         color: colors.white,
         fontFamily: 'Black',
         fontSize: 16,
-        marginLeft: 12,
-        shadowColor: "#000",
-        shadowColor: "#000",
-        shadowOffset: {
-            width: 0,
-            height: 2,
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 3.84,
-        
-        elevation: 5,
+        marginHorizontal: 8,
     },
     searchIcon: {
         width: 24,

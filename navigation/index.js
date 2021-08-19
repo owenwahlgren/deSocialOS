@@ -8,13 +8,15 @@ import CreatePost from '../screens/CreatePost';
 import Preview from '../components/Camera/Preview';
 import SearchScreen from '../screens/Search';
 import PostDetails from '../components/Home/PostDetails';
+import StartScreen from '../onboarding/StartScreen';
 
 const Stack = createStackNavigator();
 
 const Navigator = ({navigation}) => {
   return (
       <NavigationContainer>
-        <Stack.Navigator screenOptions={{headerShown: false}}>
+        <Stack.Navigator screenOptions={{headerShown: false}} initialRouteName="StartScreen">
+          <Stack.Screen name="StartScreen" component={StartScreen} />
           <Stack.Screen name="HomeTabs" component={BottomTabNavigator} />
           <Stack.Screen name="SearchScreen" component={SearchScreen} />
           <Stack.Screen name="PostDetails" component={PostDetails} />

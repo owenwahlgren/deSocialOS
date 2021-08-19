@@ -44,7 +44,7 @@ return (
         >
             <Header />
         </Animated.View>
-        <View style={styles.content}>
+        <SafeAreaView style={styles.content}>
             <FlatList 
             data={posts} 
             numColumns={2}
@@ -60,7 +60,7 @@ return (
 
             }}
             />
-        </View>    
+        </SafeAreaView>    
     </View>
 );
 }
