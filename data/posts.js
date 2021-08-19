@@ -1,41 +1,47 @@
-export default [
-    {
-        id: 'p1',
-        videoUri: 'https://assets.mixkit.co/videos/preview/mixkit-tree-with-yellow-flowers-1173-large.mp4',
+import { NFT } from '../utils/contract.js'
+
+async function fetchFeedData() {
+
+  var feedData = [];
+  let supply = JSON.parse(await NFT.totalSupply())
+    while (supply > 0) {
+
+      const result = await NFT.getMetaData(supply)
+      const title = result[0];
+      const ipfsHash = result[1];
+      const creator = result[2];
+      const timestamp = JSON.parse(result[3]);
+      const likes = JSON.parse(result[4]);
+
+      const data = {
+        id: supply,
+        videoUri:
+          'https://ipfs.io/ipfs/' + ipfsHash,
         user: {
-            id: 'u1',
-            username: 'CMoney',
-            imageUri: 'https://alrigh.com/wp-content/uploads/2020/06/19-tom-profile-picture.jpg',
+          id: creator,
+          username: creator.substring(0,9),
+          imageUri: null
         },
-        title: 'My first NFT!',
-        likes: 1234,
-        comments: 123,
-        shares: 123,
-    },  
-    {
-        id: 'p2',
-        videoUri: 'https://assets.mixkit.co/videos/preview/mixkit-tree-with-yellow-flowers-1173-large.mp4',
-        user: {
-            id: 'u1',
-            username: 'user2',
-            imageUri: 'https://alrigh.com/wp-content/uploads/2020/06/19-tom-profile-picture.jpg',
-        },
-        title: 'NFT 2',
-        likes: 1234,
-        comments: 123,
-        shares: 123,
-    },
-    {
-        id: 'p3',
-        videoUri: 'https://assets.mixkit.co/videos/preview/mixkit-tree-with-yellow-flowers-1173-large.mp4',
-        user: {
-            id: 'u1',
-            username: 'user3',
-            imageUri: 'https://alrigh.com/wp-content/uploads/2020/06/19-tom-profile-picture.jpg',
-        },
-        title: 'NFT 3',
-        likes: 1234,
-        comments: 123,
-        shares: 123,
-    },
-]
+        title: title,
+        likes: likes,
+        comments: 0,
+        shares: 100,
+      };
+
+      feedData.push(data)
+      supply -= 1;
+  }
+  return feedData;
+
+}
+
+
+module.exports = {fetchFeedData};
+
+
+
+
+
+
+
+

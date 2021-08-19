@@ -4,8 +4,8 @@ import { FlatList, StyleSheet, Text, View, Image, Dimensions, TouchableOpacity, 
 import AppLoading from 'expo-app-loading';
 import colors from '../../assets/colors'
 import Post from '../../components/Home/Post'
-import posts from '../../data/posts'
-
+// import posts from '../../data/posts'
+import {useFeedData} from '../../state/hooks'
 // const BASE_URI = 'https://source.unsplash.com/random?sig=';
 
 export default function HomeScreen() {
@@ -23,6 +23,7 @@ const fetchMore = () => {
     ]);
 };
 
+const posts = useFeedData()
 return (
     <SafeAreaView style={styles.container}>
         <FlatList 
