@@ -8,7 +8,6 @@ import CheckBox from 'react-native-check-box';
 
 const CreatePost = () => {
     const [title, setTitle] = useState("");
-    const [toggleCheckBox, setToggleCheckBox] = useState(false)
 
     const onPublish = () => {
     }
@@ -26,16 +25,6 @@ const CreatePost = () => {
                     style={styles.titleInput}
                 />
             </View>
-            <CheckBox 
-                style={{flex: 1, padding: 10}}
-                onClick={() => {
-                    this.setState({
-                        isChecked: !this.state.isChecked
-                    })
-                }}
-                isChecked={this.state.isChecked}
-                leftText={'CheckBox'}
-            />
             <TouchableOpacity onPress={onPublish}>
                 <View style={styles.button}>
                     <Text style={styles.buttonText}>Mint NFT ✨</Text>

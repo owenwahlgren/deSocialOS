@@ -82,7 +82,6 @@ export default function CameraScreen() {
     navigation.navigate('CreatePost', {
       videoUri: videoPath,
       fileName: fileName,
-      videoPreview,
     });
   }
   function close() {
@@ -137,7 +136,7 @@ export default function CameraScreen() {
           <AntDesign
             name="close"
             color="rgba(255,255,255,0.75)"
-            size={34}
+            size={30}
             onPress={() => navigation.navigate('Home')}
           />
         </View>
@@ -227,13 +226,12 @@ const styles = StyleSheet.create({
   },
   sideItem: {
     position: 'absolute',
-    top: 12,
-    right: 12,
+    alignSelf: 'flex-end',
+    marginTop: 16,
   },
   sideIcons: {
-    width: 44,
-    height: 44,
-    marginBottom: 24,
+    marginBottom: 40,
+    marginRight: 16,
   },
   btn: {
     padding: 16,
@@ -244,8 +242,8 @@ const styles = StyleSheet.create({
   },
   header: {
     position: 'absolute',
-    top: 12,
-    left: 12,
+    marginTop: 16,
+    marginLeft: 16,
     justifyContent: 'space-between',
   },
 });
