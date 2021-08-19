@@ -43,11 +43,13 @@ export default function StartScreen() {
                 shouldPlay
                 isLooping
             />
-            <Image 
-                source={require('../assets/images/logowhite.png')}
-                style={{height: '100%', width: 300, alignSelf: 'center', marginBottom: 120}}
-                resizeMode={'contain'}
-            />
+            <View style={{height: '100%', alignSelf: 'center'}}>
+                <Image 
+                    source={require('../assets/images/logowhite.png')}
+                    style={{width: 300}}
+                    resizeMode={'contain'}
+                />
+            </View>
             <TouchableOpacity 
             style={styles.button}
             onPress={() => navigation.navigate('CreateWalletScreen')}
