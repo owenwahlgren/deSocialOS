@@ -1,7 +1,8 @@
 import { setFeedData, setAccountData, setPrivateKey } from './reducer'
 import { fetchFeedData } from '../data/posts'
 import * as SecureStore from 'expo-secure-store';
-
+import { useEffect } from 'react'
+ 
 //fetch data from feed util
 export const fetchFeedDataAsync = () => async (dispatch) => {
 	const feed = await fetchFeedData()
