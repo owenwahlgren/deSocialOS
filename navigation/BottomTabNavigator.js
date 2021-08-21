@@ -2,9 +2,9 @@ import * as React from 'react';
 import { Text, View, Image } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import HomeScreen from '../screens/home';
-import ProfileScreen from '../screens/profile'
-import CameraScreen from '../screens/camera'
+import HomeScreen from '../screens/Home';
+import ProfileScreen from '../screens/Profile'
+import CameraScreen from '../screens/Camera'
 import colors from '../assets/colors'
 
 const Tab = createBottomTabNavigator();
