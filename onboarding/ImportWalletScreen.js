@@ -6,7 +6,8 @@ import AppLoading from 'expo-app-loading';
 import {useNavigation} from '@react-navigation/native';
 import { Entypo } from '@expo/vector-icons'; 
 import * as Clipboard from 'expo-clipboard';
-
+import { createWalletFromKey } from '../utils/wallet'
+import { setWallet } from '../state/hooks'
 
 
 import { 
@@ -60,8 +61,7 @@ export default function ImportWalletScreen() {
             </View>
             <TouchableOpacity 
             style={styles.button}
-            onPress={() => navigation.navigate('HomeTabs')}
-            >
+            onPress={() => navigation.navigate('HomeTabs')}>
                 <Text style={styles.text}>Done</Text>
             </TouchableOpacity>
         </SafeAreaView>

@@ -6,6 +6,8 @@ import AppLoading from 'expo-app-loading';
 import {useNavigation} from '@react-navigation/native';
 import { Entypo } from '@expo/vector-icons'; 
 import * as Clipboard from 'expo-clipboard';
+import { setWallet } from '../state/hooks'
+import { createNewWallet } from '../utils/wallet'
 
 const DATA = [
     {
@@ -85,9 +87,15 @@ export default function CreateWalletScreen() {
 
     const renderItem = ({item}) => <Item title={item.title} id={item.id} />;
 
+    const wallet = createNewWallet()
+    const list = wallet.mnemonic.phrase.split(' ')
+    setWallet(wallet)
+
+    for (let i = 0; i < DATA.length; i++) {
+        DATA[i].title = list[i]
+    }
     const copyToClipBoard = () => {
-        // CHANGE THIS TO COPY THE LIST OF TITLES
-        Clipboard.setString('Hi')
+        Clipboard.setString(wallet.mnemonic.phrase)
         Alert.alert('Phrase Copied 👍')
     }
 

@@ -1,13 +1,16 @@
 import { useSelector, useDispatch } from 'react-redux'
 import { fetchFeedDataAsync, loadWalletAsync, saveWallet } from './actions'
 import { createWalletFromKey } from '../utils/wallet'
+import { useEffect } from 'react'
 
 //FEED
 
 //fetch feed and set to state
 export const fetchFeed = () => {
 	const dispatch = useDispatch()
-	dispatch(fetchFeedDataAsync())
+	useEffect(() => {
+		dispatch(fetchFeedDataAsync())
+	}, [dispatch])
 }
 
 //return feed data from state
@@ -22,7 +25,9 @@ export const useFeedData = () => {
 //loads wallet into state from persisted storage
 export const loadWallet = () => {
 	const dispatch = useDispatch()
-	dispatch(loadWalletAsync())
+	useEffect(() => {
+		dispatch(loadWalletAsync())
+	}, [dispatch])
 }
 
 //sets given wallet to state and persisted storage
@@ -33,6 +38,10 @@ export const setWallet = (wallet) => {
 
 //uses wallet from state
 export const useWallet = () => {
+	const dispatch = useDispatch()
+	useEffect(() => {
+		dispatch(loadWalletAsync())
+	}, [dispatch])
 	const key = useSelector((state) => state.wallet.private_key)
 	if (key != null) {
 		return createWalletFromKey(key)

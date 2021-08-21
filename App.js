@@ -5,7 +5,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import Navigator from './navigation'
 import { Provider } from 'react-redux'
 import store from './state'
-import HomeScreen from './screens/Home'
+import HomeScreen from './screens/home'
 import SearchScreen from './screens/Search'
 
 export default function App() {

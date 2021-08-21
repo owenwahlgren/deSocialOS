@@ -8,6 +8,8 @@ import {useNavigation} from '@react-navigation/native';
 import Swiper from 'react-native-swiper'
 
 
+import { useWallet } from '../state/hooks'
+import { useEffect } from 'react'
 import { 
     useFonts,
     Poppins_400Regular as Regular,
@@ -25,6 +27,12 @@ const buttonWidth = Dimensions.get("window").width - 32;
 
 export default function StartScreen() {
     const navigation = useNavigation();
+    const wallet = useWallet()
+    console.log(wallet)
+
+    if (wallet != null) {
+        // navigation.navigate("HomeTabs")
+    }
 
     let [fontsLoaded] = useFonts({
         Bold,
@@ -35,6 +43,8 @@ export default function StartScreen() {
       if (!fontsLoaded) {
         return <AppLoading />;
       } else {
+
+
     return (
         <View style={styles.container}>
             <Swiper autoplay={true} autoplayTimeout={6} showsPagination={false} >
@@ -92,6 +102,7 @@ export default function StartScreen() {
     )
     }
 }
+
 
 const styles = StyleSheet.create({
     container: {

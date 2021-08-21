@@ -20,20 +20,20 @@ const translateY = diffClamp.interpolate ({
     outputRange:[0,-80],
 })
 
-const [data, setDate] = useState([]);
-
-useEffect(() => {
-    fetchMore();
-}, []);
-
-const fetchMore = () => {
-    setDate(prevState => [
-        ...prevState,
-        ...Array.from({length: 6}).map((_, i) => i + 1 + prevState.length),
-    ]);
-};
-
 const posts = useFeedData()
+// const [data, setDate] = useState([]);
+
+// useEffect(() => {
+//     fetchMore();
+// }, []);
+
+// const fetchMore = () => {
+//     setDate(prevState => [
+//         ...prevState,
+//         ...Array.from({length: 6}).map((_, i) => i + 1 + prevState.length),
+//     ]);
+// };
+
 return (
     <View style={styles.container}>
         <Animated.View
@@ -50,7 +50,6 @@ return (
             <FlatList 
             data={posts} 
             numColumns={2}
-            onEndReached={fetchMore}
             initialNumToRender={6}
             showsVerticalScrollIndicator={false}
             // keyExtractor={e => e}
