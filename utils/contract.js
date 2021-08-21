@@ -6,7 +6,7 @@ export const NFT_ABI = [
   "function getMetaData(uint256 _id) external view returns(string memory, string memory, address, uint256, uint256)",
   "function tokenOfOwnerByIndex(address owner, uint256 index) external view returns (uint256 tokenId)",
   "function balanceOf(address owner) external view returns (uint256 balance)",
-  "function likeMedia(uint256 _id) public",
+  "function likeMedia(uint256 _id) public", 
   "function totalSupply() public view returns(uint256)"
 ];
 

@@ -1,10 +1,11 @@
 import React from 'react'
-import { View, Text, StyleSheet, Dimensions, TouchableOpacity, Touchable, Image } from 'react-native'
+import { View, Text, StyleSheet, Dimensions, TouchableOpacity, Touchable, Image, SafeAreaView } from 'react-native'
 import { Video, AVPlaybackStatus } from 'expo-av';
 import colors from '../assets/colors'
 import AppLoading from 'expo-app-loading';
 import { LinearGradient } from 'expo-linear-gradient';
 import {useNavigation} from '@react-navigation/native';
+import Swiper from 'react-native-swiper'
 
 
 import { 
@@ -36,31 +37,57 @@ export default function StartScreen() {
       } else {
     return (
         <View style={styles.container}>
-            <Video 
-                source={require('../assets/videos/kayak.mp4')}
-                style={styles.video}
-                resizeMode={'cover'}
-                shouldPlay
-                isLooping
-            />
-            <View style={{height: '100%', alignSelf: 'center'}}>
-                <Image 
-                    source={require('../assets/images/logowhite.png')}
-                    style={{width: 300}}
-                    resizeMode={'contain'}
-                />
+            <Swiper autoplay={true} autoplayTimeout={6} showsPagination={false} >
+                <View style={styles.slide}>
+                    <Video 
+                        source={require('../assets/videos/kayak.mp4')}
+                        style={styles.video}
+                        resizeMode={'cover'}
+                        shouldPlay
+                        isLooping
+                    />
+                </View>
+                <View style={styles.slide}>
+                    <Video 
+                        source={require('../assets/videos/disk.mp4')}
+                        style={styles.video}
+                        resizeMode={'cover'}
+                        shouldPlay
+                        isLooping
+                    />
+                </View>
+                <View style={styles.slide}>
+                    <Video 
+                        source={require('../assets/videos/pine.mp4')}
+                        style={styles.video}
+                        resizeMode={'cover'}
+                        shouldPlay
+                        isLooping
+                    />
+                </View>
+            </Swiper>
+            <View style={{position: 'absolute', width: '100%', height: '100%', justifyContent: 'flex-start'}}>
+                    <SafeAreaView>
+                    <Image 
+                        source={require('../assets/images/logowhite.png')}
+                        style={{height: 40, alignSelf: 'center', marginTop: 16}}
+                        resizeMode={'contain'}
+                    />
+                    </SafeAreaView>
+                <SafeAreaView style={{flex: 1, alignItems: 'center', justifyContent: 'flex-end', marginBottom: 32}}>
+                    <TouchableOpacity 
+                    style={styles.button}
+                    onPress={() => navigation.navigate('CreateWalletScreen')}
+                    >
+                        <Text style={styles.text}>Create a new wallet</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                    onPress={() => navigation.navigate('ImportWalletScreen')}
+                    >
+                        <Text style={styles.text}>Import an existing wallet</Text>
+                    </TouchableOpacity>
+                </SafeAreaView>
             </View>
-            <TouchableOpacity 
-            style={styles.button}
-            onPress={() => navigation.navigate('CreateWalletScreen')}
-            >
-                <Text style={styles.text}>Create a new wallet</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-            onPress={() => navigation.navigate('ImportWalletScreen')}
-            >
-                <Text style={styles.text}>Import an existing wallet</Text>
-            </TouchableOpacity>
         </View>
     )
     }
@@ -69,9 +96,9 @@ export default function StartScreen() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        width: '100%',
-        justifyContent: 'flex-end',
-        paddingBottom: 50,
+    },
+    slide: {
+        flex: 1,
     },
     video: {
         height,
@@ -84,11 +111,10 @@ const styles = StyleSheet.create({
         height: 52,
         width: '86%',
         backgroundColor: colors.primary,
-        alignSelf: 'center',
         borderRadius: 10,
         justifyContent: 'center',
         alignItems: 'center',
-        marginBottom: 24,
+        marginBottom: 22,
         shadowColor: "#000",
         shadowOffset: {
             width: 0,
@@ -100,9 +126,8 @@ const styles = StyleSheet.create({
         elevation: 6,
     },
     text: {
-        color: 'white',
+        color: colors.white,
         fontFamily: 'SemiBold',
         fontSize: 16,
-        alignSelf: 'center',
     },
   });
