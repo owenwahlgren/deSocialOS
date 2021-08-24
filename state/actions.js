@@ -1,5 +1,5 @@
-import { setFeedData, setAccountData, setPrivateKey } from './reducer'
-import { fetchFeedData } from '../data/posts'
+import { setFeedData, setAccountCreated, setAccountCollection, setPrivateKey } from './reducer'
+import { fetchFeedData, fetchAccountCreated, fetchAccountCollected } from '../data/posts'
 import * as SecureStore from 'expo-secure-store';
 import { useEffect } from 'react'
  
@@ -21,4 +21,13 @@ export const saveWallet = (wallet) => async (dispatch) => {
 	const key = wallet.privateKey.toString()
 	await SecureStore.setItemAsync("key", key)
 	dispatch(setPrivateKey(key))
+}
+
+export const fetchCollected = (address) => async (dispatch) => {
+	const collected = await fetchAccountCollected(address)
+	dispatch(setAccountCollection(collected))
+}
+export const fetchCreated = (address) => async (dispatch) => {
+	const created = await fetchAccountCreated(address)
+	dispatch(setAccountCreated(created))
 }

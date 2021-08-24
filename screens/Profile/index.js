@@ -4,12 +4,12 @@ import { ScrollView, StyleSheet, Text, View, useWindowDimensions, Dimensions, Fl
 import AppLoading from 'expo-app-loading';
 import InfoSection from '../../components/Profile/InfoSection'
 import HeaderBar from '../../components/Profile/HeaderBar'
-import {useFeedData} from '../../state/hooks'
+import {fetchAccountCollection, fetchAccountCreated} from '../../state/hooks'
 
 import colors from '../../assets/colors';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { setWallet, useWallet} from '../../state/hooks'
-import { createNewWallet } from '../../utils/wallet'
+import { useWallet} from '../../state/hooks'
+
 
 
 import CollapsibleTabView from '../../components/Profile/CollapsibleTabView';
@@ -19,12 +19,9 @@ import CollapsibleTabView from '../../components/Profile/CollapsibleTabView';
 const ProfileScreen = () => {
 
   let wallet = useWallet()
-  if (wallet == null) {
-      wallet = createNewWallet()
-      console.log(wallet.mnemonic.phrase) 
-      setWallet(wallet)
-  } else {
-    console.log(wallet)
+  if (wallet != null) {
+    fetchAccountCollection(wallet.address.toString())
+    fetchAccountCreated(wallet.address.toString())
   }
 
     return (
