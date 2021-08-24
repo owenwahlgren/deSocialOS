@@ -28,8 +28,11 @@ export default function BottomTabNavigator() {
               iconName = focused 
                 ? require('../assets/images/CameraIcon.png')
                 : require('../assets/images/CameraIcon.png');
-                return <Image source={iconName} style={{width: 34, height: 34}}
-            resizeMode='contain' />;
+                return  <Image 
+                source={iconName} 
+                style={{width: 34, height: 34}}
+                resizeMode='contain' 
+                />;
             }
 
             // You can return any component that you like here!

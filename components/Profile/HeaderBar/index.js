@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import { View, Text, StyleSheet, SafeAreaView, TouchableHighlight, Modal, TouchableWithoutFeedback, Image, useWindowDimensions} from 'react-native'
+import { View, Text, StyleSheet, SafeAreaView, TouchableHighlight, Modal, TouchableWithoutFeedback, Image, useWindowDimensions, TouchableOpacity} from 'react-native'
 import colors from '../../../assets/colors'
 import {useNavigation} from '@react-navigation/native';
 
@@ -42,17 +42,24 @@ export default function HeaderBar() {
                 <View style={{flex: 3}}>
                     <MaterialCommunityIcons name="message-minus-outline" size={24} color={colors.dark} />
                 </View>
-                <View style={{flex: 3, flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
-                    <TouchableHighlight 
-                    onPress={() => {setModalVisible(true)}}
-                    >
+                <TouchableOpacity 
+                style={{
+                  flex: 3, 
+                  flexDirection: 'row', 
+                  alignItems: 'center', 
+                  justifyContent: 'center'
+                }}
+                onPress={() => {setModalVisible(true)}}
+                >
                         <Text style={styles.adressText}>calebp.eth</Text>
-                    </TouchableHighlight>
                     <Ionicons name="caret-down" size={18} color={colors.dark} />
-                </View>
-                <View style={{flex: 3, alignItems: 'flex-end'}}>
+                </TouchableOpacity>
+                <TouchableOpacity 
+                style={{flex: 3, alignItems: 'flex-end'}}
+                onPress={() => navigation.navigate('ProfileSettings')}
+                >
                     <Feather name="menu" size={24} color={colors.dark} />
-                </View>
+                </TouchableOpacity>
             </View>
 
 
@@ -72,7 +79,7 @@ export default function HeaderBar() {
                 >
                 </View>
                 </TouchableWithoutFeedback>
-                <View style={styles.modalView}>
+                <SafeAreaView style={styles.modalView}>
                     <TouchableHighlight 
                     style={{
                     position: 'absolute', 
@@ -108,7 +115,7 @@ export default function HeaderBar() {
                         <Text style={styles.usernameText}>Add Account</Text>
                       </View>
                     </View>
-                </View>
+                </SafeAreaView>
               </Modal>
             </View>
         </SafeAreaView>
@@ -133,9 +140,8 @@ const styles = StyleSheet.create({
     modalView: {
         backgroundColor: colors.white,
         borderRadius: 0,
-        flex: 0,
+        height: 300,
         alignItems: 'center',
-        paddingBottom: 24,
       },
       textStyle: {
         color: colors.dark,

@@ -17,6 +17,7 @@ import {TabView, TabBar} from 'react-native-tab-view';
 import colors from '../../../assets/colors'
 import InfoSection from '../InfoSection';
 import CreatedPost from '../CreatedPost';
+import CollectionPost from '../CollectionPost';
 import posts from '../../../data/posts'; 
 import {useFeedData} from '../../../state/hooks'
 
@@ -60,7 +61,7 @@ const CollapsibleTabView = () => {
   ]);
   const [canScroll, setCanScroll] = useState(true);
   const tab1Data = useFeedData();
-  const [tab2Data] = useState(Array(30).fill(0));
+  const tab2Data = useFeedData();
 
   /**
    * ref
@@ -250,17 +251,20 @@ const CollapsibleTabView = () => {
 
   const renderTab2Item = ({item, index}) => {
     return (
-      <View
-        style={{
-          marginLeft: index % 3 === 0 ? 0 : 10,
-          borderRadius: 16,
-          width: tab2ItemSize,
-          height: tab2ItemSize,
-          backgroundColor: '#aaa',
-          justifyContent: 'center',
-          alignItems: 'center', 
-        }}>
-        <Text>{index}</Text>
+      // <View
+      //   style={{
+      //     marginLeft: index % 3 === 0 ? 0 : 10,
+      //     borderRadius: 16,
+      //     width: tab2ItemSize,
+      //     height: tab2ItemSize,
+      //     backgroundColor: '#aaa',
+      //     justifyContent: 'center',
+      //     alignItems: 'center', 
+      //   }}>
+      //   <Text>{index}</Text>
+      // </View>
+      <View style={{flex: 1, alignItems: 'flex-start'}}>
+      <CollectionPost post={item} />
       </View>
     );
   };
@@ -324,7 +328,7 @@ const CollapsibleTabView = () => {
         onMomentumScrollBegin={onMomentumScrollBegin}
         onScrollEndDrag={onScrollEndDrag}
         onMomentumScrollEnd={onMomentumScrollEnd}
-        ListHeaderComponent={() => <View style={{height: 10}} />}
+        ListHeaderComponent={() => <View style={{height: 1}} />}
         contentContainerStyle={{
           paddingTop: HeaderHeight + TabBarHeight,
           minHeight: windowHeight - SafeStatusBar + HeaderHeight,
@@ -413,7 +417,8 @@ const styles = StyleSheet.create({
   tab: {
     elevation: 0,
     shadowOpacity: 0,
-    borderTopWidth: 1,
+    borderBottomWidth: 1,
+    borderBottomColor: colors.outline,
     borderTopColor: colors.outline,
     backgroundColor: colors.white,
     height: TabBarHeight,
