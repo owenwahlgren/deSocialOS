@@ -165,7 +165,7 @@ export default () => {
         return <AppLoading />;
       } else {
     return (
-        <SafeAreaView style={{flex: 1, backgroundColor: 'black'}}>
+        <SafeAreaView style={{flex: 1, backgroundColor: colors.white}}>
             <ScrollView
             showsVerticalScrollIndicator={false}
             >
@@ -173,7 +173,7 @@ export default () => {
                     <Ionicons 
                     name="md-arrow-back" 
                     size={30} 
-                    color={colors.lightest} 
+                    color={colors.dark} 
                     onPress={() => navigation.navigate('HomeTabs')}
                     />
                 </View>
@@ -199,6 +199,7 @@ export default () => {
                     <FlatList 
                         data={section.data}
                         horizontal
+                        showsHorizontalScrollIndicator={false}
                         renderItem={({item}) => {
                             return <Search item={item} />;
                         }}
@@ -227,25 +228,25 @@ const styles = StyleSheet.create ({
     textInput: {
         fontFamily: 'Regular',
         fontSize: 14,
-        color: colors.lightest,
+        color: colors.dark,
         padding: 16,
     },
     headerText: {
         fontSize: 20,
         fontFamily: 'SemiBold',
-        color: colors.lightest,
+        color: colors.dark,
         marginBottom: 10,
         marginTop: 46,
     },
         itemText: {
-        color: colors.lightest,
+        color: colors.dark,
         fontSize: 14,
         fontFamily: 'Medium',
         marginTop: 4,
     },
     titleText: {
         fontFamily: 'SemiBold',
-        color: colors.lightest,
+        color: colors.dark,
         fontSize: 28,
         marginLeft: 16,
         marginRight: 16,
@@ -256,6 +257,9 @@ const styles = StyleSheet.create ({
         height: 48,
         marginRight: 16,
         marginLeft: 16,
-        backgroundColor: colors.dark,
+        borderWidth: 1,
+        borderRadius: 6,
+        borderColor: colors.outline,
+        backgroundColor: colors.lightest,
     }
 })

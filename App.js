@@ -12,7 +12,7 @@ export default function App() {
   return (
     <>
     <Provider store={store}>
-      <StatusBar style="light" />
+      <StatusBar style="dark" hidden={false} />
       <Navigator />
     </Provider>
     </>

@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
-import { View, Text, StyleSheet, SafeAreaView, TouchableHighlight, Modal, TouchableWithoutFeedback, Image} from 'react-native'
+import { View, Text, StyleSheet, SafeAreaView, TouchableHighlight, Modal, TouchableWithoutFeedback, Image, useWindowDimensions} from 'react-native'
 import colors from '../../../assets/colors'
+import {useNavigation} from '@react-navigation/native';
 
 import AppLoading from 'expo-app-loading';
 
@@ -22,6 +23,8 @@ import { Feather } from '@expo/vector-icons';
 
 export default function HeaderBar() {
 
+  const navigation = useNavigation();
+
     const [modalVisible, setModalVisible] = useState(false);
 
     let [fontsLoaded] = useFonts({
@@ -34,10 +37,10 @@ export default function HeaderBar() {
         return <AppLoading />;
       } else {
     return (
-        <SafeAreaView style={{backgroundColor: 'black'}}>
+        <SafeAreaView style={{backgroundColor: colors.white}}>
             <View style={styles.container}>
                 <View style={{flex: 3}}>
-                    <MaterialCommunityIcons name="message-minus-outline" size={24} color={colors.lightest} />
+                    <MaterialCommunityIcons name="message-minus-outline" size={24} color={colors.dark} />
                 </View>
                 <View style={{flex: 3, flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
                     <TouchableHighlight 
@@ -45,10 +48,10 @@ export default function HeaderBar() {
                     >
                         <Text style={styles.adressText}>calebp.eth</Text>
                     </TouchableHighlight>
-                    <Ionicons name="caret-down" size={18} color={colors.lightest} />
+                    <Ionicons name="caret-down" size={18} color={colors.dark} />
                 </View>
                 <View style={{flex: 3, alignItems: 'flex-end'}}>
-                    <Feather name="menu" size={24} color={colors.lightest} />
+                    <Feather name="menu" size={24} color={colors.dark} />
                 </View>
             </View>
 
@@ -79,7 +82,7 @@ export default function HeaderBar() {
                     }}
                     onPress={() => {setModalVisible(!modalVisible);}}
                     >
-                    <Ionicons name="close" size={24} color={colors.lightest} />
+                    <Ionicons name="close" size={24} color={colors.dark} />
                     </TouchableHighlight>
                     <Text style={styles.accountText}>Account</Text>
                     <View style={styles.modalSection}>
@@ -116,31 +119,31 @@ export default function HeaderBar() {
 const styles = StyleSheet.create({
     container: {
         height: 40,
-        backgroundColor: colors.black,
+        backgroundColor: colors.white,
         flexDirection: 'row',
         marginRight: 16,
         marginLeft: 16,
         alignItems: 'center',
     },
     adressText: {
-        color: colors.lightest,
+        color: colors.dark,
         fontFamily: 'SemiBold',
         fontSize: 16,
     },
     modalView: {
-        backgroundColor: colors.black,
-        borderRadius: 8,
+        backgroundColor: colors.white,
+        borderRadius: 0,
         flex: 0,
         alignItems: 'center',
         paddingBottom: 24,
       },
       textStyle: {
-        color: 'white',
+        color: colors.dark,
         fontWeight: 'bold',
         textAlign: 'center',
       },
       accountText: {
-        color: colors.lightest,
+        color: colors.dark,
         fontFamily: 'SemiBold',
         fontSize: 15,
         marginTop: 12,
@@ -170,12 +173,12 @@ const styles = StyleSheet.create({
       },
       usernameText: {
         fontFamily: 'SemiBold',
-        color: colors.lightest,
+        color: colors.dark,
         fontSize: 15,
       },
       addressText: {
         fontFamily: 'Regular',
-        color: colors.lightGray,
+        color: colors.dark,
         fontSize: 14,
       },
 })

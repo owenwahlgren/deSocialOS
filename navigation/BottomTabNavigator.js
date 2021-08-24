@@ -38,7 +38,7 @@ export default function BottomTabNavigator() {
           },
           tabBarStyle: {
               borderTopColor: 'transparent',
-              backgroundColor: colors.black,
+              backgroundColor: colors.white,
           },
           tabBarLabel: () => null,
         })}

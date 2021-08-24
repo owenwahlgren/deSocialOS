@@ -3,6 +3,7 @@ import React from 'react';
 import { StyleSheet, Text, View, Image, Button, TouchableOpacity } from 'react-native';
 import AppLoading from 'expo-app-loading';
 import colors from '../../../assets/colors'
+import {useFeedData} from '../../../state/hooks'
 
 import { 
   useFonts,
@@ -54,7 +55,7 @@ export default function InfoSection() {
               <Text style={styles.bio}>hello friends. welcome to my page this is my bio :)</Text>
           </View>
           <TouchableOpacity style={styles.button}>
-              <Text style={{fontFamily: 'SemiBold', fontSize: 16, color: colors.lightest}}>My Wallet</Text>
+              <Text style={{fontFamily: 'SemiBold', fontSize: 16, color: colors.dark}}>My Wallet</Text>
           </TouchableOpacity>
         </View>
     );
@@ -64,19 +65,19 @@ export default function InfoSection() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.black,
+    backgroundColor: colors.white,
     alignItems: 'center',
     justifyContent: 'center',
   },
   numbers: {
     fontFamily: 'Bold',
     fontSize: 20,
-    color: colors.lightest
+    color: colors.dark
   },
   numberLabels: {
     fontFamily: 'Regular',
     fontSize: 14,
-    color: colors.lightGray
+    color: colors.gray
   },
   profileImage: {
     width: 100,
@@ -87,18 +88,18 @@ const styles = StyleSheet.create({
   username: {
     fontFamily: 'Bold',
     fontSize: 16,
-    color: colors.lightest
+    color: colors.dark
   },
   bio: {
     fontFamily: 'Regular',
     fontSize: 14,
-    color: colors.lightest,
+    color: colors.dark,
     textAlign: 'center',
   },
   button: {
     borderWidth: 1,
     borderRadius: 6,
-    borderColor: colors.gray,
+    borderColor: colors.outline,
     marginTop: 24,
     marginBottom: 24,
     paddingVertical: 8,

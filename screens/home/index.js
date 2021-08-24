@@ -21,18 +21,6 @@ const translateY = diffClamp.interpolate ({
 })
 
 const posts = useFeedData()
-// const [data, setDate] = useState([]);
-
-// useEffect(() => {
-//     fetchMore();
-// }, []);
-
-// const fetchMore = () => {
-//     setDate(prevState => [
-//         ...prevState,
-//         ...Array.from({length: 6}).map((_, i) => i + 1 + prevState.length),
-//     ]);
-// };
 
 return (
     <View style={styles.container}>
@@ -52,7 +40,6 @@ return (
             numColumns={2}
             initialNumToRender={6}
             showsVerticalScrollIndicator={false}
-            // keyExtractor={e => e}
             renderItem={({item}) => (
                 <Post post={item}/>
             )}
@@ -69,7 +56,7 @@ return (
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.black,
+    backgroundColor: colors.white,
   },
   content: {
       width: '100%',

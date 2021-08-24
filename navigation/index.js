@@ -11,9 +11,11 @@ import PostDetails from '../components/Home/PostDetails';
 import StartScreen from '../onboarding/StartScreen';
 import CreateWalletScreen from '../onboarding/CreateWalletScreen';
 import ImportWalletScreen from '../onboarding/ImportWalletScreen';
+import ProfileSettings from '../components/Profile/ProfileSettings';
+
+
+
 const Stack = createStackNavigator();
-
-
 
 const Navigator = ({navigation}) => {
   const [screen, setScreen] = useState('StartScreen');
@@ -26,6 +28,7 @@ const Navigator = ({navigation}) => {
           <Stack.Screen name="StartScreen" component={StartScreen} />
           <Stack.Screen name="CreateWalletScreen" component={CreateWalletScreen} />
           <Stack.Screen name="ImportWalletScreen" component={ImportWalletScreen} />
+          <Stack.Screen name="ProfileSettings" component={ProfileSettings} />
           <Stack.Screen name="SearchScreen" component={SearchScreen} />
           <Stack.Screen name="PostDetails" component={PostDetails} />
           <Stack.Screen name="Preview" component={Preview} />

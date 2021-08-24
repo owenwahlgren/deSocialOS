@@ -4,7 +4,7 @@ import Constant from 'expo-constants'
 import colors from '../../../assets/colors';
 import AppLoading from 'expo-app-loading';
 import { BlurView } from 'expo-blur';
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native'; 
 
 import { 
     useFonts,
@@ -44,7 +44,7 @@ const Header = () => {
                     </TouchableOpacity> */}
                     <Image 
                         style={{height: 24, marginBottom: 4}}
-                        source={require('../../../assets/images/logowhite.png')}
+                        source={require('../../../assets/images/logoBlack.png')}
                         resizeMode={'contain'}
                     />
                 </View>
@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
     buttonsContainer: {
         flexDirection: 'row',
         alignItems: 'center',
-        backgroundColor: 'black',
+        backgroundColor: colors.white,
         width: '100%',
         justifyContent: 'center',
     },

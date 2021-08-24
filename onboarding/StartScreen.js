@@ -103,7 +103,6 @@ export default function StartScreen() {
     }
 }
 
-
 const styles = StyleSheet.create({
     container: {
         flex: 1,

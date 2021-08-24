@@ -8,7 +8,7 @@ const colors = {
     white: '#FFFFFF',
     black: '#000000',
     tabBar: 'rgba(0,0,0,.75)',
-    modalBackground: 'rgba(255,255,255,.3)',
+    modalBackground: 'rgba(0,0,0,.6)',
 }
 
 export default colors;
