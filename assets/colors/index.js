@@ -4,7 +4,7 @@ const colors = {
     lightGray: '#ADADAE',
     outline: '#EBEBEB',
     lightest: '#F9F9FB',
-    primary: '#0085FF',
+    primary: '#3870FF',
     white: '#FFFFFF',
     black: '#000000',
     tabBar: 'rgba(0,0,0,.75)',

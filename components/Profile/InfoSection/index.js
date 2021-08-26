@@ -62,7 +62,7 @@ export default function InfoSection() {
           style={styles.button}
           onPress={() => navigation.navigate('EditProfile')}
           >
-              <Text style={{fontFamily: 'Medium', fontSize: 16, color: colors.white}}>Edit Profile</Text>
+              <Text style={{fontFamily: 'Regular', fontSize: 15, color: colors.dark}}>Edit Profile</Text>
           </TouchableOpacity>
         </View>
     );
@@ -110,10 +110,9 @@ const styles = StyleSheet.create({
     marginTop: 24,
     marginBottom: 24,
     paddingVertical: 8,
-    width: 240,
+    width: 180,
     height: 48,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: colors.primary,
   }
 });

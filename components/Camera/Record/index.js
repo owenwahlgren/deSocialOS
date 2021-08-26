@@ -15,6 +15,7 @@ import { Video, AVPlaybackStatus } from 'expo-av';
 import {useNavigation} from '@react-navigation/native';
 
 import { Entypo, AntDesign, MaterialCommunityIcons, Ionicons } from '@expo/vector-icons'; 
+import { timing } from 'react-native-reanimated';
 
 export default function CameraScreen() {
   const [hasPermission, setHasPermission] = useState(null);
@@ -29,6 +30,7 @@ export default function CameraScreen() {
   const navigation = useNavigation();
 
   const position = new Animated.ValueXY({x:0,y:0})
+
   // Animated.timing(position,{
   //   toValue:{x:100, y:-100},
   //   useNativeDriver: true,
@@ -37,6 +39,10 @@ export default function CameraScreen() {
 
   const pan = PanResponder.create({
     onMoveShouldSetPanResponder:()=>true,
+    onPanResponderGrant: () => {
+      console.log('grant start')
+      recordVideo();
+    },
     onPanResponderMove:(e,gesture)=>{
       position.setValue({x: gesture.dx, y: gesture.dy})
       // console.log(gesture.dy)
@@ -45,11 +51,14 @@ export default function CameraScreen() {
     },
 
     onPanResponderRelease:()=>{
+      console.log('End')
+      recordVideo();
       // position.setValue({x:0,y:0})
-      Animated.spring(position,{
-        toValue:{x:0, y: 0},
-        useNativeDriver: true
-      }).start()
+      // Animated.spring(position,{
+      //   toValue:{x:0, y: 0},
+      //   useNativeDriver: true,
+      //   friction: 6,
+      // }).start()
     }
   })
 
@@ -170,14 +179,6 @@ export default function CameraScreen() {
         ref={ref => {
           setCameraRef(ref);
         }}>
-        {/* <View style={styles.header}>
-          <AntDesign
-            name="close"
-            color="rgba(255,255,255,0.75)"
-            size={30}
-            onPress={() => navigation.navigate('Home')}
-          />
-        </View> */}
         <View style={styles.sideItem}>
           <MaterialCommunityIcons
             style={styles.sideIcons}
@@ -195,27 +196,16 @@ export default function CameraScreen() {
           />
         </View>
         <SafeAreaView style={{flex: 1, marginBottom: 72}}>
-
-        <TouchableOpacity
-          style={{
-            alignSelf: 'center',
-            position: 'absolute',
-            bottom: 0,
-          }}
-          onPressIn={recordVideo}
-          onPressOut={recordVideo}>
-
           <View style={{flex: 1, alignItems: 'center', justifyContent: 'flex-end'}}>
-          {/* <Animated.View
+          <Animated.View
           {...pan.panHandlers}
               style={{
-
               transform:[
                 {translateX: position.x},
                 {translateY:position.y},
                 {rotate:rotate}
               ]
-            }}> */}
+            }}>
             <View
               style={{
                 borderWidth: 5,
@@ -224,16 +214,14 @@ export default function CameraScreen() {
                   ? 'rgba(255,0,0,0.75)'
                   : 'rgba(255,255,255,0.6)',
                 backgroundColor: recording
-                  ? 'rgba(255,0,0,0.75)'
+                  ? 'rgba(255,0,0,0.2)'
                   : 'transparent',
                 height: 70,
                 width: 70,
               }}
             />
-          {/* </Animated.View> */}
+          </Animated.View>
           </View>
-          
-        </TouchableOpacity>
         </SafeAreaView>
       </Camera>
     </SafeAreaView>
