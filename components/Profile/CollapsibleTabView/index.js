@@ -19,7 +19,7 @@ import InfoSection from '../InfoSection';
 import CreatedPost from '../CreatedPost';
 import CollectionPost from '../CollectionPost';
 import posts from '../../../data/posts'; 
-import {useFeedData} from '../../../state/hooks'
+import {useAccountCollection, useAccountCreated, useFeedData} from '../../../state/hooks'
 
 import { 
   useFonts,
@@ -60,8 +60,9 @@ const CollapsibleTabView = () => {
     {key: 'tab2', title: '👀 Collection'},
   ]);
   const [canScroll, setCanScroll] = useState(true);
-  const tab1Data = useFeedData();
-  const tab2Data = useFeedData();
+
+  const tab1Data = useAccountCreated();
+  const tab2Data = useAccountCollection();
 
   /**
    * ref

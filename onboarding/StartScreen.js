@@ -29,9 +29,8 @@ export default function StartScreen() {
     const navigation = useNavigation();
     const wallet = useWallet()
     console.log(wallet)
-
     if (wallet != null) {
-        // navigation.navigate("HomeTabs")
+        navigation.navigate("HomeTabs")
     }
 
     let [fontsLoaded] = useFonts({

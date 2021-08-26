@@ -28,12 +28,12 @@ const forFade = ({ current }) => ({
 });
 
 const Navigator = ({navigation}) => {
-  const [screen, setScreen] = useState('StartScreen');
+  loadWallet()
   fetchFeed()
   
   return (
       <NavigationContainer>
-        <Stack.Navigator screenOptions={{headerShown: false}} initialRouteName={screen}>
+        <Stack.Navigator screenOptions={{headerShown: false}} initialRouteName={"StartScreen"}>
           <Stack.Screen name="HomeTabs" component={BottomTabNavigator} />
           <Stack.Screen name="StartScreen" component={StartScreen} />
           <Stack.Screen name="CreateWalletScreen" component={CreateWalletScreen} />
