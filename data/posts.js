@@ -97,7 +97,7 @@ async function fetchAccountCreated(address) {
         const data = {
           id: supply,
           videoUri:
-            'https://ipfs.io/ipfs/' + irpfsHash,
+            'https://ipfs.io/ipfs/' + ipfsHash,
           user: {
             id: creator,
             username: creator.substring(0,9),
@@ -114,8 +114,8 @@ async function fetchAccountCreated(address) {
     supply -= 1;
   }
   }
-  catch {
-
+  catch(error) {
+    
   }
   return feedData;
 
