@@ -1,77 +1,134 @@
 import React, {useState} from 'react';
-import {View, StyleSheet, Text, TextInput} from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import {View, StyleSheet, Text, TextInput, SafeAreaView, Dimensions, Keyboard} from 'react-native';
+import { TouchableOpacity, TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import colors from '../../assets/colors'
 import { Video, AVPlaybackStatus } from 'expo-av';
-import CheckBox from 'react-native-check-box';
+import CreatePostHeader from '../../components/Camera/CreatePostHeader'
+import { AntDesign } from '@expo/vector-icons'; 
+
+const width = Dimensions.get("window").width / 1.618;
+const height = width * 1.618;
 
 
-const CreatePost = () => {
-    const [title, setTitle] = useState("");
+import AppLoading from 'expo-app-loading';
 
-    const onPublish = () => {
-    }
+import { 
+    useFonts,
+    Poppins_400Regular as Regular,
+    Poppins_500Medium as Medium,
+    Poppins_600SemiBold as SemiBold,
+    Poppins_700Bold as Bold,
+    Poppins_800ExtraBold as ExtraBold,
+    Poppins_900Black as Black,
+  } from '@expo-google-fonts/poppins';
 
+
+export default function CreatePost(props) {
+    let [fontsLoaded] = useFonts({
+        Bold,
+        Regular,
+        SemiBold,
+        Medium
+      });
+      if (!fontsLoaded) {
+        return <AppLoading />;
+      } else {
     return (
-        <View style={styles.container}>
-            <View style={styles.topSection}>
-                <View style={styles.contentPreview}>
-                </View>
-                <TextInput 
-                    value={title}
-                    onChangeText={setTitle}
-                    numberOfLines={5}
-                    placeholder={'Enter post title'}
-                    style={styles.titleInput}
-                />
+        <SafeAreaView style={styles.container}>
+        <CreatePostHeader />
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+            
+            <View style={styles.headerContainer}>
+            <Text style={styles.header}>Title:</Text>
+            <TextInput 
+                placeholder="Title your video"
+                maxLength={20}
+                style={styles.TextInput}
+                keyboardType='default'
+            />
             </View>
-            <TouchableOpacity onPress={onPublish}>
-                <View style={styles.button}>
-                    <Text style={styles.buttonText}>Mint NFT ✨</Text>
+            <Video 
+                style={styles.video}
+                source={{uri: props.route.params.source}}
+                resizeMode={'cover'}
+                shouldPlay
+                isLooping
+            />
+            <TouchableOpacity 
+                style={styles.button2}
+                // this onpress should mint and upload the video and then return the user back to their profile screen
+                onPress={() => {}}
+                >
+                <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                    <Text style={styles.buttonText}>Post</Text>
+                    <Text style={styles.buttonText2}>💫</Text>
                 </View>
             </TouchableOpacity>
-        </View>
+        </TouchableWithoutFeedback>
+        </SafeAreaView>
     )
+    }
 }
 
-export default CreatePost;
 
 
 const styles = StyleSheet.create({
     container: {
       flex: 1,
-      flexDirection: 'column',
-      justifyContent: 'space-between',
+      backgroundColor: colors.white,
     },
-    titleInput: {
-        backgroundColor: 'white',
-        flex: 1,
-        marginLeft: 8,
-    },
-    contentPreview: {
-        backgroundColor: colors.lightGray,
-        width: 120,
-    },
-    button: {
-        width: 300,
+    video: {
+        height,
+        width,
+        alignSelf: 'center',
         borderRadius: 6,
-        height: 52,
-        marginBottom: 32,
-        alignItems: 'center',
+        backgroundColor: colors.black,
+        marginTop: 16,
+    },
+    TextInput: {
+        borderBottomColor: colors.outline,
+        color: colors.dark,
+        borderBottomWidth: 1,
+        alignSelf: 'center',
+        marginTop: 8,
+        fontSize: 16,
+        fontFamily: 'Medium',
+        paddingBottom: 4,
+        width,
+    },
+    header: {
+        fontFamily: 'Bold',
+        fontSize: 14,
+        color: colors.dark,
+        width,
+
+    },
+    headerContainer: {
+        width,
+        alignSelf: 'center',
+        marginTop: 16,
+    },
+    button2: {
+        backgroundColor: colors.primary,
+        width: 120,
+        height: 42,
+        borderRadius: 6,
         alignSelf: 'center',
         justifyContent: 'center',
-        backgroundColor: colors.primary
-    },
-    buttonText: {
+        alignItems: 'center',
+        marginTop: 42,
+      },
+      buttonText: {
+        fontFamily: 'Medium',
         color: colors.white,
         fontSize: 16,
-        fontWeight: 'bold'
-    },
-    topSection: {
-        flexDirection: 'row',
-        height: 120,
-        marginTop: 16,
-        marginHorizontal: 16,
-    }
+      },
+      buttonText2: {
+        fontFamily: 'Medium',
+        color: colors.white,
+        fontSize: 16,
+        marginLeft: 6,
+        marginBottom: 3,
+      },
   });
   

@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, {useState, useEffect, useRef} from 'react';
+import React, {useState, useEffect, useRef, useReducer} from 'react';
 import {
   Text,
   View,
@@ -7,6 +7,8 @@ import {
   StyleSheet,
   Modal,
   SafeAreaView,
+  Animated,
+  PanResponder,
 } from 'react-native';
 import {Camera} from 'expo-camera';
 import { Video, AVPlaybackStatus } from 'expo-av';
@@ -25,6 +27,39 @@ export default function CameraScreen() {
   const [flashMode, setFlashMode] = useState('off');
   const [fileName, setFileName] = useState(null);
   const navigation = useNavigation();
+
+  const position = new Animated.ValueXY({x:0,y:0})
+  // Animated.timing(position,{
+  //   toValue:{x:100, y:-100},
+  //   useNativeDriver: true,
+  //   duration: 2000
+  // }).start()
+
+  const pan = PanResponder.create({
+    onMoveShouldSetPanResponder:()=>true,
+    onPanResponderMove:(e,gesture)=>{
+      position.setValue({x: gesture.dx, y: gesture.dy})
+      // console.log(gesture.dy)
+      let value = Math.abs(gesture.dy / 700) 
+      console.log(value)
+    },
+
+    onPanResponderRelease:()=>{
+      // position.setValue({x:0,y:0})
+      Animated.spring(position,{
+        toValue:{x:0, y: 0},
+        useNativeDriver: true
+      }).start()
+    }
+  })
+
+
+  const zoomValue=0;
+
+  const rotate = position.x.interpolate({
+    inputRange: [0, 250],
+    outputRange: ['0deg', '360deg']
+  })
 
   const changeFlashMode = () => {
     if (flashMode == 'off') {
@@ -63,9 +98,11 @@ export default function CameraScreen() {
       setRecording(true);
       let video = await cameraRef.recordAsync(options).then(data => {
         const filename = Date.now().toString();
-          setVideoPreview(data.uri);
+          // setVideoPreview(data.uri);
           console.log(data);
-          setIsopen(true);
+          const source = data.uri
+          navigation.navigate('VideoPreview', {source}); 
+          // setIsopen(true);
       });
     } else {
       setRecording(false);
@@ -126,20 +163,21 @@ export default function CameraScreen() {
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: 'black'}}>
       <Camera
+        zoom={zoomValue}
         style={{flex: 1}}
         type={typeCamera}
         flashMode={flashMode}
         ref={ref => {
           setCameraRef(ref);
         }}>
-        <View style={styles.header}>
+        {/* <View style={styles.header}>
           <AntDesign
             name="close"
             color="rgba(255,255,255,0.75)"
             size={30}
             onPress={() => navigation.navigate('Home')}
           />
-        </View>
+        </View> */}
         <View style={styles.sideItem}>
           <MaterialCommunityIcons
             style={styles.sideIcons}
@@ -156,32 +194,35 @@ export default function CameraScreen() {
             onPress={changeFlashMode}
           />
         </View>
+        <SafeAreaView style={{flex: 1, marginBottom: 72}}>
+
         <TouchableOpacity
           style={{
             alignSelf: 'center',
             position: 'absolute',
-            bottom: 32,
+            bottom: 0,
           }}
           onPressIn={recordVideo}
           onPressOut={recordVideo}>
-          <View
-            style={{
-              borderWidth: 5,
-              borderRadius: 100,
-              borderColor: 'rgba(255,255,255,0.5)',
-              height: 70,
-              width: 70,
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}>
+
+          <View style={{flex: 1, alignItems: 'center', justifyContent: 'flex-end'}}>
+          {/* <Animated.View
+          {...pan.panHandlers}
+              style={{
+
+              transform:[
+                {translateX: position.x},
+                {translateY:position.y},
+                {rotate:rotate}
+              ]
+            }}> */}
             <View
               style={{
                 borderWidth: 5,
-                borderRadius: 100,
+                borderRadius: 20,
                 borderColor: recording
                   ? 'rgba(255,0,0,0.75)'
-                  : 'rgba(255,255,255,0.5)',
+                  : 'rgba(255,255,255,0.6)',
                 backgroundColor: recording
                   ? 'rgba(255,0,0,0.75)'
                   : 'transparent',
@@ -189,8 +230,11 @@ export default function CameraScreen() {
                 width: 70,
               }}
             />
+          {/* </Animated.View> */}
           </View>
+          
         </TouchableOpacity>
+        </SafeAreaView>
       </Camera>
     </SafeAreaView>
   );
@@ -225,9 +269,9 @@ const styles = StyleSheet.create({
     paddingRight: 60,
   },
   sideItem: {
-    position: 'absolute',
     alignSelf: 'flex-end',
     marginTop: 16,
+    flex: 1,
   },
   sideIcons: {
     marginBottom: 40,

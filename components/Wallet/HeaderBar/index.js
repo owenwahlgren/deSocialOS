@@ -49,12 +49,6 @@ export default function HeaderBar() {
                         <Text style={styles.adressText}>calebp.eth</Text>
                     <Ionicons name="caret-down" size={18} color={colors.dark} />
                 </TouchableOpacity>
-                <TouchableOpacity 
-                style={{flex: 1, alignItems: 'flex-end', position: 'absolute', right: 0}}
-                onPress={() => navigation.navigate('ProfileSettings')}
-                >
-                    <Feather name="menu" size={24} color={colors.dark} />
-                </TouchableOpacity>
             </View>
 
 

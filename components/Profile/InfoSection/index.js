@@ -4,6 +4,7 @@ import { StyleSheet, Text, View, Image, Button, TouchableOpacity } from 'react-n
 import AppLoading from 'expo-app-loading';
 import colors from '../../../assets/colors'
 import {useFeedData} from '../../../state/hooks'
+import {useNavigation} from '@react-navigation/native';
 
 import { 
   useFonts,
@@ -16,6 +17,9 @@ import {
 } from '@expo-google-fonts/poppins'
 
 export default function InfoSection() {
+
+  const navigation = useNavigation();
+  
   let [fontsLoaded] = useFonts({
     Bold,
     Regular,
@@ -54,8 +58,11 @@ export default function InfoSection() {
           <View style={{marginTop: 8, marginHorizontal: 60}}>
               <Text style={styles.bio}>hello friends. welcome to my page this is my bio :)</Text>
           </View>
-          <TouchableOpacity style={styles.button}>
-              <Text style={{fontFamily: 'SemiBold', fontSize: 16, color: colors.dark}}>My Wallet</Text>
+          <TouchableOpacity 
+          style={styles.button}
+          onPress={() => navigation.navigate('EditProfile')}
+          >
+              <Text style={{fontFamily: 'Medium', fontSize: 16, color: colors.white}}>Edit Profile</Text>
           </TouchableOpacity>
         </View>
     );
@@ -71,12 +78,12 @@ const styles = StyleSheet.create({
   },
   numbers: {
     fontFamily: 'Bold',
-    fontSize: 20,
+    fontSize: 18,
     color: colors.dark
   },
   numberLabels: {
     fontFamily: 'Regular',
-    fontSize: 14,
+    fontSize: 13,
     color: colors.gray
   },
   profileImage: {
@@ -86,13 +93,13 @@ const styles = StyleSheet.create({
     resizeMode: 'cover',
   },
   username: {
-    fontFamily: 'Bold',
+    fontFamily: 'SemiBold',
     fontSize: 16,
     color: colors.dark
   },
   bio: {
     fontFamily: 'Regular',
-    fontSize: 14,
+    fontSize: 13,
     color: colors.dark,
     textAlign: 'center',
   },
@@ -107,5 +114,6 @@ const styles = StyleSheet.create({
     height: 48,
     alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor: colors.primary,
   }
 });

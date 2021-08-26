@@ -39,22 +39,7 @@ export default function HeaderBar() {
     return (
         <SafeAreaView style={{backgroundColor: colors.white}}>
             <View style={styles.container}>
-                <TouchableOpacity 
-                style={{
-                  flexDirection: 'row', 
-                  alignItems: 'center', 
-                }}
-                onPress={() => {setModalVisible(true)}}
-                >
-                        <Text style={styles.adressText}>calebp.eth</Text>
-                    <Ionicons name="caret-down" size={18} color={colors.dark} />
-                </TouchableOpacity>
-                <TouchableOpacity 
-                style={{flex: 1, alignItems: 'flex-end', position: 'absolute', right: 0}}
-                onPress={() => navigation.navigate('ProfileSettings')}
-                >
-                    <Feather name="menu" size={24} color={colors.dark} />
-                </TouchableOpacity>
+                <Text style={styles.adressText}>Messages</Text>
             </View>
 
 
