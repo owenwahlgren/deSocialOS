@@ -3,7 +3,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator, CardStyleInterpolators} from '@react-navigation/stack';
 import BottomTabNavigator from './BottomTabNavigator';
 import {SafeAreaProvider, SafeAreaView} from 'react-native-safe-area-context';
-import {fetchFeed, loadWallet, useWallet} from '../state/hooks'
+import {fetchFeed, loadWallet } from '../state/hooks'
 import SearchScreen from '../screens/Search';
 import PostDetails from '../components/Home/PostDetails';
 import StartScreen from '../onboarding/StartScreen';

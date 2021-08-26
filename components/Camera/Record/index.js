@@ -19,6 +19,7 @@ import { timing } from 'react-native-reanimated';
 
 export default function CameraScreen() {
   const [hasPermission, setHasPermission] = useState(null);
+  const [hasAudioPermission, setHasAudioPermission] = useState(null);
   const [cameraRef, setCameraRef] = useState(null);
   const [typeCamera, setTypeCamera] = useState(Camera.Constants.Type.back);
   const [recording, setRecording] = useState(false);
@@ -90,14 +91,17 @@ export default function CameraScreen() {
 
   useEffect(() => {
     (async () => {
-      const {status} = await Camera.requestPermissionsAsync();
-      setHasPermission(status === 'granted');
+      const videoStatus = await Camera.requestPermissionsAsync();
+      setHasPermission(videoStatus.status === 'granted');
+      const audioStatus = await Camera.requestMicrophonePermissionsAsync();
+      setHasAudioPermission(audioStatus.status === 'granted');
+
     })();
   }, []);
-  if (hasPermission === null) {
+  if (hasPermission === null || hasAudioPermission === null) {
     return <View />;
   }
-  if (hasPermission === false) {
+  if (hasPermission === false || hasAudioPermission === false) {
     return <Text>No access to camera</Text>;
   }
 
