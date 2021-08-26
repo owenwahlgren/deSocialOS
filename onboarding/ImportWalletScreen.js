@@ -27,6 +27,7 @@ const buttonWidth = Dimensions.get("window").width - 32;
 
 export default function ImportWalletScreen() {
     const navigation = useNavigation();
+    const [text, onChangeText] = React.useState("");
 
     let [fontsLoaded] = useFonts({
         Bold,
@@ -56,12 +57,17 @@ export default function ImportWalletScreen() {
                   paddingLeft: 16,
 
                   }}
+                  onChangeText = {onChangeText}
                   placeholder={'Private key...'}
                 />
             </View>
             <TouchableOpacity 
             style={styles.button}
-            onPress={() => navigation.navigate('HomeTabs')}>
+            onPress={() => {
+                const wallet = createWalletFromKey(text)
+                setWallet(wallet)
+                navigation.navigate('HomeTabs')
+            }}>
                 <Text style={styles.text}>Done</Text>
             </TouchableOpacity>
         </SafeAreaView>

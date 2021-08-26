@@ -1,3 +1,5 @@
+import "@ethersproject/shims";
+import { ethers } from "ethers";
 import React, {useState} from 'react';
 import {View, StyleSheet, Text, TextInput, SafeAreaView, Dimensions, Keyboard} from 'react-native';
 import { TouchableOpacity, TouchableWithoutFeedback } from 'react-native-gesture-handler';
@@ -5,6 +7,10 @@ import colors from '../../assets/colors'
 import { Video, AVPlaybackStatus } from 'expo-av';
 import CreatePostHeader from '../../components/Camera/CreatePostHeader'
 import { AntDesign } from '@expo/vector-icons'; 
+import { pinToIPFS } from '../../utils/ipfs'
+import { useWallet } from '../../state/hooks'
+import { provider, NFT_ABI, NFT_Address } from '../../utils/contract'
+import * as FileSystem from 'expo-file-system'
 
 const width = Dimensions.get("window").width / 1.618;
 const height = width * 1.618;
@@ -24,6 +30,11 @@ import {
 
 
 export default function CreatePost(props) {
+    const [text, onChangeText] = React.useState("");
+    const uri = props.route.params.source
+    const wallet = useWallet()
+    const signer = wallet.connect(provider)
+    const NFT = new ethers.Contract(NFT_Address, NFT_ABI, signer)
     let [fontsLoaded] = useFonts({
         Bold,
         Regular,
@@ -45,6 +56,7 @@ export default function CreatePost(props) {
                 maxLength={20}
                 style={styles.TextInput}
                 keyboardType='default'
+                onChangeText={onChangeText}
             />
             </View>
             <Video 
@@ -57,7 +69,13 @@ export default function CreatePost(props) {
             <TouchableOpacity 
                 style={styles.button2}
                 // this onpress should mint and upload the video and then return the user back to their profile screen
-                onPress={() => {}}
+                onPress={async () => {
+                    await FileSystem.moveAsync({'from': uri, 'to': uri.replace('.mov','.mp4')})
+                    const hash = await pinToIPFS('none', uri.replace('.mov', '.mp4'))
+                    const tx = await NFT.requestMint(text, hash)
+                    console.log(tx)
+                
+                }}
                 >
                 <View style={{flexDirection: 'row', alignItems: 'center'}}>
                     <Text style={styles.buttonText}>Post</Text>
