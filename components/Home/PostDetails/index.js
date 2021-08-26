@@ -8,7 +8,6 @@ const width = Dimensions.get("window").width;
 const height = width * 2;
 
 const PostDetails = ({route}) => {
-    const {videoUri, title} = route.params
     return (
         <ScrollView style={styles.container}>
             <View style={styles.videoContainer}>
@@ -23,9 +22,11 @@ const PostDetails = ({route}) => {
                     style={styles.video}
                 />
             </View>
+            <View style={{flex: 1, height: 600}}>
             <Text style={styles.titleText}>
-                {title}
+                Title
             </Text>
+            </View>
         </ScrollView>
     )
 }
@@ -36,7 +37,6 @@ export default PostDetails;
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: colors.black,
     },
     video: {
         width: '100%',
@@ -49,5 +49,7 @@ const styles = StyleSheet.create({
     },
     titleText: {
         fontSize: 20,
+        marginLeft: 16,
+        marginTop: 16,
     }
 });

@@ -16,6 +16,7 @@ import {useNavigation} from '@react-navigation/native';
 
 import { Entypo, AntDesign, MaterialCommunityIcons, Ionicons } from '@expo/vector-icons'; 
 import { timing } from 'react-native-reanimated';
+import { CountdownCircleTimer } from "react-countdown-circle-timer";
 
 export default function CameraScreen() {
   const [hasPermission, setHasPermission] = useState(null);
@@ -28,6 +29,8 @@ export default function CameraScreen() {
   const [flashMode, setFlashMode] = useState('off');
   const [fileName, setFileName] = useState(null);
   const navigation = useNavigation();
+
+
 
   const position = new Animated.ValueXY({x:0,y:0})
 
@@ -46,20 +49,19 @@ export default function CameraScreen() {
     onPanResponderMove:(e,gesture)=>{
       position.setValue({x: gesture.dx, y: gesture.dy})
       // console.log(gesture.dy)
-      let value = Math.abs(gesture.dy / 700) 
+      value = Math.abs(gesture.dy / 700) 
       console.log(value)
     },
 
     onPanResponderRelease:()=>{
       console.log('End')
       recordVideo();
-      // position.setValue({x:0,y:0})
-      // Animated.spring(position,{
-      //   toValue:{x:0, y: 0},
-      //   useNativeDriver: true,
-      //   friction: 6,
-      // }).start()
-    }
+      Animated.spring(position,{
+        toValue:{x:0, y: 0},
+        useNativeDriver: true,
+        friction: 6,
+      }).start()
+    },
   })
 
 

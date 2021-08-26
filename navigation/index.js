@@ -41,7 +41,16 @@ const Navigator = ({navigation}) => {
           <Stack.Screen name="ProfileSettings" component={ProfileSettings} />
           <Stack.Screen name="EditProfile" component={EditProfile} />
           <Stack.Screen name="SearchScreen" component={SearchScreen} />
-          <Stack.Screen name="PostDetails" component={PostDetails} />
+          <Stack.Screen 
+          name="PostDetails" 
+          component={PostDetails} 
+          screenOptions={{
+            gestureEnabled: true,
+            cardStyle: {
+              backgroundColor: 'transparent'
+            }
+          }}
+          />
           <Stack.Screen name="CameraScreen" component={CameraScreen} />
           <Stack.Screen name="VideoPreview" component={VideoPreview} options={{gestureEnabled: false, cardStyleInterpolator: forFade}}/>
           <Stack.Screen name="CreatePost" component={CreatePost} options={{gestureEnabled: false}}/>
