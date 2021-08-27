@@ -1,10 +1,12 @@
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, Image, Button, TouchableOpacity } from 'react-native';
 import AppLoading from 'expo-app-loading';
 import colors from '../../../assets/colors'
 import {useFeedData} from '../../../state/hooks'
 import {useNavigation} from '@react-navigation/native';
+import { useWallet } from '../../../state/hooks'
+import { SOCIAL } from '../../../utils/contract'
 
 import { 
   useFonts,
@@ -18,8 +20,28 @@ import {
 
 export default function InfoSection() {
 
+  const [username, setUsername] = useState("")
+  const [bio, setBio] = useState("")
+  const [ipfs, setIPFS] = useState("")
+  const [following, setFollowing] = useState(0)
+  const [followers, setFollowers] = useState(0)  
+  const wallet = useWallet()
+
   const navigation = useNavigation();
-  
+
+  useEffect( () => {
+    (async () => {
+    await SOCIAL.viewProfile(wallet.address.toString()).then((result) => { 
+      setUsername(result[0])
+      setBio(result[1])
+      setIPFS(result[2])
+      setFollowing(JSON.parse(result[3]))
+      setFollowers(JSON.parse(result[4]))
+    })
+  })()
+  })
+
+
   let [fontsLoaded] = useFonts({
     Bold,
     Regular,
@@ -38,25 +60,25 @@ export default function InfoSection() {
               marginTop: 32,
             }}>
             <View style={{alignItems: 'center', paddingRight: 32}}>
-              <Text style={styles.numbers}>123</Text>
+              <Text style={styles.numbers}>{followers}</Text>
               <Text style={styles.numberLabels}>Followers</Text>
             </View>
             <Image
               source={{
-                uri: 'https://reactnative.dev/img/tiny_logo.png',
+                uri: 'https://ipfs.io/ipfs/' + ipfs.toString()
               }}
               style={styles.profileImage}
             />
             <View style={{alignItems: 'center', paddingLeft: 32}}>
-              <Text style={styles.numbers}>123</Text>
+              <Text style={styles.numbers}>{following}</Text>
               <Text style={styles.numberLabels}>Following</Text>
             </View>
           </View>
           <View style={{marginTop: 16}}>
-              <Text style={styles.username}>@Caleb</Text>
+              <Text style={styles.username}>@{username || wallet.address.toString().substring(0,16)}</Text>
           </View>
           <View style={{marginTop: 8, marginHorizontal: 60}}>
-              <Text style={styles.bio}>hello friends. welcome to my page this is my bio :)</Text>
+              <Text style={styles.bio}>{bio}</Text>
           </View>
           <TouchableOpacity 
           style={styles.button}
