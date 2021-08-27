@@ -13,6 +13,7 @@ import {
 import {Camera} from 'expo-camera';
 import { Video, AVPlaybackStatus } from 'expo-av';
 import {useNavigation} from '@react-navigation/native';
+import * as Haptics from 'expo-haptics';
 
 import { Entypo, AntDesign, MaterialCommunityIcons, Ionicons } from '@expo/vector-icons'; 
 import { timing } from 'react-native-reanimated';
@@ -68,8 +69,8 @@ export default function CameraScreen() {
 
   const zoomValue=0;
 
-  const rotate = position.x.interpolate({
-    inputRange: [0, 250],
+  const rotate = position.y.interpolate({
+    inputRange: [0, 200],
     outputRange: ['0deg', '360deg']
   })
 
@@ -111,12 +112,12 @@ export default function CameraScreen() {
     const options = {maxDuration: 8, quality: Camera.Constants.VideoQuality['720']}
     if (!recording) {
       setRecording(true);
-      let video = await cameraRef.recordAsync(options).then(data => {
+      let video = await cameraRef.recordAsync(options).then(data => { 
         const filename = Date.now().toString();
           // setVideoPreview(data.uri);
           console.log(data);
           const source = data.uri
-          navigation.navigate('VideoPreview', {source}); 
+          navigation.navigate('VideoPreview', {source});  
           // setIsopen(true);
       });
     } else {

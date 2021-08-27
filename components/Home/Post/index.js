@@ -5,6 +5,7 @@ import colors from '../../../assets/colors'
 import AppLoading from 'expo-app-loading';
 import { AntDesign } from '@expo/vector-icons'; 
 import {useNavigation} from '@react-navigation/native';
+import { SharedElement } from 'react-navigation-shared-element';
 
 
 const width = Dimensions.get("window").width / 2 - 2;
@@ -38,8 +39,8 @@ const Post = (props) => {
     return (
             <View style={styles.videoContainer}>
                 <TouchableOpacity
-                onPress={()=>navigation.navigate('PostDetails')}
-                // onPress={() => navigation.navigate('PostDetails',{videoUri: props.videoUri, title: props.title})}
+                onPress={()=>navigation.push('PostDetails', {post})}  
+                // onPressIn={()=>console.log(post.id)}
                 >
                 <Video 
                     source={{uri: post.videoUri}}

@@ -6,6 +6,7 @@ import { Video, AVPlaybackStatus } from 'expo-av';
 import {useNavigation} from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons'; 
 import { AntDesign } from '@expo/vector-icons'; 
+import * as Haptics from 'expo-haptics';
 
 const width = Dimensions.get("window").width;
 const height = Dimensions.get("window").height;
@@ -24,7 +25,7 @@ import {
   } from '@expo-google-fonts/poppins';
 
 export default function VideoPreview(props) {
-
+ 
   const navigation = useNavigation();
   console.log(props.route.params.source)
 
@@ -52,18 +53,22 @@ export default function VideoPreview(props) {
       <View style={styles.uiContainer}>
         <TouchableOpacity 
         style={styles.button1}
-        onPress={() => navigation.navigate('HomeTabs')}
-        >
+        onPress={() => {
+        navigation.navigate('HomeTabs');
+        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+        }}>
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
-          <AntDesign name="arrowleft" size={24} color={colors.white} style={{marginRight: 8}} />
-          <Text style={styles.buttonText}>Retake</Text>
+          <AntDesign name="close" size={24} color={colors.white} style={{marginRight: 8}} />
+          <Text style={styles.buttonText}>Cancel</Text>
         </View>
         </TouchableOpacity>
       
         <TouchableOpacity 
         style={styles.button2}
-        onPress={() => navigation.navigate('CreatePost', {source})}
-        >
+        onPress={() => {
+        navigation.navigate('CreatePost', {source});
+        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+        }}>
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
           <Text style={styles.buttonText}>Continue</Text>
           <AntDesign name="arrowright" size={24} color={colors.white} style={{marginLeft: 8,}} />

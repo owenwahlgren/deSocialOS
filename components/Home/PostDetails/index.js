@@ -3,19 +3,21 @@ import {View, Text, StyleSheet, Dimensions, TouchableOpacity, Image, ScrollView}
 import { Video, AVPlaybackStatus } from 'expo-av';
 import colors from '../../../assets/colors'
 import { SafeAreaView } from 'react-native-safe-area-context';
+import {useNavigation} from '@react-navigation/native';
+import {SharedElement} from 'react-navigation-shared-element';
 
 const width = Dimensions.get("window").width;
 const height = width * 2;
 
-const PostDetails = ({route}) => {
+const PostDetails = ({route, navigation}) => {
+
+    const {post} = route.params     
+ 
     return (
         <ScrollView style={styles.container}>
             <View style={styles.videoContainer}>
                 <Video 
-                    // source={{uri: {videoUri}}} (not working??) 
-
-                    //this should be the video that is clicked on not this plaeholder one
-                    source={{uri: 'https://assets.mixkit.co/videos/preview/mixkit-small-pink-flowers-1186-large.mp4'}}
+                    source={{uri: post.videoUri}}
                     resizeMode={'cover'}
                     isLooping
                     shouldPlay

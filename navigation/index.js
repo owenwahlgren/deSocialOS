@@ -16,10 +16,11 @@ import CameraScreen from '../screens/Camera';
 import EditProfile from '../components/Profile/EditProfile';
 import VideoPreview from '../screens/VideoPreview';
 import CreatePost from '../screens/CreatePost';
+import HomeScreen from '../screens/Home';
 
+import { createSharedElementStackNavigator } from 'react-navigation-shared-element';
 
-
-const Stack = createStackNavigator();
+const Stack = createSharedElementStackNavigator();
 
 const forFade = ({ current }) => ({
   cardStyle: {
@@ -41,16 +42,8 @@ const Navigator = ({navigation}) => {
           <Stack.Screen name="ProfileSettings" component={ProfileSettings} />
           <Stack.Screen name="EditProfile" component={EditProfile} />
           <Stack.Screen name="SearchScreen" component={SearchScreen} />
-          <Stack.Screen 
-          name="PostDetails" 
-          component={PostDetails} 
-          screenOptions={{
-            gestureEnabled: true,
-            cardStyle: {
-              backgroundColor: 'transparent'
-            }
-          }}
-          />
+          <Stack.Screen name="HomeScreen" component={HomeScreen} />
+          <Stack.Screen name="PostDetails" component={PostDetails} />
           <Stack.Screen name="CameraScreen" component={CameraScreen} />
           <Stack.Screen name="VideoPreview" component={VideoPreview} options={{gestureEnabled: false, cardStyleInterpolator: forFade}}/>
           <Stack.Screen name="CreatePost" component={CreatePost} options={{gestureEnabled: false}}/>
