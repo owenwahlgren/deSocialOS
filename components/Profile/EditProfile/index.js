@@ -62,7 +62,7 @@ export default function EditProfile({route}) {
         if (!result.cancelled) {
           setImage(result.uri);
           (async () => {
-            const hash = await pinToIPFS(result.uri.toString(), result.uri, "jpg")
+            const hash = await pinToIPFS(wallet.address.toString(), result.uri, "jpg")
             console.log('ipfs hash:', hash)
             setIPFS(hash)
           })()
