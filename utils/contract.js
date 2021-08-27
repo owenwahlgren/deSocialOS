@@ -13,3 +13,16 @@ export const NFT_ABI = [
 export const NFT_Address = "0x0B81c569b0913021DCBd61c9dcD0F1A65B63585e";
 export const NFT = new ethers.Contract(NFT_Address, NFT_ABI, provider);
 
+
+export const SOCIAL_ABI = [
+  "function editProfile(string memory _username, string memory _biography, string memory _media) public",
+  "function follow(address _user) public",
+  "function unfollow(address _user) public",
+  "function viewProfile(address _user) public view returns(string memory, string memory, string memory, uint256, uint256)"
+];
+export const SOCIAL_ADDRESS = '0xF9760484A65F47087b2Afc41ab1af8E97773D95e';
+export const SOCIAL = new ethers.Contract(SOCIAL_ADDRESS, SOCIAL_ABI, provider);
+
+
+
+

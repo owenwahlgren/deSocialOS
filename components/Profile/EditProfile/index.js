@@ -1,3 +1,5 @@
+import "@ethersproject/shims";
+import { ethers } from "ethers";
 import React, {useState, useEffect} from 'react'
 import { View, Text, StyleSheet, TouchableOpacity, TextInput, TouchableWithoutFeedback, Keyboard, Image } from 'react-native'
 import colors from '../../../assets/colors'
@@ -5,6 +7,9 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import EditProfileHeader from '../EditProfileHeader';
 import {useNavigation} from '@react-navigation/native';
 import * as ImagePicker from 'expo-image-picker';
+import { useWallet } from '../../../state/hooks'
+import { SOCIAL_ABI, SOCIAL_ADDRESS, provider } from '../../../utils/contract'
+import { pinToIPFS } from '../../../utils/ipfs'
 
 
 import AppLoading from 'expo-app-loading';
@@ -25,6 +30,14 @@ import { ScrollView } from 'react-native-gesture-handler';
 
 export default function EditProfile({route}) {
     const [image, setImage] = useState(null);
+    const [username, setUsername] = useState("")
+    const [bio, setBio] = useState("")
+    const [ipfs, setIPFS] = useState("")
+    const wallet = useWallet()
+    const signer = wallet.connect(provider)
+    const SOCIAL = new ethers.Contract(SOCIAL_ADDRESS, SOCIAL_ABI, signer)
+
+
     const navigation = useNavigation();
 
     useEffect(() => {
@@ -45,11 +58,14 @@ export default function EditProfile({route}) {
           aspect: [4, 3],
           quality: 1,
         });
-    
-        console.log(result);
-    
+       
         if (!result.cancelled) {
           setImage(result.uri);
+          (async () => {
+            const hash = await pinToIPFS(result.uri.toString(), result.uri, "jpg")
+            console.log('ipfs hash:', hash)
+            setIPFS(hash)
+          })()
         }
       };
 
@@ -87,10 +103,12 @@ export default function EditProfile({route}) {
                 >
                 <TextInput 
                     placeholder="@randyusername1234"
-                    maxLength={20}
+                    maxLength={13}
                     multiline
                     style={styles.sectionText}
                     keyboardType='default'
+                    onChangeText={setUsername}
+                    
                 />
                 </TouchableOpacity>
             </View>
@@ -107,13 +125,21 @@ export default function EditProfile({route}) {
                     maxLength={50}
                     style={styles.sectionText2}
                     keyboardType='default'
+                    onChangeText={setBio}
                 />
                 </TouchableOpacity>
             </View>
             <View style={styles.bottomContainer}>
             <TouchableOpacity 
             style={styles.button}
-            onPress={() => navigation.goBack()}
+            onPress={async () => {
+                let tx = await SOCIAL.editProfile(username, bio, ipfs, {gasLimit: 2500000})
+                console.log('tx:', tx.hash)
+                console.log('waiting for tx to mine...')
+                navigation.goBack()
+                await tx.wait() 
+                console.log('tx mined')
+            }}
             >
                 <Text style={{fontFamily: 'Medium', fontSize: 16, color: colors.white}}>Done</Text>
             </TouchableOpacity>

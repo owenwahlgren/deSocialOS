@@ -2,16 +2,24 @@ import { PINATA_KEY, PINATA_SECRET } from "@env"
 
 const pinUrl = "https://api.pinata.cloud/pinning/pinFileToIPFS";
 
-export const pinToIPFS = async (filename, fileURI) => {
+export const pinToIPFS = async (filename, fileURI, type="mp4") => {
 
 	let hash;
-	let formData = new FormData();
-	formData.append("file", {
+	let formData = new FormData()
+	if (type == "jpg") {
+		formData.append("file", {
+		name: filename + '.jpg',
+		uri: fileURI,
+		type: 'image/jpg'
+		})
+	}
+	else {
+		formData.append("file", {
 		name: filename + '.mp4',
 		uri: fileURI,
 		type: 'video/mp4'
-	})
-
+		})
+	}
 	await fetch(pinUrl, {
 		method: "post",
 		headers: {
@@ -27,8 +35,5 @@ export const pinToIPFS = async (filename, fileURI) => {
 	})
 
 	return hash;
-
-	
-
 
 }

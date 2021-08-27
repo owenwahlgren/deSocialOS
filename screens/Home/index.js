@@ -5,7 +5,7 @@ import AppLoading from 'expo-app-loading';
 import colors from '../../assets/colors'
 import Post from '../../components/Home/Post'
 // import posts from '../../data/posts'
-import {useFeedData, fetchFeed, useWallet, fetchAccountCollection, fetchAccountCreated} from '../../state/hooks'
+import {useFeedData, fetchFeed } from '../../state/hooks'
 import posts from '../../data/posts'
 import Header from '../../components/Home/Header'
 import {useNavigation} from '@react-navigation/native';
@@ -18,11 +18,8 @@ const translateY = diffClamp.interpolate ({
     inputRange:[0,80],
     outputRange:[0,-80],
 })
-const wallet = useWallet()
-fetchAccountCollection(wallet.address.toString())
-fetchAccountCreated(wallet.address.toString())
-fetchFeed()
 
+fetchFeed()
 const posts = useFeedData()
 return (
     <View style={styles.container}>

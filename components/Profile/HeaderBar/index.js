@@ -19,6 +19,7 @@ import { color } from 'react-native-reanimated';
 import { MaterialCommunityIcons } from '@expo/vector-icons'; 
 import { Ionicons } from '@expo/vector-icons'; 
 import { Feather } from '@expo/vector-icons'; 
+import { useWallet } from '../../../state/hooks'
 
 
 export default function HeaderBar() {
@@ -26,7 +27,7 @@ export default function HeaderBar() {
   const navigation = useNavigation();
 
     const [modalVisible, setModalVisible] = useState(false);
-
+    const wallet = useWallet()
     let [fontsLoaded] = useFonts({
         Bold,
         Regular,
@@ -46,7 +47,7 @@ export default function HeaderBar() {
                 }}
                 onPress={() => {setModalVisible(true)}}
                 >
-                        <Text style={styles.adressText}>calebp.eth</Text>
+                        <Text style={styles.adressText}>{wallet.address.toString().substring(0,12)}</Text>
                     <Ionicons name="caret-down" size={18} color={colors.dark} />
                 </TouchableOpacity>
                 <TouchableOpacity 
