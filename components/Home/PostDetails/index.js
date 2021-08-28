@@ -5,17 +5,20 @@ import colors from '../../../assets/colors'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import {useNavigation} from '@react-navigation/native';
 import {SharedElement} from 'react-navigation-shared-element';
+import HeaderBar from '../../Profile/HeaderBar';
+
+import PostCollapsibleTabView from '../../Home/PostCollapsibleTabView';
 
 const width = Dimensions.get("window").width;
-const height = width * 2;
+const height = Dimensions.get("window").height / 2;
 
 const PostDetails = ({route, navigation}) => {
-
+ 
     const {post} = route.params     
  
     return (
-        <ScrollView style={styles.container}>
-            <View style={styles.videoContainer}>
+        <>
+            {/* <View style={styles.videoContainer}>
                 <Video 
                     source={{uri: post.videoUri}}
                     resizeMode={'cover'}
@@ -23,13 +26,21 @@ const PostDetails = ({route, navigation}) => {
                     shouldPlay
                     style={styles.video}
                 />
-            </View>
-            <View style={{flex: 1, height: 600}}>
-            <Text style={styles.titleText}>
-                Title
-            </Text>
-            </View>
-        </ScrollView>
+            </View> */}
+        <View style={{position: 'absolute', flex: 1, width: '100%', zIndex: 100}}>
+        <HeaderBar />
+        </View>
+        <PostCollapsibleTabView />
+        </>
+
+        // {/* 
+        //     <>
+        //     <View style={{position: 'absolute', flex: 1, width: '100%', zIndex: 100}}>
+        //     <HeaderBar />
+        //     </View>
+        //     <CollapsibleTabView />
+        //     </> 
+        // */}
     )
 }
 
@@ -53,5 +64,11 @@ const styles = StyleSheet.create({
         fontSize: 20,
         marginLeft: 16,
         marginTop: 16,
-    }
+    },
+    profileImage: {
+        width: 90,
+        height: 90,
+        borderRadius: 50,
+        resizeMode: 'cover',
+      },
 });

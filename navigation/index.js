@@ -18,6 +18,7 @@ import VideoPreview from '../screens/VideoPreview';
 import CreatePost from '../screens/CreatePost';
 import HomeScreen from '../screens/Home';
 
+
 import { createSharedElementStackNavigator } from 'react-navigation-shared-element';
 
 const Stack = createSharedElementStackNavigator();
@@ -47,6 +48,7 @@ const Navigator = ({navigation}) => {
           <Stack.Screen name="CameraScreen" component={CameraScreen} />
           <Stack.Screen name="VideoPreview" component={VideoPreview} options={{gestureEnabled: false, cardStyleInterpolator: forFade}}/>
           <Stack.Screen name="CreatePost" component={CreatePost} options={{gestureEnabled: false}}/>
+
         </Stack.Navigator>
       </NavigationContainer>
   );
