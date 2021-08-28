@@ -13,13 +13,14 @@ import {
   SafeAreaView,
   Image,
 } from 'react-native';
+import LottieView from 'lottie-react-native';
 import {TabView, TabBar} from 'react-native-tab-view';
 import colors from '../../../assets/colors'
 import InfoSection from '../InfoSection';
 import CreatedPost from '../CreatedPost';
 import CollectionPost from '../CollectionPost';
 import posts from '../../../data/posts'; 
-import {useAccountCollection, useAccountCreated, useFeedData} from '../../../state/hooks'
+import {useAccountCollection, useAccountCreated, useFeedData} from '../../../state/hooks';
 
 import { 
   useFonts,
@@ -394,11 +395,41 @@ const CollapsibleTabView = () => {
   };
 
   return (
-    <SafeAreaView style={{flex: 1}}>
+    <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
     <View style={styles.container}>
       {renderTabView()} 
       {renderHeader()}
     </View>
+
+    {/* Render 'created component' if user has not created anything and
+    render 'collection component' if user has not collected anything*/}
+
+     {/* BEGIN EMPTY CREATED COMPONENT*/}
+      <View style={styles.emptyCreated}>
+        <Text style={styles.emptyText}>You haven't created anything yet!</Text>
+        <Text style={styles.emptyText2}>Tap to create a new video</Text>
+      </View>
+      <LottieView 
+        style={styles.downLottieCreated}
+        source={require('../../../assets/lottie/16234-down-arrow.json')}
+        autoPlay
+        loop
+      />
+      {/* END EMPTY CREATED COMPONENT */}
+
+      {/* BEGIN EMPTY COLLECTION COMPONENT */}
+      <View style={styles.emptyCreated}>
+        <Text style={styles.emptyText}>Your collection is empty!</Text>
+        <Text style={styles.emptyText2}>Tap to explore unique NFTs</Text>
+      </View>
+      <LottieView 
+        style={styles.downLottieCreated2}
+        source={require('../../../assets/lottie/16234-down-arrow.json')}
+        autoPlay
+        loop
+      />
+      {/* END EMPTY COLLECTION COMPONENT */}
+      
     </SafeAreaView>
   );
 };
@@ -414,7 +445,11 @@ const styles = StyleSheet.create({
     width: '100%',
     position: 'absolute',
   },
-  label: {fontSize: 15, color: colors.dark, fontFamily: 'SemiBold'},
+  label: {
+    fontSize: 15, 
+    color: colors.dark, 
+    fontFamily: 'SemiBold',
+  },
   tab: {
     elevation: 0,
     shadowOpacity: 0,
@@ -424,7 +459,34 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
     height: TabBarHeight,
   },
-  indicator: {backgroundColor: colors.dark},
+  indicator: {
+    backgroundColor: colors.dark
+  },
+  emptyCreated: {
+    height: 50,
+    alignItems: 'center',
+  },
+  emptyText: {
+    fontFamily: 'Medium',
+    fontSize: 15,
+    color: colors.dark
+  },
+  emptyText2: {
+    fontFamily: 'Regular',
+    fontSize: 13.5,
+    color: colors.dark,
+    marginTop: 4,
+  },
+  downLottieCreated: {
+    height: 40,
+    marginBottom: 4,
+    alignSelf: 'center',
+  },
+  downLottieCreated2: {
+    height: 40,
+    marginBottom: 4,
+    marginLeft: 6,
+  }
 });
 
 export default CollapsibleTabView;
