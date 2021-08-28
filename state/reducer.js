@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit"
 
-const initialState = {feed_data: {}, account_created: [{}], account_collection: [{}], private_key: null}
+const initialState = {feed_data: {}, account_created: [{}], account_collection: [{}], account_data: {}, private_key: null}
 export const feedData = createSlice({
 	name: 'feed',
 	initialState,
@@ -13,11 +13,14 @@ export const feedData = createSlice({
 		},
 		setAccountCollection: (state, action) => {
 			state.account_collection = action.payload
+		},
+		setAccountData: (state, action) => {
+			state.account_data = action.payload
 		}
 	}
 
 })
-export const { setFeedData, setAccountCreated, setAccountCollection } = feedData.actions
+export const { setFeedData, setAccountCreated, setAccountCollection, setAccountData } = feedData.actions
 
 export const walletSlice = createSlice({
 	name: 'wallet',

@@ -20,7 +20,8 @@ import InfoSection from '../InfoSection';
 import CreatedPost from '../CreatedPost';
 import CollectionPost from '../CollectionPost';
 import posts from '../../../data/posts'; 
-import {useAccountCollection, useAccountCreated, useFeedData} from '../../../state/hooks';
+import {useAccountCollection, useAccountCreated, useFeedData, useWallet} from '../../../state/hooks';
+import { NFT } from '../../../utils/contract'
 
 import { 
   useFonts,
@@ -394,7 +395,15 @@ const CollapsibleTabView = () => {
     );
   };
 
-  return (
+  const [balance, setBalance] = useState(1)
+  const wallet = useWallet()
+  useEffect(() => {
+    (async () => {
+      setBalance(JSON.parse(await NFT.balanceOf(wallet.address.toString())))
+    })()
+  })
+  if (balance == 0 ) {
+    return (
     <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
     <View style={styles.container}>
       {renderTabView()} 
@@ -432,6 +441,16 @@ const CollapsibleTabView = () => {
       
     </SafeAreaView>
   );
+  } else {
+    return (
+    <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
+    <View style={styles.container}>
+      {renderTabView()} 
+      {renderHeader()}
+    </View>
+    </SafeAreaView>
+    )
+  }
 };
 
 const styles = StyleSheet.create({
