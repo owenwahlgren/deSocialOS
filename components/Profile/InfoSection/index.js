@@ -5,7 +5,7 @@ import AppLoading from 'expo-app-loading';
 import colors from '../../../assets/colors'
 import {useFeedData} from '../../../state/hooks'
 import {useNavigation} from '@react-navigation/native';
-import { useWallet } from '../../../state/hooks'
+import { useAccountInfo, useWallet } from '../../../state/hooks'
 import { SOCIAL } from '../../../utils/contract'
 
 import { 
@@ -19,27 +19,16 @@ import {
 } from '@expo-google-fonts/poppins'
 
 export default function InfoSection() {
-
-  const [username, setUsername] = useState("")
-  const [bio, setBio] = useState("")
-  const [ipfs, setIPFS] = useState("")
-  const [following, setFollowing] = useState(0)
-  const [followers, setFollowers] = useState(0)  
   const wallet = useWallet()
+  const info = useAccountInfo()
+  const username = info[0] || wallet.address.toString().substring(0,12);
+  const bio = info[1] || ""
+  const ipfs = info[2] || ""
+  const following = info[3] || 0
+  const followers = info[4] || 0
+  const pfp = 'https://ipfs.io/ipfs/' + ipfs
 
   const navigation = useNavigation();
-
-  useEffect( () => {
-    (async () => {
-    await SOCIAL.viewProfile(wallet.address.toString()).then((result) => { 
-      setUsername(result[0])
-      setBio(result[1])
-      setIPFS(result[2])
-      setFollowing(JSON.parse(result[3]))
-      setFollowers(JSON.parse(result[4]))
-    })
-  })()
-  })
 
 
   let [fontsLoaded] = useFonts({
@@ -65,7 +54,7 @@ export default function InfoSection() {
             </View>
             <Image
               source={{
-                uri: 'https://ipfs.io/ipfs/' + ipfs.toString()
+                uri: pfp
               }}
               style={styles.profileImage}
             />

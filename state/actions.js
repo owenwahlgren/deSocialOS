@@ -1,5 +1,6 @@
-import { setFeedData, setAccountCreated, setAccountCollection, setPrivateKey } from './reducer'
+import { setFeedData, setAccountCreated, setAccountCollection, setPrivateKey, setAccountData } from './reducer'
 import { fetchFeedData, fetchAccountCreated, fetchAccountCollected } from '../data/posts'
+import { SOCIAL } from '../utils/contract'
 import * as SecureStore from 'expo-secure-store';
 import { useEffect } from 'react'
  
@@ -30,4 +31,9 @@ export const fetchCollected = (address) => async (dispatch) => {
 export const fetchCreated = (address) => async (dispatch) => {
 	const created = await fetchAccountCreated(address)
 	dispatch(setAccountCreated(created))
+}
+
+export const fetchAccountData = (address) => async (dispatch) => {
+	const data = await SOCIAL.viewProfile(address)
+	dispatch(setAccountData([data[0], data[1], data[2], JSON.parse(data[3]), JSON.parse(data[4])]))
 }

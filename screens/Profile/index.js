@@ -4,7 +4,7 @@ import { ScrollView, StyleSheet, Text, View, useWindowDimensions, Dimensions, Fl
 import AppLoading from 'expo-app-loading';
 import InfoSection from '../../components/Profile/InfoSection'
 import HeaderBar from '../../components/Profile/HeaderBar'
-import {fetchAccountCollection, fetchAccountCreated} from '../../state/hooks'
+import {fetchAccountCollection, fetchAccountCreated, fetchAccountInfo} from '../../state/hooks'
 
 import colors from '../../assets/colors';
 import { TouchableOpacity } from 'react-native-gesture-handler';
@@ -20,6 +20,7 @@ const ProfileScreen = () => {
   const wallet = useWallet()
   fetchAccountCollection(wallet.address.toString())
   fetchAccountCreated(wallet.address.toString())
+  fetchAccountInfo(wallet.address.toString())
     return (
       <>
       <View style={{position: 'absolute', flex: 1, width: '100%', zIndex: 100}}>

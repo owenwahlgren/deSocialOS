@@ -7,7 +7,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import EditProfileHeader from '../EditProfileHeader';
 import {useNavigation} from '@react-navigation/native';
 import * as ImagePicker from 'expo-image-picker';
-import { useWallet } from '../../../state/hooks'
+import { useWallet, useAccountInfo } from '../../../state/hooks'
 import { SOCIAL_ABI, SOCIAL_ADDRESS, provider } from '../../../utils/contract'
 import { pinToIPFS } from '../../../utils/ipfs'
 
@@ -29,10 +29,11 @@ import { ScrollView } from 'react-native-gesture-handler';
 
 
 export default function EditProfile({route}) {
-    const [image, setImage] = useState(null);
-    const [username, setUsername] = useState("")
-    const [bio, setBio] = useState("")
-    const [ipfs, setIPFS] = useState("")
+    const data = useAccountInfo()
+    const [username, setUsername] = useState(data[0] || "")
+    const [bio, setBio] = useState(data[1] || "")
+    const [ipfs, setIPFS] = useState(data[2] || "")
+    const [image, setImage] = useState('https://ipfs.io/ipfs/' + ipfs);
     const wallet = useWallet()
     const signer = wallet.connect(provider)
     const SOCIAL = new ethers.Contract(SOCIAL_ADDRESS, SOCIAL_ABI, signer)
@@ -85,7 +86,7 @@ export default function EditProfile({route}) {
             <View style={{flex: 1}}>
                 {image &&
                     <Image
-                    source={{uri: image}}
+                    source={{uri: "https://ipfs.io/ipfs/" + ipfs}}
                     style={styles.profileImage}
                     />
                 }
@@ -102,8 +103,8 @@ export default function EditProfile({route}) {
                 style={styles.section}
                 >
                 <TextInput 
-                    placeholder="@randyusername1234"
-                    maxLength={13}
+                    placeholder={username}
+                    maxLength={16}
                     multiline
                     style={styles.sectionText}
                     keyboardType='default'
@@ -120,7 +121,7 @@ export default function EditProfile({route}) {
                 style={styles.section}
                 >
                 <TextInput 
-                    placeholder="biggup for the gang mfer"
+                    placeholder={bio} 
                     multiline
                     maxLength={50}
                     style={styles.sectionText2}

@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux'
-import { fetchFeedDataAsync, loadWalletAsync, saveWallet, fetchCollected, fetchCreated} from './actions'
+import { fetchFeedDataAsync, loadWalletAsync, saveWallet, fetchCollected, fetchCreated, fetchAccountData} from './actions'
 import { createWalletFromKey } from '../utils/wallet'
 import { useEffect } from 'react'
 
@@ -75,4 +75,14 @@ export const useAccountCreated = () => {
 	return created
 }
 
+export const fetchAccountInfo = (account) => {
+	const dispatch = useDispatch()
+	useEffect( () => {
+		dispatch(fetchAccountData(account))
+	})
+}
 
+export const useAccountInfo = () => {
+	const data = useSelector((state) => state.feed.account_data)
+	return data
+}
