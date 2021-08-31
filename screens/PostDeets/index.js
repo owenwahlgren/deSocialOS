@@ -15,14 +15,17 @@ import {
 } from 'react-native';
 import LottieView from 'lottie-react-native';
 import {TabView, TabBar} from 'react-native-tab-view';
-import colors from '../../../assets/colors'
-import posts from '../../../data/posts'; 
-import {useAccountCollection, useAccountCreated, useFeedData} from '../../../state/hooks';
+import { Video, AVPlaybackStatus } from 'expo-av';
+import { SharedElement } from 'react-navigation-shared-element';
 
-import InfoSection from '../../Profile/InfoSection';
-import CreatedPost from '../../Profile/CreatedPost';
-import CollectionPost from '../../Profile/CollectionPost';
-import PostBigVideo from '../PostBigVideo';
+import {useAccountCollection, useAccountCreated, useFeedData} from '../../state/hooks';
+import InfoSection from '../../components/Profile/InfoSection';
+import CreatedPost from '../../components/Profile/CreatedPost';
+import CollectionPost from '../../components/Profile/CollectionPost';
+import PostBigVideo from '../../components/Home/PostBigVideo';
+import colors from '../../assets/colors';
+import posts from '../../data/posts';
+import {useNavigation} from '@react-navigation/native';
 
 import { 
   useFonts,
@@ -45,8 +48,12 @@ const SafeStatusBar = Platform.select({
 const tab1ItemSize = (windowWidth - 30) / 2;
 const tab2ItemSize = (windowWidth - 40) / 3;
 
-const PostCollapsibleTabView = ({route, navigation}) => {
+const width = Dimensions.get("window").width;
+const height = Dimensions.get("window").width * 1.7;
 
+const PostDeets = ({route, navigation}) => {
+
+    const {item} = route.params
 
   let [fontsLoaded] = useFonts({
     Bold,
@@ -60,7 +67,7 @@ const PostCollapsibleTabView = ({route, navigation}) => {
   const [tabIndex, setIndex] = useState(0);
   const [routes] = useState([
     {key: 'tab1', title: 'Comments'},
-    {key: 'tab2', title: 'Bids'},
+    {key: 'tab2', title: 'Activity'},
   ]);
   const [canScroll, setCanScroll] = useState(true);
 
@@ -231,17 +238,35 @@ const PostCollapsibleTabView = ({route, navigation}) => {
    * render Helper
    */
   const renderHeader = () => {
-    const y = scrollY.interpolate({
+    const y = scrollY.interpolate({ 
       inputRange: [0, HeaderHeight],
-      outputRange: [0, -HeaderHeight],
+      outputRange: [0, -HeaderHeight], 
       extrapolate: 'clamp',
     });
     return (
+        <>
       <Animated.View
         {...headerPanResponder.panHandlers}
         style={[styles.header, {transform: [{translateY: y}]}]}>
-        <PostBigVideo />
+        <View style={styles.container2}>
+            <SharedElement id={item.id}>
+            <Video 
+                source={{uri: item.videoUri}}
+                resizeMode={'cover'}
+                isLooping
+                shouldPlay
+                style={styles.video2}
+                volume={0} //1 is max, just muted to listen to music while coding 
+            />
+            </SharedElement>
+        </View>
       </Animated.View>
+      <SafeAreaView>
+      <View style={{backgroundColor: 'red', height: 40,}}>
+          <Text>Hi</Text>
+      </View>
+      </SafeAreaView>
+      </>
     );
   };
 
@@ -397,10 +422,12 @@ const PostCollapsibleTabView = ({route, navigation}) => {
   };
 
   return (
+      <SafeAreaView style={{flex: 1, backgroundColor: 'black'}}>
     <View style={styles.container}>
       {renderTabView()} 
       {renderHeader()}
-    </View>     
+    </View>   
+    </SafeAreaView>  
   );
 };
 
@@ -410,7 +437,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white
   },
   header: {
-    height: HeaderHeight,
+    height,
     width: '100%',
     position: 'absolute',
   },
@@ -450,12 +477,20 @@ const styles = StyleSheet.create({
     height: 40,
     marginBottom: 4,
     alignSelf: 'center',
-  },
+  }, 
   downLottieCreated2: {
     height: 40,
     marginBottom: 4,
     marginLeft: 6,
+  },
+  container2: {
+    flex: 1,
+    backgroundColor: colors.primary,
+  },
+  video2: {
+      width,
+      height,
   }
 });
 
-export default PostCollapsibleTabView;
+export default PostDeets;

@@ -8,8 +8,8 @@ import {useNavigation} from '@react-navigation/native';
 import { SharedElement } from 'react-navigation-shared-element';
 
 
-const width = Dimensions.get("window").width / 2 - 2;
-const height = width * 2;
+const width = Dimensions.get("window").width - 2;
+const height = width * 1.618;
 
 import { 
     useFonts,
@@ -34,14 +34,16 @@ const Post = (props) => {
         Medium
       });
       if (!fontsLoaded) {
-        return <AppLoading />;
+        return <AppLoading />; 
       } else {
     return (
             <View style={styles.videoContainer}>
-                <TouchableOpacity
-                onPress={()=>navigation.push('PostDetails', {post})}  
+                {/* <TouchableOpacity
+                onPress={()=>navigation.push('PostDeets', {post})}  
                 // onPressIn={()=>console.log(post.id)}
-                >
+                > */}
+                
+ 
                 <Video 
                     source={{uri: post.videoUri}}
                     // isLooping
@@ -49,6 +51,7 @@ const Post = (props) => {
                     resizeMode={'cover'}
                     style={styles.video}
                 />
+                
                 <View style={styles.uiContainer}>
                     <View style={styles.topContainer}>
                         <Text style={styles.likes}>{post.likes}</Text>
@@ -67,8 +70,9 @@ const Post = (props) => {
                         </View>
                     </View>
                 </View>
-                </TouchableOpacity>
+                {/* </TouchableOpacity> */}
             </View>
+           
     )
     }
 }
@@ -80,13 +84,13 @@ const styles = StyleSheet.create({
         width: '100%',
         height: '100%',
         position: 'absolute',
-        borderRadius: 2,
+        borderRadius: 8,
     },
     videoContainer: {
         width,
         height,
         marginHorizontal: 1,
-        marginBottom: 2,
+        marginBottom: 8,
     },
     uiContainer: {
         height,

@@ -31,7 +31,7 @@ export default function VideoPreview(props) {
 
   const source = props.route.params.source
 
-  let [fontsLoaded] = useFonts({
+  let [fontsLoaded] = useFonts({ 
     Bold,
     Regular,
     SemiBold,

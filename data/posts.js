@@ -4,7 +4,7 @@ async function fetchFeedData() {
 
   var feedData = [];
   let supply = JSON.parse(await NFT.totalSupply())
-    while (supply > 0) {
+    while (supply > 0) { 
       const result = await NFT.getMetaData(supply)
       const title = result[0];
       const ipfsHash = result[1];

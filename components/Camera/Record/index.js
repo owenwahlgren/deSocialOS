@@ -118,7 +118,7 @@ export default function CameraScreen() {
           console.log(data);
           const source = data.uri
           navigation.navigate('VideoPreview', {source});  
-          // setIsopen(true);
+          // setIsopen(true); 
       });
     } else {
       setRecording(false);

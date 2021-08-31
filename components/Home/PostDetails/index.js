@@ -10,15 +10,15 @@ import HeaderBar from '../../Profile/HeaderBar';
 import PostCollapsibleTabView from '../../Home/PostCollapsibleTabView';
 
 const width = Dimensions.get("window").width;
-const height = Dimensions.get("window").height / 2;
+const height = Dimensions.get("window").height ;
 
 const PostDetails = ({route, navigation}) => {
  
     const {post} = route.params     
  
     return (
-        <>
-            {/* <View style={styles.videoContainer}>
+        // <>
+            <View style={styles.videoContainer}>
                 <Video 
                     source={{uri: post.videoUri}}
                     resizeMode={'cover'}
@@ -26,12 +26,12 @@ const PostDetails = ({route, navigation}) => {
                     shouldPlay
                     style={styles.video}
                 />
-            </View> */}
-        <View style={{position: 'absolute', flex: 1, width: '100%', zIndex: 100}}>
+            </View>
+        /* <View style={{position: 'absolute', flex: 1, width: '100%', zIndex: 100}}>
         <HeaderBar />
-        </View>
-        <PostCollapsibleTabView />
-        </>
+        </View> */
+        // <PostCollapsibleTabView />
+        /* </> */
 
         // {/* 
         //     <>

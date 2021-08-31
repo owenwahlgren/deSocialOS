@@ -1,6 +1,6 @@
 import "@ethersproject/shims";
 import { ethers } from "ethers";
-export const provider = new ethers.providers.JsonRpcProvider("https://rpc-mainnet.matic.quiknode.pro");
+export const provider = new ethers.providers.JsonRpcProvider("https://rpc-mainnet.matic.network");
 export const NFT_ABI = [
   "function requestMint(string memory _title, string memory _videoHash) public",
   "function getMetaData(uint256 _id) external view returns(string memory, string memory, address, uint256, uint256)",

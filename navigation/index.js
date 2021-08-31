@@ -17,6 +17,7 @@ import EditProfile from '../components/Profile/EditProfile';
 import VideoPreview from '../screens/VideoPreview';
 import CreatePost from '../screens/CreatePost';
 import HomeScreen from '../screens/Home';
+import PostDeets from '../screens/PostDeets';
 
 
 import { createSharedElementStackNavigator } from 'react-navigation-shared-element';
@@ -43,11 +44,18 @@ const Navigator = ({navigation}) => {
           <Stack.Screen name="ProfileSettings" component={ProfileSettings} />
           <Stack.Screen name="EditProfile" component={EditProfile} />
           <Stack.Screen name="SearchScreen" component={SearchScreen} />
-          <Stack.Screen name="HomeScreen" component={HomeScreen} />
           <Stack.Screen name="PostDetails" component={PostDetails} />
           <Stack.Screen name="CameraScreen" component={CameraScreen} />
           <Stack.Screen name="VideoPreview" component={VideoPreview} options={{gestureEnabled: false, cardStyleInterpolator: forFade}}/>
           <Stack.Screen name="CreatePost" component={CreatePost} options={{gestureEnabled: false}}/>
+          <Stack.Screen name="HomeScreen" component={HomeScreen} />
+          <Stack.Screen 
+          name="PostDeets" 
+          component={PostDeets} 
+          sharedElements={(route) => {
+            return [route.params.item.id];
+          }}
+          />
 
         </Stack.Navigator>
       </NavigationContainer>

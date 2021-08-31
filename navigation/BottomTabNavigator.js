@@ -53,12 +53,22 @@ export default function BottomTabNavigator() {
           },
           tabBarStyle: {
               borderTopColor: colors.outline,
-              backgroundColor: colors.white,
+              backgroundColor: 'colors.white',
           },
           tabBarLabel: () => null,
         })}
       >
-        <Tab.Screen name="Home" component={HomeScreen} options={{headerShown: false}} />
+        <Tab.Screen 
+        name="Home" 
+        component={HomeScreen} 
+        options={{
+          headerShown: false,
+          tabBarStyle: {
+            backgroundColor: colors.white,
+            position: 'absolute',
+          }
+        }}
+        />
         <Tab.Screen 
         name="Inbox" 
         component={MessagesScreen} 

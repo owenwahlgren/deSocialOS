@@ -9,8 +9,11 @@ import {useFeedData, fetchFeed, fetchAccountInfo, useWallet } from '../../state/
 import posts from '../../data/posts'
 import Header from '../../components/Home/Header'
 import {useNavigation} from '@react-navigation/native';
-// const BASE_URI = 'https://source.unsplash.com/random?sig=';
-export default function HomeScreen() {
+import { SharedElement } from 'react-navigation-shared-element';
+
+const HomeScreen = ({navigation}) => {
+
+
 const scrollY = new Animated.Value(0)
 const diffClamp = Animated.diffClamp(scrollY,0,80)
 const translateY = diffClamp.interpolate ({
@@ -22,6 +25,7 @@ fetchFeed()
 const posts = useFeedData()
 const wallet = useWallet()
 fetchAccountInfo(wallet.address.toString())
+
 return (
     <View style={styles.container}>
         <Animated.View
@@ -37,11 +41,15 @@ return (
         <SafeAreaView style={styles.content}>
             <FlatList 
             data={posts} 
-            numColumns={2}
+            numColumns={1}
             initialNumToRender={6}
             showsVerticalScrollIndicator={false}
             renderItem={({item}) => (
+                <TouchableOpacity
+                onPress={()=>navigation.push('PostDeets', {item})}  
+                >
                 <Post post={item}/>
+                </TouchableOpacity>
             )}
             onScroll={(e) => {
                 scrollY.setValue(e.nativeEvent.contentOffset.y)
@@ -52,6 +60,7 @@ return (
     </View>
 );
 }
+export default HomeScreen;
 
 const styles = StyleSheet.create({
   container: {
