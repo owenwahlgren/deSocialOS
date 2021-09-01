@@ -1,0 +1,120 @@
+import React from 'react';
+import {View, Text, StyleSheet, Dimensions, TouchableOpacity, Image} from 'react-native';
+import { Video, AVPlaybackStatus } from 'expo-av';
+import colors from '../../../assets/colors'
+import AppLoading from 'expo-app-loading';
+import { AntDesign } from '@expo/vector-icons'; 
+import {useNavigation} from '@react-navigation/native';
+import LottieView from 'lottie-react-native';
+
+
+const width = Dimensions.get("window").width;
+const height = width * 1.618;
+
+import { 
+    useFonts,
+    Poppins_400Regular as Regular,
+    Poppins_500Medium as Medium,
+    Poppins_600SemiBold as SemiBold,
+    Poppins_700Bold as Bold,
+    Poppins_800ExtraBold as ExtraBold,
+    Poppins_900Black as Black,
+  } from '@expo-google-fonts/poppins'
+
+const Comment = () => {
+
+    const navigation = useNavigation();
+
+    let [fontsLoaded] = useFonts({
+        Bold,
+        Regular,
+        SemiBold,
+        Medium
+      });
+      if (!fontsLoaded) {
+        return <AppLoading />;
+      } else {
+    return (
+        <>
+        <View style={styles.commentcontainer}>
+            <View style={styles.innerLeftContainer}>
+                <TouchableOpacity
+                onPress={() => navigation.navigate('ProfileOtherUser')}
+                >
+                <Image 
+                    style={styles.avatar}
+                    source={{uri: 'https://i.kym-cdn.com/photos/images/facebook/001/361/663/f12.jpg'}}
+                />
+                </TouchableOpacity>
+                <View style={styles.textContainer}>
+                    <TouchableOpacity
+                    onPress={() => navigation.navigate('ProfileOtherUser')}
+                    >
+                    <Text style={styles.username}>@username</Text>
+                    </TouchableOpacity>
+                    <Text style={styles.commentText}>Nice video sir this is a longer comment so there can be multiple lines</Text>
+                    <TouchableOpacity style={styles.likeContainer}
+                    >
+                        <AntDesign name="hearto" size={14} color={colors.gray} />
+                        <Text style={styles.numberText}>1234</Text>
+                    </TouchableOpacity>
+                </View>
+            </View>     
+        </View>
+        </>
+    )
+    }
+}
+
+export default Comment;
+
+const styles = StyleSheet.create({
+    commentcontainer: {
+        flex: 1,
+        width: '100%',
+        paddingLeft: 8,
+        paddingTop: 8,
+        paddingRight: 8,
+        backgroundColor: colors.white,
+        borderBottomWidth: 1,
+        borderBottomColor: colors.outline,
+    },
+    username: {
+        fontFamily: 'SemiBold',
+        color: colors.dark,
+        fontSize: 14,
+        marginBottom: 2,
+    },
+    commentText: {
+        fontFamily: 'Regular',
+        color: colors.dark,
+        fontSize: 14,
+    },
+    avatar: {
+        width: 46,
+        height: 46,
+        borderRadius: 50,
+        resizeMode: 'cover',
+    },
+    innerLeftContainer: {
+        flex: 1,
+        flexDirection: 'row',
+    },
+    likeContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginTop: 8,
+        paddingBottom: 8,
+    },
+    numberText: {
+        fontFamily: 'Regular',
+        fontSize: 12.5,
+        color: colors.gray,
+        marginLeft: 4,
+    },
+    textContainer: {
+        flex: 1,
+        marginLeft: 8,
+        justifyContent: 'center',
+    }
+  });

@@ -12,28 +12,17 @@ import {
   StatusBar,
   SafeAreaView,
   Image,
-  TextInput,
-  TouchableWithoutFeedback,
-  Keyboard,
-  KeyboardAvoidingView,
 } from 'react-native';
 import LottieView from 'lottie-react-native';
 import {TabView, TabBar} from 'react-native-tab-view';
-import { Video, AVPlaybackStatus } from 'expo-av';
-import { SharedElement } from 'react-navigation-shared-element';
-import { AntDesign } from '@expo/vector-icons'; 
-
-import {useAccountCollection, useAccountCreated, useFeedData} from '../../state/hooks';
-import InfoSection from '../../components/Profile/InfoSection';
-import CreatedPost from '../../components/Profile/CreatedPost';
-import CollectionPost from '../../components/Profile/CollectionPost';
-import PostBigVideo from '../../components/Home/PostBigVideo';
-import colors from '../../assets/colors';
-import posts from '../../data/posts';
-import {useNavigation} from '@react-navigation/native';
-import Comment from '../../components/Home/Comment';
-import HeaderBar from '../../components/Profile/HeaderBar';
-import PostDeetsHeader from '../../components/Home/PostDeetsHeader';
+import colors from '../../../assets/colors'
+import InfoSection from '../InfoSection';
+import InfoSectionOtherUser from '../InfoSectionOtherUser';
+import CreatedPost from '../CreatedPost';
+import CollectionPost from '../CollectionPost';
+import posts from '../../../data/posts'; 
+import {useAccountCollection, useAccountCreated, useFeedData, useWallet} from '../../../state/hooks';
+import { NFT } from '../../../utils/contract'
 
 import { 
   useFonts,
@@ -45,10 +34,10 @@ import {
   Poppins_900Black as Black,
 } from '@expo-google-fonts/poppins'
 
-const windowHeight = Dimensions.get('window').height - 80;
+const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
 const TabBarHeight = 48;
-const HeaderHeight = windowHeight;
+const HeaderHeight = 340;
 const SafeStatusBar = Platform.select({
   ios: 44,
   android: StatusBar.currentHeight,
@@ -56,12 +45,8 @@ const SafeStatusBar = Platform.select({
 const tab1ItemSize = (windowWidth - 30) / 2;
 const tab2ItemSize = (windowWidth - 40) / 3;
 
-const width = Dimensions.get("window").width;
-const height = Dimensions.get("window").height - 80;
+const CollapsibleTabViewOtherUser = () => {
 
-const PostDeets = ({route, navigation}) => {
-
-    const {item} = route.params
 
   let [fontsLoaded] = useFonts({
     Bold,
@@ -72,11 +57,10 @@ const PostDeets = ({route, navigation}) => {
   /**
    * stats
    */
-  
   const [tabIndex, setIndex] = useState(0);
   const [routes] = useState([
-    {key: 'tab1', title: 'Comments (1234)'},
-    {key: 'tab2', title: 'History'},
+    {key: 'tab1', title: '🎥 Created'},
+    {key: 'tab2', title: '👀 Collection'},
   ]);
   const [canScroll, setCanScroll] = useState(true);
 
@@ -247,89 +231,42 @@ const PostDeets = ({route, navigation}) => {
    * render Helper
    */
   const renderHeader = () => {
-    const y = scrollY.interpolate({ 
+    const y = scrollY.interpolate({
       inputRange: [0, HeaderHeight],
-      outputRange: [0, -HeaderHeight], 
+      outputRange: [0, -HeaderHeight],
       extrapolate: 'clamp',
     });
-
-    const behavior = Platform.OS === "ios" ? "position" : "";
     return (
-        <>
       <Animated.View
         {...headerPanResponder.panHandlers}
         style={[styles.header, {transform: [{translateY: y}]}]}>
-        <View style={styles.container2}>
-            <SharedElement id={item.id}>
-            <Video 
-                source={{uri: item.videoUri}}
-                resizeMode={'cover'}
-                isLooping
-                shouldPlay
-                style={styles.video2}
-                volume={0} //1 is max, just muted to listen to music while coding 
-            />
-            <View style={styles.uiContainer}>
-                    <View style={styles.infoContainer}>
-                      <View style={{justifyContent: 'flex-end'}}>
-                        <Text style={styles.title}>{item.title}</Text>
-                        <TouchableOpacity 
-                        onPress={() => navigation.navigate('ProfileOtherUser')}
-                        style={{flexDirection: 'row', alignItems: 'center'}}
-                        >
-                            <Image 
-                                style={styles.profilePictue} 
-                                source={{uri: item.user.imageUri}} 
-                            />
-                            <View style={styles.bottomContainer}>
-                                <Text ellipsizeMode='tail' style={styles.handle}>@{item.user.username}</Text>
-                            </View> 
-                        </TouchableOpacity>
-                      </View>
-                      <TouchableOpacity style={styles.rightContainer}>
-                        <Text style={styles.likes}>{item.likes}</Text>
-                        <AntDesign name="heart" size={24} color="white"/>
-                      </TouchableOpacity>
-                    </View>
-                </View>
-            </SharedElement>
-        </View>
+        <InfoSectionOtherUser />
       </Animated.View>
-      <View style={{flex: 1, position: 'absolute', width: '100%'}}>
-      <PostDeetsHeader />
-      </View>
-      <KeyboardAvoidingView
-      behavior={behavior}
-      style={{backgroundColor: colors.white, height: 80}}
-      >
-        <View style={styles.bottomBar}>
-          <Image 
-          style={styles.profilePic}
-          source={{uri: 'https://i.kym-cdn.com/photos/images/facebook/001/361/663/f12.jpg'}}
-          />
-          <TextInput 
-            style={styles.TextInput}
-            placeholder='Add a comment...'
-            keyboardType='default'
-            returnKeyType="send"
-            maxLength={80}
-          />
-        </View>
-      </KeyboardAvoidingView>
-      </>
     );
   };
 
   const renderTab1Item = ({item, index}) => {
     return (
       <View style={{flex: 1, alignItems: 'flex-start'}}>
-      <Comment post={item} />
+      <CreatedPost post={item} />
       </View>
     );
   };
 
   const renderTab2Item = ({item, index}) => {
     return (
+      // <View
+      //   style={{
+      //     marginLeft: index % 3 === 0 ? 0 : 10,
+      //     borderRadius: 16,
+      //     width: tab2ItemSize,
+      //     height: tab2ItemSize,
+      //     backgroundColor: '#aaa',
+      //     justifyContent: 'center',
+      //     alignItems: 'center', 
+      //   }}>
+      //   <Text>{index}</Text>
+      // </View>
       <View style={{flex: 1, alignItems: 'flex-start'}}>
       <CollectionPost post={item} />
       </View>
@@ -351,7 +288,7 @@ const PostDeets = ({route, navigation}) => {
     let renderItem;
     switch (route.key) {
       case 'tab1':
-        numCols = 1;
+        numCols = 3;
         data = tab1Data;
         renderItem = renderTab1Item; 
         break;
@@ -421,7 +358,7 @@ const PostDeets = ({route, navigation}) => {
           top: 0,
           zIndex: 1,
           position: 'absolute',
-          transform: [{translateY: y}], 
+          transform: [{translateY: y}],
           width: '100%',
         }}>
         <TabBar
@@ -459,28 +396,55 @@ const PostDeets = ({route, navigation}) => {
     );
   };
 
-  return (
-      <View style={styles.container}>
-        {renderTabView()} 
-        {renderHeader()}
-      </View>   
+  const [balance, setBalance] = useState(1)
+  const wallet = useWallet()
+  useEffect(() => {
+    (async () => {
+      setBalance(JSON.parse(await NFT.balanceOf(wallet.address.toString())))
+    })()
+  })
+  if (balance == 0 ) {
+    return (
+    <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
+    <View style={styles.container}>
+      {renderTabView()} 
+      {renderHeader()}
+    </View>
+
+    {/* Render 'created component' if user has not created anything and
+    render 'collection component' if user has not collected anything*/}
+
+     {/* BEGIN EMPTY CREATED COMPONENT*/}
+      
+    </SafeAreaView>
   );
+  } else {
+    return (
+    <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
+    <View style={styles.container}>
+      {renderTabView()} 
+      {renderHeader()}
+    </View>
+    </SafeAreaView>
+    )
+  }
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    marginTop: 40,
     backgroundColor: colors.white
   },
   header: {
-    height,
+    height: HeaderHeight,
     width: '100%',
     position: 'absolute',
   },
   label: {
-    fontSize: 14, 
+    fontSize: 15, 
     color: colors.dark, 
-    fontFamily: 'Medium',
+    fontFamily: 'SemiBold',
   },
   tab: {
     elevation: 0,
@@ -513,95 +477,12 @@ const styles = StyleSheet.create({
     height: 40,
     marginBottom: 4,
     alignSelf: 'center',
-  }, 
+  },
   downLottieCreated2: {
     height: 40,
     marginBottom: 4,
     marginLeft: 6,
-  },
-  container2: {
-    flex: 1,
-    backgroundColor: colors.white,
-  },
-  video2: {
-      width,
-      height,
-      backgroundColor: colors.black,
-      position: 'absolute',
-  },
-  bottomBar: {
-    backgroundColor: colors.white,
-    paddingTop: 4,
-    paddingLeft: 8,
-    paddingRight: 8,
-    flexDirection: 'row',
-    height: 80,
-  },
-  profilePic: {
-    width: 38,
-    height: 38,
-    borderRadius: 50,
-    resizeMode: 'cover',
-  },
-  TextInput: {
-    flex: 1, 
-    height: 38, 
-    borderWidth: 1,
-    borderColor: colors.outline,
-    marginLeft: 8,
-    marginRight: 4,
-    borderRadius: 4,
-    backgroundColor: colors.lightest,
-    paddingLeft: 8,
-  },
-  uiContainer: {
-    height,
-    width,
-    paddingLeft: 10,
-    paddingBottom: 10,
-    paddingRight: 10,
-  },
-  rightContainer: {
-      alignSelf: 'flex-end',
-      flexDirection: 'row',
-      justifyContent: 'flex-end',
-      alignItems: 'flex-end',
-      marginTop: 4,
-  },
-  bottomContainer: {
-      justifyContent: 'flex-end',
-      marginLeft: 4,
-  },
-  infoContainer: {
-      flexDirection: 'row',
-      height: '100%',
-      justifyContent: 'space-between',
-  },
-  title: {
-      width: '100%',
-      fontSize: 14,
-      color: colors.white,
-      fontFamily: 'Medium',
-      marginBottom: 4,
-  },
-  handle: {
-      fontSize: 14,
-      fontFamily: 'Bold',
-      color: colors.lightest,
-  },
-  profilePictue: {
-      width: 30,
-      height: 30,
-      borderRadius: 50,
-      borderWidth: 1,
-      borderColor: colors.white
-  },
-  likes: {
-      color: colors.white,
-      marginRight: 6,
-      fontFamily: 'SemiBold',
-      fontSize: 16,
   }
 });
 
-export default PostDeets;
+export default CollapsibleTabViewOtherUser;

@@ -8,8 +8,8 @@ import {useNavigation} from '@react-navigation/native';
 import { SharedElement } from 'react-navigation-shared-element';
 
 
-const width = Dimensions.get("window").width - 2;
-const height = width * 1.618;
+const width = Dimensions.get("window").width /2 - 2;
+const height = width * 1.8;
 
 import { 
     useFonts,
@@ -47,7 +47,7 @@ const Post = (props) => {
                 <Video 
                     source={{uri: post.videoUri}}
                     // isLooping
-                    // shouldPlay
+                    // shouldPlay 
                     resizeMode={'cover'}
                     style={styles.video}
                 />
@@ -84,13 +84,13 @@ const styles = StyleSheet.create({
         width: '100%',
         height: '100%',
         position: 'absolute',
-        borderRadius: 8,
+        borderRadius: 2,
     },
     videoContainer: {
         width,
         height,
         marginHorizontal: 1,
-        marginBottom: 8,
+        marginBottom: 2,
     },
     uiContainer: {
         height,

@@ -26,6 +26,16 @@ const posts = useFeedData()
 const wallet = useWallet()
 fetchAccountInfo(wallet.address.toString())
 
+// const ListHeader = () => {
+//     return (
+//         <View style={{marginTop: 60}}>
+//             <View style={{height: 30}}>
+//                 <Text>Sort section (under const.)</Text>
+//             </View>
+//         </View>
+//     )
+// }
+
 return (
     <View style={styles.container}>
         <Animated.View
@@ -40,8 +50,9 @@ return (
         </Animated.View>
         <SafeAreaView style={styles.content}>
             <FlatList 
+            // ListHeaderComponent={ListHeader}
             data={posts} 
-            numColumns={1}
+            numColumns={2}
             initialNumToRender={6}
             showsVerticalScrollIndicator={false}
             renderItem={({item}) => (
