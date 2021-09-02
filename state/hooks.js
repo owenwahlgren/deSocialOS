@@ -33,11 +33,14 @@ export const loadWallet = () => {
 //sets given wallet to state and persisted storage
 export const setWallet = (wallet) => {
 	const dispatch = useDispatch()
-	dispatch(saveWallet(wallet))
+	useEffect(() => {
+		dispatch(saveWallet(wallet))
+	}, [dispatch])
 }
 
 //uses wallet from state
 export const useWallet = () => {
+	
 	const key = useSelector((state) => state.wallet.private_key)
 	if (key != null) {
 		return createWalletFromKey(key)

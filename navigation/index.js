@@ -37,7 +37,7 @@ const Navigator = ({navigation}) => {
   
   return (
       <NavigationContainer>
-        <Stack.Navigator screenOptions={{headerShown: false}} initialRouteName={"StartScreen"}>
+        <Stack.Navigator screenOptions={{headerShown: false}} initialRouteName={"HomeTabs"}>
           <Stack.Screen name="HomeTabs" component={BottomTabNavigator} />
           <Stack.Screen name="StartScreen" component={StartScreen} />
           <Stack.Screen name="CreateWalletScreen" component={CreateWalletScreen} />

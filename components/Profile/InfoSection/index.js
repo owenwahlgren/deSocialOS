@@ -26,7 +26,7 @@ export default function InfoSection() {
   const ipfs = info[2] || ""
   const following = info[3] || 0
   const followers = info[4] || 0
-  const pfp = 'https://ipfs.io/ipfs/' + ipfs
+  const pfp = 'http://45.63.64.72:8080/ipfs/' + ipfs
 
   const navigation = useNavigation();
 

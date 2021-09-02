@@ -46,8 +46,8 @@ const Post = (props) => {
  
                 <Video 
                     source={{uri: post.videoUri}}
-                    // isLooping
-                    // shouldPlay 
+                    isLooping
+                    shouldPlay 
                     resizeMode={'cover'}
                     style={styles.video}
                 />
