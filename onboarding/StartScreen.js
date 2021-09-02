@@ -27,11 +27,11 @@ const buttonWidth = Dimensions.get("window").width - 32;
 
 export default function StartScreen() {
     const navigation = useNavigation();
-    const wallet = useWallet()
-    console.log(wallet)
-    if (wallet != null) {
-        navigation.navigate("HomeTabs")
-    }
+    // const wallet = useWallet()
+    // console.log(wallet)
+    // if (wallet != null) {
+    //     navigation.navigate("HomeTabs")
+    // }
 
     let [fontsLoaded] = useFonts({
         Bold,

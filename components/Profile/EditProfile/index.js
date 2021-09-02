@@ -33,7 +33,7 @@ export default function EditProfile({route}) {
     const [username, setUsername] = useState(data[0] || "")
     const [bio, setBio] = useState(data[1] || "")
     const [ipfs, setIPFS] = useState(data[2] || "")
-    const [image, setImage] = useState('https://ipfs.io/ipfs/' + ipfs);
+    const [image, setImage] = useState('http://45.63.64.72:8080/ipfs/' + ipfs);
     const wallet = useWallet()
     const signer = wallet.connect(provider)
     const SOCIAL = new ethers.Contract(SOCIAL_ADDRESS, SOCIAL_ABI, signer)
@@ -86,7 +86,7 @@ export default function EditProfile({route}) {
             <View style={{flex: 1}}>
                 {image &&
                     <Image
-                    source={{uri: "https://ipfs.io/ipfs/" + ipfs}}
+                    source={{uri: "http://45.63.64.72:8080/ipfs/" + ipfs}}
                     style={styles.profileImage}
                     />
                 }

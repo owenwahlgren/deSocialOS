@@ -8,17 +8,23 @@ import CameraScreen from '../screens/Camera'
 import colors from '../assets/colors'
 import MessagesScreen from '../screens/Messages';
 import WalletScreen from '../screens/Wallet';
-
+import {fetchFeed, useWallet } from '../state/hooks'
+import {useNavigation} from '@react-navigation/native';
+import {StartScreen} from '../onboarding/StartScreen'
+import { useState } from 'react'
 const Tab = createBottomTabNavigator();
 
 export default function BottomTabNavigator() {
+  // if (wallet == null) {
+  //   navigation.navigate("StartScreen")
+  // }
   return (
       <Tab.Navigator
         screenOptions={({ route }) => ({
           tabBarIcon: ({ focused, color, size }) => {
             let iconName;
-
             if (route.name === 'Home') {
+              fetchFeed()
               iconName = focused
                 ? require('../assets/images/HomeActive.png')
                 : require('../assets/images/HomeInactive.png');

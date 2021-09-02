@@ -1,37 +1,35 @@
 import { PINATA_KEY, PINATA_SECRET } from "@env"
 
-const pinUrl = "https://api.pinata.cloud/pinning/pinFileToIPFS";
-
+// note: api key must be changed and added to env by production
 export const pinToIPFS = async (filename, fileURI, type="mp4") => {
 
 	let hash;
 	let formData = new FormData()
 	if (type == "jpg") {
-		formData.append("file", {
-		name: filename + '.jpg',
+		formData.append(filename, {
+		name: filename,
 		uri: fileURI,
 		type: 'image/jpg'
 		})
 	}
 	else {
-		formData.append("file", {
-		name: filename + '.mp4',
+		formData.append(filename, {
+		name: filename,
 		uri: fileURI,
 		type: 'video/mp4'
 		})
 	}
+	const pinUrl = "http://45.63.64.72/api/pinToIPFS?filename=" + filename
 	await fetch(pinUrl, {
 		method: "post",
 		headers: {
 			'Content-Type': 'multipart/form-data',
-			pinata_api_key: PINATA_KEY,
-			pinata_secret_api_key: PINATA_SECRET,
+			key: "apikey",
 			},
 		body: formData,
 	}).then(async function(response) {
-		console.log(response)
 		const js = await response.json()
-		hash = js.IpfsHash
+		hash = js
 	})
 
 	return hash;

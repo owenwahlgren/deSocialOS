@@ -23,8 +23,7 @@ const translateY = diffClamp.interpolate ({
 
 fetchFeed()
 const posts = useFeedData()
-const wallet = useWallet()
-fetchAccountInfo(wallet.address.toString())
+
 
 // const ListHeader = () => {
 //     return (

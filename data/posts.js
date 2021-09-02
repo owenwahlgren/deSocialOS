@@ -1,4 +1,4 @@
-import { NFT } from '../utils/contract.js'
+import { NFT, SOCIAL } from '../utils/contract.js'
 
 async function fetchFeedData() {
 
@@ -11,19 +11,22 @@ async function fetchFeedData() {
       const creator = result[2];
       const timestamp = JSON.parse(result[3]);
       const likes = JSON.parse(result[4]);
+      const amountComments = JSON.parse(result[5])
+
+      const userInfo = await SOCIAL.viewProfile(creator)
 
       const data = {
         id: supply,
         videoUri:
-          'https://ipfs.io/ipfs/' + ipfsHash,
+          'http://45.63.64.72:8080/ipfs/' + ipfsHash,
         user: {
           id: creator,
-          username: creator.substring(0,9),
-          imageUri: null
+          username: userInfo[0] || creator.substring(0,9),
+          imageUri: "http://45.63.64.72:8080/ipfs/" + userInfo[2]
         },
         title: title,
         likes: likes,
-        comments: 0,
+        comments: amountComments,
         shares: 100,
       };
 
@@ -48,19 +51,21 @@ async function fetchAccountCollected(address) {
       const ipfsHash = result[1];
       const timestamp = JSON.parse(result[3]);
       const likes = JSON.parse(result[4]);
+      const amountComments = JSON.parse(result[5])
+      const userInfo = await SOCIAL.viewProfile(creator)
 
       const data = {
         id: supply,
         videoUri:
-          'https://ipfs.io/ipfs/' + ipfsHash,
+          'http://45.63.64.72:8080/ips/' + ipfsHash,
         user: {
           id: creator,
-          username: creator.substring(0,9),
-          imageUri: null
+          username: userInfo[0] || creator.substring(0,9),
+          imageUri: "http://45.63.64.72:8080/ipfs/" + userInfo[2]
         },
         title: title,
         likes: likes,
-        comments: 0,
+        comments: amountComments,
         shares: 100,
       };
 
@@ -93,19 +98,21 @@ async function fetchAccountCreated(address) {
         const ipfsHash = result[1];
         const timestamp = JSON.parse(result[3]);
         const likes = JSON.parse(result[4]);
-
+        const amountComments = JSON.parse(result[5])
+        const userInfo = await SOCIAL.viewProfile(creator)
+        
         const data = {
           id: supply,
           videoUri:
-            'https://ipfs.io/ipfs/' + ipfsHash,
+            'http://45.63.64.72:8080/ipfs/' + ipfsHash,
           user: {
             id: creator,
-            username: creator.substring(0,9),
-            imageUri: null
+            username: userInfo[0] || creator.substring(0,9),
+            imageUri: "http://45.63.64.72:8080/ipfs/" + userInfo[2]
           },
           title: title,
           likes: likes,
-          comments: 0,
+          comments: amountComments,
           shares: 100,
         };
 
