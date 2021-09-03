@@ -18,8 +18,8 @@ import {TabView, TabBar} from 'react-native-tab-view';
 import colors from '../../../assets/colors'
 import InfoSection from '../../Profile/InfoSection';
 import TopSection from '../../Wallet/TopSection';
-import CreatedPost from '../../Profile/CreatedPost';
-import CollectionPost from '../../Profile/CollectionPost';
+import Asset from '../Asset';
+import Activity from '../Activity';
 import posts from '../../../data/posts'; 
 import {useAccountCollection, useAccountCreated, useFeedData, useWallet} from '../../../state/hooks';
 import { NFT } from '../../../utils/contract'
@@ -37,7 +37,7 @@ import {
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
 const TabBarHeight = 48;
-const HeaderHeight = 340;
+const HeaderHeight = 300;
 const SafeStatusBar = Platform.select({
   ios: 44,
   android: StatusBar.currentHeight,
@@ -248,7 +248,7 @@ const WalletCollapsibleTabView = () => {
   const renderTab1Item = ({item, index}) => {
     return (
       <View style={{flex: 1, alignItems: 'flex-start'}}>
-      <CreatedPost post={item} />
+      <Asset post={item} /> 
       </View>
     );
   };
@@ -268,7 +268,7 @@ const WalletCollapsibleTabView = () => {
       //   <Text>{index}</Text>
       // </View>
       <View style={{flex: 1, alignItems: 'flex-start'}}>
-      <CollectionPost post={item} />
+      <Activity post={item} />
       </View>
     );
   };

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { View, Text, SafeAreaView, StyleSheet, Animated, TouchableOpacityComponent, TouchableOpacity } from 'react-native'
+import { View, Text, SafeAreaView, StyleSheet, Animated, TouchableOpacityComponent, TouchableOpacity, Button } from 'react-native'
 import { Video, AVPlaybackStatus } from 'expo-av';
 import colors from '../../assets/colors'
 import HeaderBar from '../../components/Messages/HeaderBar'
@@ -10,10 +10,13 @@ import {
     nodeFromRef
   } from 'react-native-shared-element';
 
-export default function MessagesScreen() {
+export default function MessagesScreen({navigation}) {
     return (
         <SafeAreaView style={{flex: 1, backgroundColor: colors.white}}>
         <HeaderBar />
+        <View style={{flex: 1, justifyContent: 'center'}}>
+            <Button title="Open Alert" onPress={() => navigation.navigate('TsxPending')} />
+        </View> 
         </SafeAreaView>
     )
 }

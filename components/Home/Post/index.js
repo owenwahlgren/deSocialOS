@@ -50,6 +50,7 @@ const Post = (props) => {
                     shouldPlay 
                     resizeMode={'cover'}
                     style={styles.video}
+                    volume={0}
                 />
                 
                 <View style={styles.uiContainer}>

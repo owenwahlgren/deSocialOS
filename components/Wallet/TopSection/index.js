@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, Image, Button, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, Image, Button, TouchableOpacity, TouchableHighlight } from 'react-native';
 import AppLoading from 'expo-app-loading';
 import colors from '../../../assets/colors'
 import {useFeedData} from '../../../state/hooks'
@@ -41,40 +41,15 @@ export default function TopSection() {
   } else {
     return (
         <View style={styles.container}>
-          <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-around',
-              alignItems: 'center',
-              marginTop: 32,
-            }}>
-            <View style={{alignItems: 'center', paddingRight: 32}}>
-              <Text style={styles.numbers}>{followers}</Text>
-              <Text style={styles.numberLabels}>Followers</Text>
-            </View>
-            <Image
-              source={{
-                uri: pfp
-              }}
-              style={styles.profileImage}
-            />
-            <View style={{alignItems: 'center', paddingLeft: 32}}>
-              <Text style={styles.numbers}>{following}</Text>
-              <Text style={styles.numberLabels}>Following</Text>
-            </View>
+          <Text style={styles.bigText}>$30,204.09</Text>
+          <View style={styles.buttonsContainer}>
+            <TouchableOpacity style={styles.button}>
+              <Text style={styles.buttonText}>Send</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.button}>
+              <Text style={styles.buttonText}>Recieve</Text>
+            </TouchableOpacity>
           </View>
-          <View style={{marginTop: 16}}>
-              <Text style={styles.username}>@{username || wallet.address.toString().substring(0,16)}</Text>
-          </View>
-          <View style={{marginTop: 8, marginHorizontal: 60}}>
-              <Text style={styles.bio}>{bio}</Text>
-          </View>
-          <TouchableOpacity 
-          style={styles.button}
-          onPress={() => navigation.navigate('EditProfile')}
-          >
-              <Text style={{fontFamily: 'Regular', fontSize: 15, color: colors.dark}}>Edit Profile</Text>
-          </TouchableOpacity>
         </View>
     );
   }
@@ -83,47 +58,40 @@ export default function TopSection() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.white,
     alignItems: 'center',
     justifyContent: 'center',
   },
-  numbers: {
-    fontFamily: 'Bold',
-    fontSize: 18,
-    color: colors.dark
-  },
-  numberLabels: {
-    fontFamily: 'Regular',
-    fontSize: 13,
-    color: colors.gray
-  },
-  profileImage: {
-    width: 90,
-    height: 90,
-    borderRadius: 50,
-    resizeMode: 'cover',
-  },
-  username: {
-    fontFamily: 'SemiBold',
-    fontSize: 16,
-    color: colors.dark
-  },
-  bio: {
-    fontFamily: 'Regular',
-    fontSize: 13,
-    color: colors.dark,
-    textAlign: 'center',
+  buttonsContainer: {
+    flexDirection: 'row',
   },
   button: {
-    borderWidth: 1,
-    borderRadius: 6,
-    borderColor: colors.outline,
-    marginTop: 24,
-    marginBottom: 24,
-    paddingVertical: 8,
-    width: 180,
+    width: 160,
     height: 48,
+    backgroundColor: colors.dark,
+    borderRadius: 6,
     alignItems: 'center',
     justifyContent: 'center',
+    marginLeft: 8,
+    marginRight: 8, 
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.3,
+    shadowRadius: 5,
+
+    elevation: 5,
+  },
+  bigText: {
+    fontFamily: 'Medium',
+    fontSize: 32,
+    color: colors.dark,
+    marginBottom: 64,
+  },
+  buttonText: {
+    fontFamily: 'Medium',
+    color: colors.lightest,
+    fontSize: 15,
   }
 });

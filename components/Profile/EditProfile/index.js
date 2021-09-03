@@ -30,8 +30,8 @@ import { ScrollView } from 'react-native-gesture-handler';
 
 export default function EditProfile({route}) {
     const data = useAccountInfo()
-    const [username, setUsername] = useState(data[0] || "")
-    const [bio, setBio] = useState(data[1] || "")
+    const [username, setUsername] = useState(data[0] || "Enter your username")
+    const [bio, setBio] = useState(data[1] || "Enter your bio")
     const [ipfs, setIPFS] = useState(data[2] || "")
     const [image, setImage] = useState('http://45.63.64.72:8080/ipfs/' + ipfs);
     const wallet = useWallet()

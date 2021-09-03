@@ -18,6 +18,7 @@ import CollapsibleTabView from '../../components/Profile/CollapsibleTabView';
 
 const ProfileScreen = () => {
   const wallet = useWallet()
+  console.log(wallet)
   fetchAccountCollection(wallet.address.toString())
   fetchAccountCreated(wallet.address.toString())
   fetchAccountInfo(wallet.address.toString())

@@ -267,7 +267,6 @@ const PostDeets = ({route, navigation}) => {
                 isLooping
                 shouldPlay
                 style={styles.video2}
-                volume={0} //1 is max, just muted to listen to music while coding 
             />
             <View style={styles.uiContainer}>
                     <View style={styles.infoContainer}>

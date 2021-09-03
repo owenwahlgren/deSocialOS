@@ -29,7 +29,7 @@ export default function WalletScreen() {
             setBalance(JSON.parse(await provider.getBalance(wallet.address.toString()) / 10 ** 18))
         })();   
     }) 
-    
+
     return (
         <>
         <View style={{position: 'absolute', flex: 1, width: '100%', zIndex: 100}}>

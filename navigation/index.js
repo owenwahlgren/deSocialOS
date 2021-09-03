@@ -19,11 +19,9 @@ import CreatePost from '../screens/CreatePost';
 import HomeScreen from '../screens/Home';
 import PostDeets from '../screens/PostDeets';
 import ProfileOtherUser from '../screens/ProfileOtherUser';
+import TsxPending from '../components/Alerts/TsxPending'
 
-
-import { createSharedElementStackNavigator } from 'react-navigation-shared-element';
-
-const Stack = createSharedElementStackNavigator();
+const Stack = createStackNavigator();
 
 const forFade = ({ current }) => ({
   cardStyle: {
@@ -37,7 +35,12 @@ const Navigator = ({navigation}) => {
   
   return (
       <NavigationContainer>
-        <Stack.Navigator screenOptions={{headerShown: false}} initialRouteName={"HomeTabs"}>
+        <Stack.Navigator 
+        initialRouteName={"HomeTabs"} 
+        screenOptions={{
+          headerShown: false,
+        }} 
+        >
           <Stack.Screen name="HomeTabs" component={BottomTabNavigator} />
           <Stack.Screen name="StartScreen" component={StartScreen} />
           <Stack.Screen name="CreateWalletScreen" component={CreateWalletScreen} />
@@ -51,6 +54,32 @@ const Navigator = ({navigation}) => {
           <Stack.Screen name="CreatePost" component={CreatePost} options={{gestureEnabled: false}}/>
           <Stack.Screen name="HomeScreen" component={HomeScreen} />
           <Stack.Screen name="ProfileOtherUser" component={ProfileOtherUser} />
+          <Stack.Screen 
+          name="TsxPending"
+          component={TsxPending} 
+          options={{
+            animationEnabled: true,
+            cardStyle: {backgroundColor: 'rgba(0,0,0,.15)'}, 
+            cardOverlayEnabled: true,
+            cardStyleInterpolator: ({current: {progress}}) => {
+              return {
+                cardStyle: {
+                  opacity: progress.interpolate({
+                    inputRange: [0, 0.5, 0.9, 1],
+                    outputRange: [0, 0.25, 0.7, 1]
+                  })
+                },
+                overlayStyle: {
+                  opacity: progress.interpolate({
+                    inputRange: [0, 1],
+                    outputRange: [0, .5],
+                    extrapolate: 'clamp',
+                  })
+                }
+              };
+            }
+          }}
+          />
           <Stack.Screen 
           name="PostDeets" 
           component={PostDeets} 

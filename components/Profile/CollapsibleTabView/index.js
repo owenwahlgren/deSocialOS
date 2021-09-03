@@ -422,7 +422,7 @@ const CollapsibleTabView = () => {
         style={styles.downLottieCreated}
         source={require('../../../assets/lottie/16234-down-arrow.json')}
         autoPlay
-        loop
+        loop 
       />
       {/* END EMPTY CREATED COMPONENT */}
 
