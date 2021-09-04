@@ -35,6 +35,7 @@ export default function WalletScreen() {
         <>
         <View style={{position: 'absolute', flex: 1, width: '100%', zIndex: 100}}>
         <HeaderBar />
+        <BottomBar />
         </View>
         <WalletCollapsibleTabView />
         </>

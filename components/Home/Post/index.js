@@ -42,6 +42,11 @@ const Post = (props) => {
                 onPress={()=>navigation.push('PostDeets', {post})}  
                 // onPressIn={()=>console.log(post.id)}
                 > */}
+                <Image 
+                    source={require('../../../assets/images/loadingLogo.png')}
+                    resizeMode='cover'
+                    style={styles.image}
+                />
                 
  
                 <Video 
@@ -88,6 +93,11 @@ const styles = StyleSheet.create({
         height: '100%',
         position: 'absolute',
         borderRadius: 2,
+    },
+    image: {
+        width: '100%',
+        height: '100%',
+        position: 'absolute',
     },
     videoContainer: {
         width,

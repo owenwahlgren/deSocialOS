@@ -12,7 +12,7 @@ import {
     Poppins_600SemiBold as SemiBold,
     Poppins_700Bold as Bold,
     Poppins_800ExtraBold as ExtraBold,
-    Poppins_900Black as Black,
+    Poppins_900Black as Black, 
   } from '@expo-google-fonts/poppins';
 
 import { color } from 'react-native-reanimated';
@@ -37,11 +37,9 @@ export default function BottomBar() {
         return <AppLoading />;
       } else {
     return (
-        <SafeAreaView style={{backgroundColor: colors.white}}>
             <View style={styles.container}>
                 <Text>uhdoiuhdoiud</Text>
             </View>
-        </SafeAreaView>
     )
     }
 }
@@ -49,7 +47,7 @@ export default function BottomBar() {
 const styles = StyleSheet.create({
     container: {
         height: 40,
-        backgroundColor: colors.white,
+        backgroundColor: colors.primary,
         flexDirection: 'row',
         marginRight: 16,
         marginLeft: 16,
