@@ -94,6 +94,7 @@ const styles = StyleSheet.create({
         height,
         marginHorizontal: 1,
         marginBottom: 2,
+        backgroundColor: colors.black,
     },
     uiContainer: {
         height,

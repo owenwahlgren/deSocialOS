@@ -3,7 +3,7 @@ import { fetchFeedDataAsync, loadWalletAsync, saveWallet, fetchCollected, fetchC
 import { createWalletFromKey } from '../utils/wallet'
 import { useEffect } from 'react'
 
-//FEED
+//FEED 
 
 //fetch feed and set to state
 export const fetchFeed = () => {
