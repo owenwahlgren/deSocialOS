@@ -24,8 +24,7 @@ import {
 const Comment = (item) => {
 
     const navigation = useNavigation();
-    console.log(item)
-
+    
     const address = item.post.id
     const imageUri = item.post.imageUri
     const username = item.post.username

@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import "@ethersproject/shims";
+import { ethers } from "ethers";
 import {View, Text, StyleSheet, Dimensions, TouchableOpacity, Image} from 'react-native';
 import { Video, AVPlaybackStatus } from 'expo-av';
 import colors from '../../../assets/colors'
@@ -6,8 +8,8 @@ import AppLoading from 'expo-app-loading';
 import { AntDesign } from '@expo/vector-icons'; 
 import {useNavigation} from '@react-navigation/native';
 import { SharedElement } from 'react-navigation-shared-element';
-
-
+import { useWallet } from '../../../state/hooks'
+import { NFT_Address, NFT_ABI, provider } from '../../../utils/contract';
 const width = Dimensions.get("window").width /2 - 2;
 const height = width * 1.8;
 
@@ -24,6 +26,19 @@ import {
 const Post = (props) => {
 
     const navigation = useNavigation();
+    const wallet = useWallet()
+    const signer = wallet.connect(provider)
+    const NFT = new ethers.Contract(NFT_Address, NFT_ABI, signer)
+    const [color, setColor] = useState('white')
+    const [likes, setLikes] = useState(props.post.likes)
+    useEffect(() => {
+        (async () => {
+            const likeStatus = await NFT.userLiked(props.post.id, wallet.address)
+            if (likeStatus == true) {
+                setColor('red')
+            }
+        })()
+    })
 
     const {post} = props;
 
@@ -60,10 +75,24 @@ const Post = (props) => {
                 
                 <View style={styles.uiContainer}>
                     <View style={styles.topContainer}>
-                        <Text style={styles.likes}>{post.likes}</Text>
-                        <AntDesign name="heart" size={16} color="white" style={{marginTop: 1}} onPress={() => {
-                            console.log("heart!!")
+                        <Text style={styles.likes}>{likes}</Text>
+                        <AntDesign name="heart" size={16} color={color} style={{marginTop: 1}} onPress={async () => {
+                            setColor('blue')
+                            const tx = await NFT.like(props.post.id)
+                            console.log('post liked!\t waiting tx...')
+                            await tx.wait()
+                            console.log('tx mined')
+                            if (color == 'red') {
+                                setColor('white')
+                                setLikes(likes - 1)
+                              }
+                              else {
+                                setColor('red')
+                                setLikes(likes + 1)
+                              }
                         }}/>
+
+
                     </View>
                     <View style={styles.infoContainer}>
                         <Text ellipsizeMode='tail' numberOfLines={2} style={styles.title}>{post.title}</Text>

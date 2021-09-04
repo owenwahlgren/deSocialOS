@@ -249,11 +249,20 @@ const PostDeets = ({route, navigation}) => {
 
 
   const [comment, setComment] = useState("");
+  const [color, setColor] = useState("white")
   const wallet = useWallet()
   const signer = wallet.connect(provider)
   const NFT = new ethers.Contract(NFT_Address, NFT_ABI, signer)
   const comments = route.params.item.comments
 
+  useEffect(() => {
+    (async () => {
+        const likeStatus = await NFT.userLiked(item.id, wallet.address)
+        if (likeStatus == true) {
+            setColor('red')
+        }
+    })()
+})
 
   /**
    * render Helper
@@ -299,7 +308,19 @@ const PostDeets = ({route, navigation}) => {
                       </View>
                       <TouchableOpacity style={styles.rightContainer}>
                         <Text style={styles.likes}>{item.likes}</Text>
-                        <AntDesign name="heart" size={24} color="white"/>
+                        <AntDesign name="heart" size={24} color={color} onPress={async () => {
+                            setColor('blue')
+                            const tx = await NFT.like(item.id)
+                            console.log('post liked!\t waiting tx...')
+                            await tx.wait()
+                            console.log('tx mined')
+                            if (color == 'red') {
+                              setColor('white')
+                            }
+                            else {
+                              setColor('red')
+                            }
+                        }}/>
                       </TouchableOpacity>
                     </View>
                 </View>
