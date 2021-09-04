@@ -34,10 +34,10 @@ import {
   Poppins_900Black as Black,
 } from '@expo-google-fonts/poppins'
 
-const windowHeight = Dimensions.get('window').height;
+const windowHeight = Dimensions.get('window').height + 100;
 const windowWidth = Dimensions.get('window').width;
 const TabBarHeight = 48;
-const HeaderHeight = 300;
+const HeaderHeight = 40;
 const SafeStatusBar = Platform.select({
   ios: 44,
   android: StatusBar.currentHeight,
@@ -237,17 +237,16 @@ const WalletCollapsibleTabView = () => {
       extrapolate: 'clamp',
     });
     return (
-      <Animated.View
-        {...headerPanResponder.panHandlers}
-        style={[styles.header, {transform: [{translateY: y}]}]}>
-        <TopSection />
-      </Animated.View>
+      <View
+        style={styles.header}>
+        {/* <TopSection /> */}
+      </View>
     );
   };
 
   const renderTab1Item = ({item, index}) => {
     return (
-      <View style={{flex: 1, alignItems: 'flex-start'}}>
+      <View style={{flex: 1, alignItems: 'flex-start', backgroundColor: colors.lightest}}>
       <Asset post={item} /> 
       </View>
     );
@@ -255,19 +254,7 @@ const WalletCollapsibleTabView = () => {
 
   const renderTab2Item = ({item, index}) => {
     return (
-      // <View
-      //   style={{
-      //     marginLeft: index % 3 === 0 ? 0 : 10,
-      //     borderRadius: 16,
-      //     width: tab2ItemSize,
-      //     height: tab2ItemSize,
-      //     backgroundColor: '#aaa',
-      //     justifyContent: 'center',
-      //     alignItems: 'center', 
-      //   }}>
-      //   <Text>{index}</Text>
-      // </View>
-      <View style={{flex: 1, alignItems: 'flex-start'}}>
+      <View style={{flex: 1, alignItems: 'flex-start', backgroundColor: colors.lightest}}>
       <Activity post={item} />
       </View>
     );
@@ -275,7 +262,7 @@ const WalletCollapsibleTabView = () => {
 
   const renderLabel = ({route, focused}) => {
     return (
-      <Text style={[styles.label, {opacity: focused ? 1 : 0.5}]}>
+      <Text style={[styles.label, {color: focused ? colors.dark : colors.lightGray}]}>
         {route.title}
       </Text>
     );
@@ -349,7 +336,7 @@ const WalletCollapsibleTabView = () => {
   const renderTabBar = (props) => {
     const y = scrollY.interpolate({
       inputRange: [0, HeaderHeight],
-      outputRange: [HeaderHeight, 0],
+      outputRange: [HeaderHeight, 40],
       extrapolate: 'clamp',
     });
     return (
@@ -403,17 +390,6 @@ const WalletCollapsibleTabView = () => {
       setBalance(JSON.parse(await NFT.balanceOf(wallet.address.toString())))
     })()
   })
-  if (balance == 0 ) {
-    return (
-    <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
-    <View style={styles.container}>
-      {renderTabView()} 
-      {renderHeader()}
-    </View>
-      
-    </SafeAreaView>
-  );
-  } else {
     return (
     <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
     <View style={styles.container}>
@@ -422,19 +398,17 @@ const WalletCollapsibleTabView = () => {
     </View>
     </SafeAreaView>
     )
-  }
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: 40,
+    marginTop: 60,
     backgroundColor: colors.white
   },
   header: {
     height: HeaderHeight,
     width: '100%',
-    position: 'absolute',
   },
   label: {
     fontSize: 15, 

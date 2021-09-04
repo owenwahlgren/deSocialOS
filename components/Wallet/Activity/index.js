@@ -118,8 +118,12 @@ const styles = StyleSheet.create({
         width: '100%',
         paddingLeft: 12,
         paddingTop: 10, 
+        marginTop: 2,
         paddingBottom: 10,  
         paddingRight: 12,
+        backgroundColor: colors.white
+        // borderBottomWidth: 1,
+        // borderBottomColor: colors.outline
     },
     tokenName: {
         fontFamily: 'Regular',

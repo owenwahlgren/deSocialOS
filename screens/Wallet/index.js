@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { View, Text, SafeAreaView, StyleSheet, ScrollView } from 'react-native'
 import colors from '../../assets/colors'
-import HeaderBar from '../../components/Wallet/HeaderBar'
 import BottomBar from '../../components/Wallet/BottomBar'
+import TopSection from '../../components/Wallet/TopSection';
 import { useWallet } from '../../state/hooks'
 import { provider } from '../../utils/contract'
 
@@ -34,7 +34,9 @@ export default function WalletScreen() {
     return (
         <>
         <View style={{position: 'absolute', flex: 1, width: '100%', zIndex: 100}}>
-        <HeaderBar />
+        <TopSection />
+        </View>
+        <View style={{position: 'absolute', bottom: 0, width: '100%', zIndex: 100, justifyContent: 'flex-end'}}>
         <BottomBar />
         </View>
         <WalletCollapsibleTabView />

@@ -102,6 +102,7 @@ const styles = StyleSheet.create({
     height: 90,
     borderRadius: 50,
     resizeMode: 'cover',
+    backgroundColor: colors.outline,
   },
   username: {
     fontFamily: 'SemiBold',

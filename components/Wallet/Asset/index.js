@@ -36,7 +36,7 @@ const Asset = () => {
       } else {
     return (
         <>
-        <View style={styles.assetContainer}>
+        <TouchableOpacity style={styles.assetContainer}>
             <View style={styles.innerLeftContainer}>
                 <TouchableOpacity
                 onPress={() => navigation.navigate('ProfileOtherUser')}
@@ -57,7 +57,7 @@ const Asset = () => {
                     </View>
                 </View>
             </View>     
-        </View>
+        </TouchableOpacity>
         </>
     )
     }
@@ -70,8 +70,9 @@ const styles = StyleSheet.create({
         flex: 1,
         width: '100%',
         paddingLeft: 12,
-        paddingTop: 10,
-        paddingBottom: 10,
+        paddingTop: 10, 
+        marginTop: 2,
+        paddingBottom: 10,  
         paddingRight: 12,
         backgroundColor: colors.white,
     },

@@ -1,12 +1,13 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, Image, Button, TouchableOpacity, TouchableHighlight } from 'react-native';
+import { StyleSheet, Text, View, Image, Button, TouchableOpacity, TouchableHighlight, SafeAreaView } from 'react-native';
 import AppLoading from 'expo-app-loading';
 import colors from '../../../assets/colors'
 import {useFeedData} from '../../../state/hooks'
 import {useNavigation} from '@react-navigation/native';
 import { useAccountInfo, useWallet } from '../../../state/hooks'
 import { SOCIAL } from '../../../utils/contract'
+import tokenIcons from '../../../assets/tokenIcons';
 
 import { 
   useFonts,
@@ -40,26 +41,43 @@ export default function TopSection() {
     return <AppLoading />;
   } else {
     return (
+        <SafeAreaView>
         <View style={styles.container}>
-          <Text style={styles.bigText}>$30,204.09</Text>
-          <View style={styles.buttonsContainer}>
-            <TouchableOpacity style={styles.button}>
-              <Text style={styles.buttonText}>Send</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.button}>
-              <Text style={styles.buttonText}>Recieve</Text>
-            </TouchableOpacity>
+          <View style={styles.leftContainer}>
+            {/* <Text style={styles.usernameText}>@{username || wallet.address.toString().substring(0,16)}</Text> */}
+            <Text style={styles.usernameText}>Total balance:</Text>
+            <Text style={styles.bigText}>$30,204.09</Text>
           </View>
+          <View style={styles.rightContainer}>
+            <Image
+                source={{
+                  uri: pfp
+                }}
+                style={styles.profileImage}
+              />
+            </View>
         </View>
+        </SafeAreaView>
     );
   }
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    alignItems: 'center',
+    height: 100,
+    backgroundColor: colors.white,
+    paddingLeft: 12,
+    paddingTop: 10,
+    paddingRight: 12,
     justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'row',
+  },
+  leftContainer: {
+    flex: 1,
+  },
+  rightContainer: {
+    flex: 1,
   },
   buttonsContainer: {
     flexDirection: 'row',
@@ -85,13 +103,26 @@ const styles = StyleSheet.create({
   },
   bigText: {
     fontFamily: 'Medium',
-    fontSize: 32,
+    fontSize: 28,
     color: colors.dark,
-    marginBottom: 64,
   },
   buttonText: {
     fontFamily: 'Medium',
     color: colors.lightest,
     fontSize: 15,
-  }
+  },
+  usernameText: {
+    fontFamily: 'Regular',
+    color: colors.gray,
+    fontSize: 14,
+    marginBottom: 4,
+  },
+  profileImage: {
+    width: 52,
+    height: 52,
+    borderRadius: 50,
+    resizeMode: 'cover',
+    alignSelf: 'flex-end',
+    backgroundColor: colors.outline,
+  },
 });

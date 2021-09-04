@@ -37,8 +37,16 @@ export default function BottomBar() {
         return <AppLoading />;
       } else {
     return (
+
             <View style={styles.container}>
-                <Text>uhdoiuhdoiud</Text>
+                <View style={styles.buttonsContainer}>
+                  <TouchableOpacity style={styles.button}>
+                    <Text style={styles.buttonText}>Send</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity style={styles.button}>
+                    <Text style={styles.buttonText}>Recieve</Text>
+                  </TouchableOpacity>
+                </View>
             </View>
     )
     }
@@ -46,67 +54,45 @@ export default function BottomBar() {
 
 const styles = StyleSheet.create({
     container: {
-        height: 40,
-        backgroundColor: colors.primary,
-        flexDirection: 'row',
-        marginRight: 16,
-        marginLeft: 16,
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    adressText: {
-        color: colors.dark,
-        fontFamily: 'SemiBold',
-        fontSize: 16,
-    },
-    modalView: {
+        height: 72,
         backgroundColor: colors.white,
-        borderRadius: 0,
-        height: 300,
-        alignItems: 'center',
-      },
-      textStyle: {
-        color: colors.dark,
-        fontWeight: 'bold',
-        textAlign: 'center',
-      },
-      accountText: {
-        color: colors.dark,
-        fontFamily: 'SemiBold',
-        fontSize: 15,
-        marginTop: 12,
-        marginBottom: 32,
-      },
-      modalSection: {
-        width: '100%',
         flexDirection: 'row',
-        padding: 12,
         alignItems: 'center',
-      },
-      profileImage: {
-        width: 56,
-        height: 56,
-        borderRadius: 50,
-        resizeMode: 'cover',
-      },
-      nameContainer: {
-        marginLeft: 16,
-        height: 42,
-        justifyContent: 'space-between',
-      },
-      addAccountContainer: {
-        marginLeft: 16,
-        height: 42,
         justifyContent: 'center',
+        borderTopWidth: 1,
+        borderTopColor: colors.outline,
+    },
+    buttonsContainer: {
+      flexDirection: 'row',
+    },
+    button: {
+      width: 160,
+      height: 46,
+      backgroundColor: colors.dark,
+      borderRadius: 10,
+      alignItems: 'center',
+      justifyContent: 'center',
+      marginLeft: 8,
+      marginRight: 8, 
+      shadowColor: "#000",
+      shadowOffset: {
+        width: 0,
+        height: 1,
       },
-      usernameText: {
-        fontFamily: 'SemiBold',
-        color: colors.dark,
-        fontSize: 15,
-      },
-      addressText: {
-        fontFamily: 'Regular',
-        color: colors.dark,
-        fontSize: 14,
-      },
+      shadowOpacity: 0.3,
+      shadowRadius: 2,
+  
+      elevation: 5,
+    },
+    bigText: {
+      fontFamily: 'Medium',
+      fontSize: 32,
+      color: colors.dark,
+      marginBottom: 64,
+    },
+    buttonText: {
+      fontFamily: 'Medium',
+      color: colors.lightest,
+      fontSize: 15,
+    }
 })
