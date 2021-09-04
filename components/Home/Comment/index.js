@@ -21,9 +21,16 @@ import {
     Poppins_900Black as Black,
   } from '@expo-google-fonts/poppins'
 
-const Comment = () => {
+const Comment = (item) => {
 
     const navigation = useNavigation();
+    console.log(item)
+
+    const address = item.post[0].id
+    const imageUri = item.post[0].imageUri
+    const username = item.post[0].username
+    const message = item.post[0].message
+
 
     let [fontsLoaded] = useFonts({
         Bold,
@@ -43,16 +50,16 @@ const Comment = () => {
                 >
                 <Image 
                     style={styles.avatar}
-                    source={{uri: 'https://i.kym-cdn.com/photos/images/facebook/001/361/663/f12.jpg'}}
+                    source={{uri: imageUri}}
                 />
                 </TouchableOpacity>
                 <View style={styles.textContainer}>
                     <TouchableOpacity
                     onPress={() => navigation.navigate('ProfileOtherUser')}
                     >
-                    <Text style={styles.username}>@username</Text>
+                    <Text style={styles.username}>@{username}</Text>
                     </TouchableOpacity>
-                    <Text style={styles.commentText}>Nice video sir this is a longer comment so there can be multiple lines</Text>
+                    <Text style={styles.commentText}>{message}</Text>
                     <TouchableOpacity style={styles.likeContainer}
                     >
                         <AntDesign name="hearto" size={14} color={colors.gray} />

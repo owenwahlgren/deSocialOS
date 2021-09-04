@@ -1,4 +1,6 @@
 import React, {useState, useEffect, useRef} from 'react';
+import "@ethersproject/shims";
+import { ethers } from "ethers";
 import {
   StyleSheet,
   View,
@@ -34,6 +36,8 @@ import {useNavigation} from '@react-navigation/native';
 import Comment from '../../components/Home/Comment';
 import HeaderBar from '../../components/Profile/HeaderBar';
 import PostDeetsHeader from '../../components/Home/PostDeetsHeader';
+import { useWallet } from '../../state/hooks'
+import { NFT_Address, NFT_ABI, provider } from '../../utils/contract'
 
 import { 
   useFonts,
@@ -75,7 +79,7 @@ const PostDeets = ({route, navigation}) => {
   
   const [tabIndex, setIndex] = useState(0);
   const [routes] = useState([
-    {key: 'tab1', title: 'Comments (1234)'},
+    {key: 'tab1', title: `Comments (${route.params.item.comments.length})`},
     {key: 'tab2', title: 'History'},
   ]);
   const [canScroll, setCanScroll] = useState(true);
@@ -243,6 +247,12 @@ const PostDeets = ({route, navigation}) => {
     syncScrollOffset();
   };
 
+
+  const [comment, setComment] = useState("");
+  const wallet = useWallet()
+  const signer = wallet.connect(provider)
+  const NFT = new ethers.Contract(NFT_Address, NFT_ABI, signer)
+
   /**
    * render Helper
    */
@@ -304,13 +314,22 @@ const PostDeets = ({route, navigation}) => {
         <View style={styles.bottomBar}>
           <Image 
           style={styles.profilePic}
-          source={{uri: 'https://i.kym-cdn.com/photos/images/facebook/001/361/663/f12.jpg'}}
+          source={{uri: route.params.item.user.imageUri}}
           />
           <TextInput 
             style={styles.TextInput}
+            onChangeText={setComment}
             placeholder='Add a comment...'
             keyboardType='default'
             returnKeyType="send"
+            onSubmitEditing={ async () => {
+              console.log()
+              const tx = await NFT.comment(route.params.item.id, comment)
+              console.log('message sent: ', comment, '\n', 'awaiting:', tx.hash)
+              await tx.wait();
+              console.log('tx complete')
+
+            }}
             maxLength={80}
           />
         </View>
@@ -322,7 +341,7 @@ const PostDeets = ({route, navigation}) => {
   const renderTab1Item = ({item, index}) => {
     return (
       <View style={{flex: 1, alignItems: 'flex-start'}}>
-      <Comment post={item} />
+      <Comment post={route.params.item.comments} />
       </View>
     );
   };

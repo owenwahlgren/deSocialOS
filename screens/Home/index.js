@@ -10,7 +10,7 @@ import posts from '../../data/posts'
 import Header from '../../components/Home/Header'
 import {useNavigation} from '@react-navigation/native';
 import { SharedElement } from 'react-navigation-shared-element';
-
+import { useRefresh } from 'react-admin'
 const HomeScreen = ({navigation}) => {
 
 
@@ -21,10 +21,15 @@ const translateY = diffClamp.interpolate ({
     outputRange:[0,-80],
 })
 
-fetchFeed()
+
+console.log('home refresh')
 const posts = useFeedData()
+console.log(posts.length)
 
-
+// const [selected, setSelected] = useState(false)
+// useEffect(() => {
+//     setSelected(true)
+// })
 // const ListHeader = () => {
 //     return (
 //         <View style={{marginTop: 60}}>
@@ -34,6 +39,7 @@ const posts = useFeedData()
 //         </View>
 //     )
 // }
+
 
 return (
     <View style={styles.container}>
@@ -50,7 +56,8 @@ return (
         <SafeAreaView style={styles.content}>
             <FlatList 
             // ListHeaderComponent={ListHeader}
-            data={posts} 
+            data={useFeedData()}
+            extraData={useFeedData()}
             numColumns={2}
             initialNumToRender={6}
             showsVerticalScrollIndicator={false}
