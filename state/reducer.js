@@ -1,6 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit"
 
-const initialState = {feed_data: {}, account_created: [{}], account_collection: [{}], account_data: {}, private_key: null}
+const initialState = {feed_data: {}, 
+					account_created: [{}], 
+					account_collection: [{}], 
+					account_data: {},
+					private_key: null,
+					wallet_exists: false,
+					}
+
+
 export const feedData = createSlice({
 	name: 'feed',
 	initialState,

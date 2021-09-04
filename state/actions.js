@@ -7,13 +7,21 @@ import { useEffect } from 'react'
 //fetch data from feed util
 export const fetchFeedDataAsync = () => async (dispatch) => {
 	const feed = await fetchFeedData()
-	dispatch(setFeedData(feed))
+	console.log("feed loaded to state!")
+	return dispatch(setFeedData(feed))
 }
 
 //load wallet data from storage into state
 export const loadWalletAsync = () => async (dispatch) => {
-	const key = await SecureStore.getItemAsync("key")
-	dispatch(setPrivateKey(key))
+	let key
+	try {
+		key = await SecureStore.getItemAsync("key")
+	}
+	catch (e) {
+		console.log(e)
+	}
+	console.log("wallet loaded to state!")
+	return dispatch(setPrivateKey(key))
 }
 
 //save wallet to storage & set to state
@@ -21,7 +29,7 @@ export const saveWallet = (wallet) => async (dispatch) => {
 	console.log("saving wallet")
 	const key = wallet.privateKey.toString()
 	await SecureStore.setItemAsync("key", key)
-	dispatch(setPrivateKey(key))
+	return dispatch(setPrivateKey(key))
 }
 
 export const fetchCollected = (address) => async (dispatch) => {

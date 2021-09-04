@@ -13,6 +13,18 @@ async function fetchFeedData() {
       const likes = JSON.parse(result[4]);
       const amountComments = JSON.parse(result[5])
 
+      let commentItem = []
+      for (let i = 0; i < amountComments; i++) {
+        const commentInfo = await NFT.readComment(supply, i)
+        const sender = commentInfo[0]
+        const message = commentInfo[1]
+        const senderInfo = await SOCIAL.viewProfile(sender)
+        commentItem[i] = {id: sender, 
+          username: senderInfo[0], 
+          imageUri: "http://45.63.64.72:8080/ipfs/" + senderInfo[2], 
+          message: message}
+      }
+
       const userInfo = await SOCIAL.viewProfile(creator)
 
       const data = {
@@ -26,7 +38,7 @@ async function fetchFeedData() {
         },
         title: title,
         likes: likes,
-        comments: amountComments,
+        comments: commentItem,
         shares: 100,
       };
 
