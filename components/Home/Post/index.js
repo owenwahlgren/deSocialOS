@@ -56,7 +56,9 @@ const Post = (props) => {
                 <View style={styles.uiContainer}>
                     <View style={styles.topContainer}>
                         <Text style={styles.likes}>{post.likes}</Text>
-                        <AntDesign name="heart" size={16} color="white" style={{marginTop: 1}} />
+                        <AntDesign name="heart" size={16} color="white" style={{marginTop: 1}} onPress={() => {
+                            console.log("heart!!")
+                        }}/>
                     </View>
                     <View style={styles.infoContainer}>
                         <Text ellipsizeMode='tail' numberOfLines={2} style={styles.title}>{post.title}</Text>
