@@ -5,6 +5,7 @@ const colors = {
     outline: '#EBEBEB',
     lightest: '#F9F9FB',
     primary: '#0094FF',
+    primaryLight: '#43B0FF',
     white: '#FFFFFF',
     black: '#000000',
     red: '#DA3125',

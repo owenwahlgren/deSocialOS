@@ -40,7 +40,10 @@ export default function BottomBar() {
 
             <View style={styles.container}>
                 <View style={styles.buttonsContainer}>
-                  <TouchableOpacity style={styles.button}>
+                  <TouchableOpacity 
+                  onPress={() => navigation.navigate('SendModal') }
+                  style={styles.button}
+                  >
                     <Text style={styles.buttonText}>Send</Text>
                   </TouchableOpacity>
                   <TouchableOpacity style={styles.button}>

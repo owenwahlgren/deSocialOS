@@ -1,12 +1,13 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, Image, Button, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, Image, Button, TouchableOpacity, Pressable } from 'react-native';
 import AppLoading from 'expo-app-loading';
 import colors from '../../../assets/colors'
 import {useFeedData} from '../../../state/hooks'
 import {useNavigation} from '@react-navigation/native';
 import { useAccountInfo, useWallet } from '../../../state/hooks'
 import { SOCIAL } from '../../../utils/contract'
+import * as Haptics from 'expo-haptics';
 
 import { 
   useFonts,
@@ -29,6 +30,14 @@ export default function InfoSectionOtherUser() {
   const pfp = 'http://45.63.64.72:8080/ipfs/' + ipfs
 
   const navigation = useNavigation();
+
+  const [pressed, SetPressed] = useState(false);
+
+  const onPressHandler = () => {
+    SetPressed(!pressed);
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy)
+  }
+
 
 
   let [fontsLoaded] = useFonts({
@@ -69,11 +78,17 @@ export default function InfoSectionOtherUser() {
           <View style={{marginTop: 8, marginHorizontal: 60}}>
               <Text style={styles.bio}>other user's bio</Text>
           </View>
-          <TouchableOpacity 
-          style={styles.button}
-          onPress={() => console.log('following')}
+          <TouchableOpacity
+          style={[{ 
+            backgroundColor: pressed ? colors.white : colors.primary, 
+            borderWidth: pressed ? 1 : 0, 
+          }, styles.button ]} 
+          onPress={onPressHandler}
           >
-              <Text style={{fontFamily: 'Regular', fontSize: 15, color: colors.white}}>Follow</Text>
+              <Text 
+              style={[{ color: pressed ? colors.dark : colors.white }, styles.text ]}>
+              {pressed ? 'Following' : 'Follow'}
+              </Text>
           </TouchableOpacity>
         </View>
     );
@@ -115,7 +130,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   button: {
-    backgroundColor: colors.primary,
     borderRadius: 6,
     marginTop: 24,
     marginBottom: 24,
@@ -124,5 +138,10 @@ const styles = StyleSheet.create({
     height: 48,
     alignItems: 'center',
     justifyContent: 'center',
+    borderColor: colors.outline,
+  },
+  text: {
+    fontFamily: 'Regular',
+    fontSize: 15,
   }
 });

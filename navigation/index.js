@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import {NavigationContainer} from '@react-navigation/native';
-import {createStackNavigator, CardStyleInterpolators} from '@react-navigation/stack';
+import {View, Text, StyleSheet, Dimensions, TouchableOpacity, Image, TouchableHighlight} from 'react-native';
+import {createStackNavigator, CardStyleInterpolators, TransitionPresets} from '@react-navigation/stack';
 import BottomTabNavigator from './BottomTabNavigator';
 import {SafeAreaProvider, SafeAreaView} from 'react-native-safe-area-context';
 import {fetchFeed, loadWallet, useWallet } from '../state/hooks'
@@ -20,6 +21,9 @@ import HomeScreen from '../screens/Home';
 import PostDeets from '../screens/PostDeets';
 import ProfileOtherUser from '../screens/ProfileOtherUser';
 import TsxPending from '../components/Alerts/TsxPending'
+import SendModal from '../components/Modals/SendModal';
+
+const height = Dimensions.get("window").height;
 
 const Stack = createStackNavigator();
 
@@ -40,6 +44,7 @@ const Navigator = ({navigation}) => {
         headerShown: false,
       }} 
       >
+      <Stack.Group>
         <Stack.Screen name="HomeTabs" component={BottomTabNavigator} />
         <Stack.Screen name="StartScreen" component={StartScreen} />
         <Stack.Screen name="CreateWalletScreen" component={CreateWalletScreen} />
@@ -54,38 +59,31 @@ const Navigator = ({navigation}) => {
         <Stack.Screen name="HomeScreen" component={HomeScreen} />
         <Stack.Screen name="ProfileOtherUser" component={ProfileOtherUser} />
         <Stack.Screen 
-        name="TsxPending"
-        component={TsxPending} 
-        options={{
-          animationEnabled: true,
-          cardStyle: {backgroundColor: 'rgba(0,0,0,.15)'}, 
-          cardOverlayEnabled: true,
-          cardStyleInterpolator: ({current: {progress}}) => {
-            return {
-              cardStyle: {
-                opacity: progress.interpolate({
-                  inputRange: [0, 0.5, 0.9, 1],
-                  outputRange: [0, 0.25, 0.7, 1]
-                })
-              },
-              overlayStyle: {
-                opacity: progress.interpolate({
-                  inputRange: [0, 1],
-                  outputRange: [0, .5],
-                  extrapolate: 'clamp',
-                })
-              }
-            };
-          }
-        }}
-        />
-        <Stack.Screen 
         name="PostDeets" 
         component={PostDeets} 
         sharedElements={(route) => {
           return [route.params.item.id];
         }}
         />
+      </Stack.Group>
+
+      <Stack.Group 
+      screenOptions={{
+        cardOverlayEnabled: true,
+        presentation: 'transparentModal',
+        headerShown: false,
+        gestureEnabled: true,
+        gestureResponseDistance: height,
+        }}>
+        <Stack.Screen 
+        options={{
+          ...TransitionPresets.ModalTransition
+        }}
+        name='SendModal' 
+        component={SendModal} 
+        cardOverlayEnabled={true}
+        /> 
+      </Stack.Group>
 
       </Stack.Navigator>
     </NavigationContainer>
