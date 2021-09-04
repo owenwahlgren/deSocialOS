@@ -21,7 +21,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { Feather } from '@expo/vector-icons'; 
 
 
-export default function EditProfileHeader() {
+export default function BottomBar() {
 
   const navigation = useNavigation();
 
@@ -39,9 +39,7 @@ export default function EditProfileHeader() {
     return (
         <SafeAreaView style={{backgroundColor: colors.white}}>
             <View style={styles.container}>
-                <View style={{flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', position: 'absolute', alignSelf: 'center'}}>
-                        <Text style={styles.adressText}>Edit Profile</Text>
-                </View>
+                <Text>uhdoiuhdoiud</Text>
             </View>
         </SafeAreaView>
     )
@@ -52,9 +50,9 @@ const styles = StyleSheet.create({
     container: {
         height: 40,
         backgroundColor: colors.white,
-        borderBottomWidth: 1,
-        borderBottomColor: colors.outline,
         flexDirection: 'row',
+        marginRight: 16,
+        marginLeft: 16,
         alignItems: 'center',
         justifyContent: 'center',
     },
@@ -66,9 +64,8 @@ const styles = StyleSheet.create({
     modalView: {
         backgroundColor: colors.white,
         borderRadius: 0,
-        flex: 0,
+        height: 300,
         alignItems: 'center',
-        paddingBottom: 24,
       },
       textStyle: {
         color: colors.dark,

@@ -48,7 +48,7 @@ const Asset = () => {
                 </TouchableOpacity>
                 <View style={styles.textContainer}>
                     <View style={styles.horizontalBox}>
-                    <Text style={styles.tokenName}>Polygon Token</Text>
+                    <Text style={styles.tokenName}>Polygon</Text>
                     <Text style={styles.tokenName}>$30,204.09</Text>
                     </View>
                     <View style={styles.horizontalBox}>

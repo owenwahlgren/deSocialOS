@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { View, Text, SafeAreaView, StyleSheet, ScrollView } from 'react-native'
 import colors from '../../assets/colors'
 import HeaderBar from '../../components/Wallet/HeaderBar'
+import BottomBar from '../../components/Wallet/BottomBar'
 import { useWallet } from '../../state/hooks'
 import { provider } from '../../utils/contract'
 

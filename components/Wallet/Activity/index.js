@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, StyleSheet, Dimensions, TouchableOpacity, Image} from 'react-native';
+import {View, Text, StyleSheet, Dimensions, TouchableOpacity, Image, TouchableHighlight} from 'react-native';
 import { Video, AVPlaybackStatus } from 'expo-av';
 import colors from '../../../assets/colors'
 import AppLoading from 'expo-app-loading';
@@ -7,6 +7,7 @@ import { AntDesign } from '@expo/vector-icons';
 import {useNavigation} from '@react-navigation/native';
 import LottieView from 'lottie-react-native';
 import { Ionicons } from '@expo/vector-icons'; 
+import tokenIcons from '../../../assets/tokenIcons';
 
 const width = Dimensions.get("window").width;
 const height = width * 1.618;
@@ -36,31 +37,74 @@ const Activity = () => {
       } else {
     return (
         <>
-        <View style={styles.commentcontainer}>
+        {/* SENT COMPONENT  */}
+        <TouchableOpacity style={styles.activitycontainer}>
             <View style={styles.innerLeftContainer}>
-                <TouchableOpacity
-                onPress={() => navigation.navigate('ProfileOtherUser')}
-                >
                 <Image 
-                    style={styles.avatar}
-                    source={{uri: 'https://assets.coingecko.com/coins/images/4713/large/matic-token-icon.png?1624446912'}}
+                    style={styles.tokenImage}
+                    source={{uri: tokenIcons.matic}}
                 />
-                </TouchableOpacity>
                 <View style={styles.textContainer}>
                     <View style={styles.horizontalBox}>
                     <View style={styles.iconBox}>
-                    <Ionicons name="send" size={14} color={colors.dark} style={{marginRight: 4}} />
                     <Text style={styles.tokenName}>Sent</Text>
                     </View>
-                    <Text style={styles.tokenName}>- $20,938.14</Text>
+                    <Text style={styles.tokenName2}>- $20,938.14</Text>
                     </View>
                     <View style={styles.horizontalBox}>
-                    <Text style={styles.ticker}>MATIC</Text>
-                    <Text style={styles.ticker}>15,033.01</Text>
+                    <Text style={styles.ticker}>Matic</Text>
+                    <Text style={styles.ticker}>15,033.01 MATIC</Text>
                     </View>
                 </View>
             </View>     
-        </View>
+        </TouchableOpacity>
+
+
+        {/* RECIEVED COMPONENT  */}
+        <TouchableOpacity style={styles.activitycontainer}>
+            <View style={styles.innerLeftContainer}>
+                <Image 
+                    style={styles.tokenImage}
+                    source={{uri: tokenIcons.usdc}}
+                />
+                <View style={styles.textContainer}>
+                    <View style={styles.horizontalBox}>
+                    <View style={styles.iconBox}>
+                    <Text style={styles.tokenName}>Recieved</Text>
+                    </View>
+                    <Text style={styles.recievedText}>$12,472.12</Text>
+                    </View>
+                    <View style={styles.horizontalBox}>
+                    <Text style={styles.ticker}>USD Coin</Text>
+                    <Text style={styles.ticker}>12,472.12 USDC</Text>
+                    </View>
+                </View>
+            </View>     
+        </TouchableOpacity>
+
+
+        {/* FAILED COMPONENT  */}
+        <TouchableOpacity style={styles.activitycontainer}>
+            <View style={styles.innerLeftContainer}>
+                <Image 
+                    style={styles.tokenImage}
+                    source={{uri: tokenIcons.usdt}}
+                />
+                <View style={styles.textContainer}>
+                    <View style={styles.horizontalBox}>
+                    <View style={styles.iconBox}>
+                    <Text style={styles.tokenName}>Failed</Text>
+                    </View>
+                    <Text style={styles.lightText}>$0.00</Text>
+                    </View>
+                    <View style={styles.horizontalBox}>
+                    <Text style={styles.ticker}>Tether</Text>
+                    <Text style={styles.ticker}>0.00 USDT</Text>
+                    </View>
+                </View>
+            </View>     
+        </TouchableOpacity>
+
         </>
     )
     }
@@ -69,30 +113,43 @@ const Activity = () => {
 export default Activity;
 
 const styles = StyleSheet.create({
-    commentcontainer: {
+    activitycontainer: {
         flex: 1,
         width: '100%',
         paddingLeft: 12,
-        paddingTop: 10,
-        paddingBottom: 10,
+        paddingTop: 10, 
+        paddingBottom: 10,  
         paddingRight: 12,
-        backgroundColor: colors.white,
     },
     tokenName: {
         fontFamily: 'Regular',
         color: colors.dark,
         fontSize: 16,
-        marginBottom: 2,
     },
-    ticker: {
+    tokenName2: {
         fontFamily: 'Regular',
-        color: colors.gray,
+        color: colors.dark,
+        fontSize: 16,
+    },
+    recievedText: {
+        fontFamily: 'Regular',
+        color: colors.green,
+        fontSize: 16,
+    },
+    lightText: {
+        fontFamily: 'Regular',
+        color: colors.lightGray,
+        fontSize: 16,
+    },
+    ticker: { 
+        fontFamily: 'Regular',
+        color: colors.lightGray,
         fontSize: 13.5,
     },
-    avatar: {
+    tokenImage: {
         width: 46,
         height: 46,
-        borderRadius: 50,
+        borderRadius: 100,
         resizeMode: 'cover',
     },
     innerLeftContainer: {

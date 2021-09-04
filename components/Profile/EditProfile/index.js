@@ -4,7 +4,6 @@ import React, {useState, useEffect} from 'react'
 import { View, Text, StyleSheet, TouchableOpacity, TextInput, TouchableWithoutFeedback, Keyboard, Image } from 'react-native'
 import colors from '../../../assets/colors'
 import { SafeAreaView } from 'react-native-safe-area-context';
-import EditProfileHeader from '../EditProfileHeader';
 import {useNavigation} from '@react-navigation/native';
 import * as ImagePicker from 'expo-image-picker';
 import { useWallet, useAccountInfo } from '../../../state/hooks'
@@ -56,7 +55,7 @@ export default function EditProfile({route}) {
         let result = await ImagePicker.launchImageLibraryAsync({
           mediaTypes: ImagePicker.MediaTypeOptions.All,
           allowsEditing: true,
-          aspect: [4, 3],
+          aspect: [4, 4],
           quality: 1,
         });
        
@@ -81,10 +80,37 @@ export default function EditProfile({route}) {
       } else {
     return (
         <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
-            <EditProfileHeader />
+            <View style={styles.container}>
+              <View style={{flex: 1, width: '100%', flexDirection: 'row'}}>
+                <TouchableOpacity
+                onPress={() => navigation.goBack()}
+                >
+                  <Text style={styles.cancelText}>Cancel</Text>
+                </TouchableOpacity>
+              </View>
+              <View style={{flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', position: 'absolute', alignSelf: 'center'}}>
+                      <Text style={styles.adressText}>Edit Profile</Text>
+              </View>
+              <View style={{flex: 1, flexDirection: 'row', justifyContent: 'flex-end'}}>
+                <TouchableOpacity
+                onPress={async () => {
+                    let tx = await SOCIAL.editProfile(username, bio, ipfs, {gasLimit: 2500000})
+                    console.log('tx:', tx.hash)
+                    console.log('waiting for tx to mine...')
+                    navigation.goBack()
+                    await tx.wait() 
+                    console.log('tx mined')
+                }}
+                >
+                  <Text style={styles.doneText}>Done</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+            <ScrollView>
             <View style={{flex: 1}}>
                 {image &&
+                    
                     <Image
                     source={{uri: "http://45.63.64.72:8080/ipfs/" + ipfs}}
                     style={styles.profileImage}
@@ -92,7 +118,7 @@ export default function EditProfile({route}) {
                 }
             <TouchableOpacity onPress={pickImage}>
                 <Text style={{fontFamily: 'Regular', color: colors.primary, fontSize: 13, alignSelf: 'center', marginBottom: 16}}>
-                Change Image
+                Change Profile Image
                 </Text>
             </TouchableOpacity>
             <View style={styles.sectionContainer}>
@@ -104,8 +130,7 @@ export default function EditProfile({route}) {
                 >
                 <TextInput 
                     placeholder={username}
-                    maxLength={16}
-                    multiline
+                    maxLength={18}
                     style={styles.sectionText}
                     keyboardType='default'
                     onChangeText={setUsername}
@@ -127,10 +152,11 @@ export default function EditProfile({route}) {
                     style={styles.sectionText2}
                     keyboardType='default'
                     onChangeText={setBio}
+                    height={120}
                 />
                 </TouchableOpacity>
             </View>
-            <View style={styles.bottomContainer}>
+            {/* <View style={styles.bottomContainer}>
             <TouchableOpacity 
             style={styles.button}
             onPress={async () => {
@@ -144,8 +170,9 @@ export default function EditProfile({route}) {
             >
                 <Text style={{fontFamily: 'Medium', fontSize: 16, color: colors.white}}>Done</Text>
             </TouchableOpacity>
+            </View> */}
             </View>
-            </View>
+            </ScrollView>
             </TouchableWithoutFeedback>
         </SafeAreaView>
     )
@@ -167,20 +194,21 @@ const styles = StyleSheet.create({
         fontFamily: 'Medium',
         fontSize: 15,
         color: colors.dark,
+        width: '100%',
     },
     sectionContainer: { 
-        paddingBottom: 16,
+        paddingBottom: 10,
         marginRight: 16,
         marginLeft: 16,
         flex: 1,
     },
     sectionHeader: {
         marginTop: 16,
-        marginBottom: 8,
+        marginBottom: 2,
     },
     sectionHeaderText: {
-        fontFamily: 'SemiBold',
-        fontSize: 14,
+        fontFamily: 'Medium',
+        fontSize: 13.5,
         color: colors.gray,
     },
     button: {
@@ -202,10 +230,69 @@ const styles = StyleSheet.create({
     profileImage: {
         width: 100,
         height: 100,
+        backgroundColor: colors.outline,
         borderRadius: 50,
         resizeMode: 'cover',
         alignSelf: 'center',
         marginTop: 32,
         marginBottom: 8,
+    },
+    container: {
+        height: 40,
+        borderBottomWidth: 1,
+        borderBottomColor: colors.outline,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    adressText: {
+        color: colors.dark,
+        fontFamily: 'SemiBold',
+        fontSize: 16,
+    },
+      textStyle: {
+        color: colors.dark,
+        fontWeight: 'bold',
+        textAlign: 'center',
       },
+      accountText: {
+        color: colors.dark,
+        fontFamily: 'SemiBold',
+        fontSize: 15,
+        marginTop: 12,
+        marginBottom: 32,
+      },
+      nameContainer: {
+        marginLeft: 16,
+        height: 42,
+        justifyContent: 'space-between',
+      },
+      addAccountContainer: {
+        marginLeft: 16,
+        height: 42,
+        justifyContent: 'center',
+      },
+      usernameText: {
+        fontFamily: 'SemiBold',
+        color: colors.dark,
+        fontSize: 15,
+      },
+      addressText: {
+        fontFamily: 'Regular',
+        color: colors.dark,
+        fontSize: 14,
+      },
+      cancelText: {
+        fontFamily: 'Medium',
+        color: colors.dark,
+        fontSize: 15,
+        marginLeft: 10,
+      },
+      doneText: {
+        fontFamily: 'Medium',
+        color: colors.primary,
+        fontSize: 15,
+        marginRight: 10,
+      },
+    
 })
