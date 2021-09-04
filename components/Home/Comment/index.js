@@ -26,10 +26,10 @@ const Comment = (item) => {
     const navigation = useNavigation();
     console.log(item)
 
-    const address = item.post[0].id
-    const imageUri = item.post[0].imageUri
-    const username = item.post[0].username
-    const message = item.post[0].message
+    const address = item.post.id
+    const imageUri = item.post.imageUri
+    const username = item.post.username
+    const message = item.post.message
 
 
     let [fontsLoaded] = useFonts({

@@ -252,6 +252,8 @@ const PostDeets = ({route, navigation}) => {
   const wallet = useWallet()
   const signer = wallet.connect(provider)
   const NFT = new ethers.Contract(NFT_Address, NFT_ABI, signer)
+  const comments = route.params.item.comments
+
 
   /**
    * render Helper
@@ -341,7 +343,7 @@ const PostDeets = ({route, navigation}) => {
   const renderTab1Item = ({item, index}) => {
     return (
       <View style={{flex: 1, alignItems: 'flex-start'}}>
-      <Comment post={route.params.item.comments} />
+      <Comment post={item} />
       </View>
     );
   };
@@ -370,7 +372,7 @@ const PostDeets = ({route, navigation}) => {
     switch (route.key) {
       case 'tab1':
         numCols = 1;
-        data = tab1Data;
+        data = comments;
         renderItem = renderTab1Item; 
         break;
       case 'tab2':
