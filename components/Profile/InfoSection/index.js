@@ -48,9 +48,14 @@ export default function InfoSection() {
               alignItems: 'center',
               marginTop: 32,
             }}>
-            <View style={{alignItems: 'center', paddingRight: 32}}>
-              <Text style={styles.numbers}>{followers}</Text>
-              <Text style={styles.numberLabels}>Followers</Text>
+            <View style={{paddingRight: 32}}>
+              <TouchableOpacity 
+              onPress={() => navigation.navigate('FollowingFollowers')}
+              style={{alignItems: 'center'}}
+              >
+                <Text style={styles.numbers}>{followers}</Text>
+                <Text style={styles.numberLabels}>Followers</Text>
+              </TouchableOpacity>
             </View>
             <Image
               source={{
@@ -58,9 +63,14 @@ export default function InfoSection() {
               }}
               style={styles.profileImage}
             />
-            <View style={{alignItems: 'center', paddingLeft: 32}}>
-              <Text style={styles.numbers}>{following}</Text>
-              <Text style={styles.numberLabels}>Following</Text>
+            <View style={{paddingLeft: 32}}>
+              <TouchableOpacity 
+              onPress={() => navigation.navigate('FollowingFollowers')}
+              style={{alignItems: 'center'}}
+              >
+                <Text style={styles.numbers}>{following}</Text>
+                <Text style={styles.numberLabels}>Following</Text>
+              </TouchableOpacity>
             </View>
           </View>
           <View style={{marginTop: 16}}>

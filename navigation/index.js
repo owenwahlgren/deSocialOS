@@ -22,6 +22,7 @@ import PostDeets from '../screens/PostDeets';
 import ProfileOtherUser from '../screens/ProfileOtherUser';
 import TsxPending from '../components/Alerts/TsxPending'
 import SendModal from '../components/Modals/SendModal';
+import FollowingFollowers from '../components/Profile/FollowingFollowers';
 
 const height = Dimensions.get("window").height;
 
@@ -58,6 +59,7 @@ const Navigator = ({navigation}) => {
         <Stack.Screen name="CreatePost" component={CreatePost} options={{gestureEnabled: false}}/>
         <Stack.Screen name="HomeScreen" component={HomeScreen} />
         <Stack.Screen name="ProfileOtherUser" component={ProfileOtherUser} />
+        <Stack.Screen name="FollowingFollowers" component={FollowingFollowers} />
         <Stack.Screen 
         name="PostDeets" 
         component={PostDeets} 
