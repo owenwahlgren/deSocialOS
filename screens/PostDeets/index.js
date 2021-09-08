@@ -309,17 +309,16 @@ const PostDeets = ({route, navigation}) => {
                       <TouchableOpacity style={styles.rightContainer}>
                         <Text style={styles.likes}>{item.likes}</Text>
                         <AntDesign name="heart" size={24} color={color} onPress={async () => {
-                            setColor('blue')
-                            const tx = await NFT.like(item.id)
-                            console.log('post liked!\t waiting tx...')
-                            await tx.wait()
-                            console.log('tx mined')
                             if (color == 'red') {
                               setColor('white')
                             }
                             else {
                               setColor('red')
                             }
+                            const tx = await NFT.like(item.id)
+                            console.log('post liked!\t waiting tx...')
+                            await tx.wait()
+                            console.log('tx mined')
                         }}/>
                       </TouchableOpacity>
                     </View>

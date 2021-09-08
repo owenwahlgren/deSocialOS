@@ -66,8 +66,8 @@ const Post = (props) => {
  
                 <Video 
                     source={{uri: post.videoUri}}
-                    // isLooping
-                    // shouldPlay 
+                    isLooping
+                    shouldPlay 
                     resizeMode={'cover'}
                     style={styles.video}
                     volume={0}
@@ -77,11 +77,6 @@ const Post = (props) => {
                     <View style={styles.topContainer}>
                         <Text style={styles.likes}>{likes}</Text>
                         <AntDesign name="heart" size={16} color={color} style={{marginTop: 1}} onPress={async () => {
-                            setColor('blue')
-                            const tx = await NFT.like(props.post.id)
-                            console.log('post liked!\t waiting tx...')
-                            await tx.wait()
-                            console.log('tx mined')
                             if (color == 'red') {
                                 setColor('white')
                                 setLikes(likes - 1)
@@ -90,6 +85,10 @@ const Post = (props) => {
                                 setColor('red')
                                 setLikes(likes + 1)
                               }
+                            const tx = await NFT.like(props.post.id)
+                            console.log('post liked!\t waiting tx...')
+                            await tx.wait()
+                            console.log('tx mined')
                         }}/>
 
 
