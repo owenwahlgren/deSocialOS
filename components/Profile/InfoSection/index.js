@@ -24,7 +24,7 @@ export default function InfoSection() {
   const username = info[0] || wallet.address.toString().substring(0,12);
   const bio = info[1] || ""
   const ipfs = info[2] || ""
-  const following = info[3] || 0
+  const following = info[3] || 0 
   const followers = info[4] || 0
   const pfp = 'http://45.63.64.72:8080/ipfs/' + ipfs
 
@@ -57,12 +57,16 @@ export default function InfoSection() {
                 <Text style={styles.numberLabels}>Followers</Text>
               </TouchableOpacity>
             </View>
+            <TouchableOpacity
+            onPress={() => navigation.navigate('ProfilePicModal')}
+            >
             <Image
               source={{
                 uri: pfp
               }}
               style={styles.profileImage}
             />
+            </TouchableOpacity>
             <View style={{paddingLeft: 32}}>
               <TouchableOpacity 
               onPress={() => navigation.navigate('FollowingFollowers')}
@@ -108,8 +112,8 @@ const styles = StyleSheet.create({
     color: colors.gray
   },
   profileImage: {
-    width: 90,
-    height: 90,
+    width: 100,
+    height: 100,
     borderRadius: 50,
     resizeMode: 'cover',
     backgroundColor: colors.outline,

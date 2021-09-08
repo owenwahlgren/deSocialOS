@@ -277,6 +277,7 @@ const PostDeets = ({route, navigation}) => {
     const behavior = Platform.OS === "ios" ? "position" : "";
     return (
         <>
+      <StatusBar hidden />
       <Animated.View
         {...headerPanResponder.panHandlers}
         style={[styles.header, {transform: [{translateY: y}]}]}>

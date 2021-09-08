@@ -408,7 +408,7 @@ const styles = StyleSheet.create({
   label: {
     fontSize: 15, 
     color: colors.dark, 
-    fontFamily: 'SemiBold',
+    fontFamily: 'Medium',
   },
   tab: {
     elevation: 0,
@@ -419,7 +419,7 @@ const styles = StyleSheet.create({
     height: TabBarHeight,
   },
   indicator: {
-    backgroundColor: colors.dark
+    backgroundColor: colors.dark,
   },
   emptyCreated: {
     height: 50,

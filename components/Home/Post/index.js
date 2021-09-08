@@ -10,7 +10,7 @@ import {useNavigation} from '@react-navigation/native';
 import { SharedElement } from 'react-navigation-shared-element';
 import { useWallet } from '../../../state/hooks'
 import { NFT_Address, NFT_ABI, provider } from '../../../utils/contract';
-const width = Dimensions.get("window").width /2 - 2;
+const width = Dimensions.get("window").width /2 - 2; 
 const height = width * 1.8;
 
 import { 
