@@ -41,21 +41,10 @@ export default function TopSection() {
     return <AppLoading />;
   } else {
     return (
-        <SafeAreaView>
+        <SafeAreaView style={{backgroundColor: 'red'}}>
         <View style={styles.container}>
-          <View style={styles.leftContainer}>
-            {/* <Text style={styles.usernameText}>@{username || wallet.address.toString().substring(0,16)}</Text> */}
-            <Text style={styles.usernameText}>Total balance:</Text>
+            <Text style={styles.usernameText}>@{username || wallet.address.toString().substring(0,16)}</Text>
             <Text style={styles.bigText}>$30,204.09</Text>
-          </View>
-          <View style={styles.rightContainer}>
-            <Image
-                source={{
-                  uri: pfp
-                }}
-                style={styles.profileImage}
-              />
-            </View>
         </View>
         </SafeAreaView>
     );
@@ -71,7 +60,6 @@ const styles = StyleSheet.create({
     paddingRight: 12,
     justifyContent: 'center',
     alignItems: 'center',
-    flexDirection: 'row',
   },
   leftContainer: {
     flex: 1,
@@ -112,10 +100,10 @@ const styles = StyleSheet.create({
     fontSize: 15,
   },
   usernameText: {
-    fontFamily: 'Regular',
-    color: colors.gray,
-    fontSize: 14,
-    marginBottom: 4,
+    fontFamily: 'Medium',
+    color: colors.dark,
+    fontSize: 15,
+    marginBottom: 12,
   },
   profileImage: {
     width: 52,

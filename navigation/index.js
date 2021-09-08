@@ -23,6 +23,7 @@ import ProfileOtherUser from '../screens/ProfileOtherUser';
 import TsxPending from '../components/Alerts/TsxPending'
 import SendModal from '../components/Modals/SendModal';
 import FollowingFollowers from '../components/Profile/FollowingFollowers';
+import ProfilePicModal from '../components/Modals/ProfilePicModal';
 
 const height = Dimensions.get("window").height;
 
@@ -51,7 +52,7 @@ const Navigator = ({navigation}) => {
         <Stack.Screen name="CreateWalletScreen" component={CreateWalletScreen} />
         <Stack.Screen name="ImportWalletScreen" component={ImportWalletScreen} />
         <Stack.Screen name="ProfileSettings" component={ProfileSettings} />
-        <Stack.Screen name="EditProfile" component={EditProfile} />
+        <Stack.Screen name="EditProfile" component={EditProfile} options={{gestureEnabled: false}} />
         <Stack.Screen name="SearchScreen" component={SearchScreen} />
         <Stack.Screen name="PostDetails" component={PostDetails} />
         <Stack.Screen name="CameraScreen" component={CameraScreen} />
@@ -85,6 +86,21 @@ const Navigator = ({navigation}) => {
         component={SendModal} 
         cardOverlayEnabled={true}
         /> 
+      </Stack.Group>
+      <Stack.Group
+      screenOptions={{
+        cardOverlayEnabled: true,
+        presentation: 'transparentModal',
+        headerShown: false,
+        gestureEnabled: true,
+        gestureResponseDistance: height,
+        }}>
+        <Stack.Screen 
+          options={{
+          }}
+          name='ProfilePicModal' 
+          component={ProfilePicModal} 
+          />
       </Stack.Group>
 
       </Stack.Navigator>

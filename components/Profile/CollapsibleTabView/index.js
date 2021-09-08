@@ -246,7 +246,7 @@ const CollapsibleTabView = () => {
 
   const renderTab1Item = ({item, index}) => {
     return (
-      <View style={{flex: 1, alignItems: 'flex-start'}}>
+      <View style={{alignItems: 'flex-start'}}>
       <CreatedPost post={item} />
       </View>
     );
