@@ -26,9 +26,14 @@ export default function HeaderBar() {
 
   const navigation = useNavigation();
 
-    const wallet = useWallet()
+    const wallet = useWallet() 
     const info = useAccountInfo()
     const username = info[0] || wallet.address.toString().substring(0,12);
+    const bio = info[1] || ""
+    const ipfs = info[2] || ""
+    const following = info[3] || 0 
+    const followers = info[4] || 0
+    const pfp = 'http://45.63.64.72:8080/ipfs/' + ipfs
 
     let [fontsLoaded] = useFonts({
         Bold,
@@ -42,6 +47,11 @@ export default function HeaderBar() {
     return (
         <SafeAreaView style={{backgroundColor: colors.white}}>
             <View style={styles.container}>
+                <View 
+                style={{flex: 1, alignItems: 'flex-start', position: 'absolute', left: 0}}
+                >
+                <Ionicons name="qr-code" size={20} color={colors.dark} />
+                </View>
                 <TouchableOpacity  
                 style={{
                   flexDirection: 'row', 
@@ -104,8 +114,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
       },
       profileImage: {
-        width: 56,
-        height: 56,
+        width: 32,
+        height: 32,
         borderRadius: 50,
         resizeMode: 'cover',
       },

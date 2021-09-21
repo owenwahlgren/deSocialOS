@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React, {useState, useEffect} from 'react';
-import { FlatList, StyleSheet, Text, View, Image, Dimensions, TouchableOpacity, SafeAreaView, ScrollView, Animated} from 'react-native';
+import { FlatList, StyleSheet, Text, View, Image, Dimensions, TouchableOpacity, ScrollView, Animated} from 'react-native';
 import AppLoading from 'expo-app-loading';
 import colors from '../../assets/colors'
 import Post from '../../components/Home/Post'
@@ -11,6 +11,15 @@ import Header from '../../components/Home/Header'
 import {useNavigation} from '@react-navigation/native';
 import { SharedElement } from 'react-navigation-shared-element';
 import { useRefresh } from 'react-admin'
+import { SafeAreaView } from 'react-native-safe-area-context';
+
+const windowHeight = Dimensions.get('window').height;
+const windowWidth = Dimensions.get('window').width;
+
+const itemWidth = windowWidth /2 - .5 ;
+const itemHeight = itemWidth * 2; 
+
+
 const HomeScreen = ({navigation}) => {
 
 
@@ -32,7 +41,7 @@ console.log(posts.length)
 // })
 // const ListHeader = () => {
 //     return (
-//         <View style={{marginTop: 60}}>
+//         <View style={{marginTop: 200}}>
 //             <View style={{height: 30}}>
 //                 <Text>Sort section (under const.)</Text>
 //             </View>
@@ -42,6 +51,8 @@ console.log(posts.length)
 
 
 return (
+    <>
+    <StatusBar style="dark" />
     <View style={styles.container}>
         <Animated.View
         style={{
@@ -53,19 +64,30 @@ return (
         >
             <Header />
         </Animated.View>
-        <SafeAreaView style={styles.content}>
+        <View style={{
+            width: '100%',
+            flex: 1,
+            alignItems: 'center',
+            }}>
             <FlatList 
             // ListHeaderComponent={ListHeader}
-            data={useFeedData()}
+            data={useFeedData()} 
             extraData={useFeedData()}
             numColumns={2}
-            initialNumToRender={6}
+            initialNumToRender={4}
             showsVerticalScrollIndicator={false}
-            renderItem={({item}) => (
+            renderItem={({item, index}) => (
                 <TouchableOpacity
-                onPress={()=>navigation.push('PostDeets', {item})}  
+                onPress={()=>navigation.navigate('PostDeets', {item})}  
                 >
+                <View style={{
+                    marginLeft: index % 2 === 0 ? 0 : 1,
+                    marginBottom: 1,
+                    width: itemWidth,
+                    height: itemHeight,
+                }}>
                 <Post post={item}/>
+                </View>
                 </TouchableOpacity>
             )}
             onScroll={(e) => {
@@ -73,8 +95,9 @@ return (
 
             }}
             />
-        </SafeAreaView>    
+        </View>    
     </View>
+    </>
 );
 }
 export default HomeScreen;
@@ -83,10 +106,5 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: colors.white,
-  },
-  content: {
-      width: '100%',
-      flex: 1,
-      alignItems: 'center',
   },
 });

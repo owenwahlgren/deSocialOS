@@ -20,6 +20,7 @@ import {
     Poppins_800ExtraBold as ExtraBold,
     Poppins_900Black as Black,
   } from '@expo-google-fonts/poppins'
+import tokenIcons from '../../../assets/tokenIcons';
 
 const Asset = () => {
 
@@ -58,6 +59,94 @@ const Asset = () => {
                 </View>
             </View>     
         </TouchableOpacity>
+
+        <TouchableOpacity style={styles.assetContainer}>
+            <View style={styles.innerLeftContainer}>
+                <TouchableOpacity
+                onPress={() => navigation.navigate('ProfileOtherUser')}
+                >
+                <Image 
+                    style={styles.tokenImage}
+                    source={{uri: tokenIcons.usdt}}
+                />
+                </TouchableOpacity>
+                <View style={styles.textContainer}>
+                    <View style={styles.horizontalBox}>
+                    <Text style={styles.tokenName}>Tether</Text>
+                    <Text style={styles.tokenName}>$3,507.97</Text>
+                    </View>
+                    <View style={styles.horizontalBox}>
+                    <Text style={styles.ticker}>USDT</Text>
+                    <Text style={styles.ticker}>3,500.00</Text>
+                    </View>
+                </View>
+            </View>     
+        </TouchableOpacity><TouchableOpacity style={styles.assetContainer}>
+            <View style={styles.innerLeftContainer}>
+                <TouchableOpacity
+                onPress={() => navigation.navigate('ProfileOtherUser')}
+                >
+                <Image 
+                    style={styles.tokenImage}
+                    source={{uri: tokenIcons.usdc}}
+                />
+                </TouchableOpacity>
+                <View style={styles.textContainer}>
+                    <View style={styles.horizontalBox}>
+                    <Text style={styles.tokenName}>USD Coin</Text>
+                    <Text style={styles.tokenName}>$4,103.67</Text>
+                    </View>
+                    <View style={styles.horizontalBox}>
+                    <Text style={styles.ticker}>USDC</Text>
+                    <Text style={styles.ticker}>4,103.60</Text>
+                    </View>
+                </View>
+            </View>     
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.assetContainer}>
+            <View style={styles.innerLeftContainer}>
+                <TouchableOpacity
+                onPress={() => navigation.navigate('ProfileOtherUser')}
+                >
+                <Image 
+                    style={styles.tokenImage}
+                    source={{uri: tokenIcons.dai}}
+                />
+                </TouchableOpacity>
+                <View style={styles.textContainer}>
+                    <View style={styles.horizontalBox}>
+                    <Text style={styles.tokenName}>Dai</Text>
+                    <Text style={styles.tokenName}>$4,103.67</Text>
+                    </View>
+                    <View style={styles.horizontalBox}>
+                    <Text style={styles.ticker}>DAI</Text>
+                    <Text style={styles.ticker}>4,103.60</Text>
+                    </View>
+                </View>
+            </View>     
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.assetContainer}>
+            <View style={styles.innerLeftContainer}>
+                <TouchableOpacity
+                onPress={() => navigation.navigate('ProfileOtherUser')}
+                >
+                <Image 
+                    style={styles.tokenImage}
+                    source={{uri: tokenIcons.weth}}
+                />
+                </TouchableOpacity>
+                <View style={styles.textContainer}>
+                    <View style={styles.horizontalBox}>
+                    <Text style={styles.tokenName}>Wrapped ETH</Text>
+                    <Text style={styles.tokenName}>$3,210.02</Text>
+                    </View>
+                    <View style={styles.horizontalBox}>
+                    <Text style={styles.ticker}>WETH</Text>
+                    <Text style={styles.ticker}>1.00</Text>
+                    </View>
+                </View>
+            </View>     
+        </TouchableOpacity>
         </>
     )
     }
@@ -71,7 +160,7 @@ const styles = StyleSheet.create({
         width: '100%',
         paddingLeft: 12,
         paddingTop: 10, 
-        marginTop: 2,
+        marginTop: 1,
         paddingBottom: 10,  
         paddingRight: 12,
         backgroundColor: colors.white,
@@ -84,7 +173,7 @@ const styles = StyleSheet.create({
     },
     ticker: {
         fontFamily: 'Regular',
-        color: colors.gray,
+        color: colors.lightGray,
         fontSize: 13.5,
     },
     tokenImage: {

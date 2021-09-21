@@ -18,7 +18,7 @@ import {
   Poppins_900Black as Black,
 } from '@expo-google-fonts/poppins'
 
-export default function InfoSection() {
+export default function InfoSection(props) {
   const wallet = useWallet()
   const info = useAccountInfo()
   const username = info[0] || wallet.address.toString().substring(0,12);
@@ -29,6 +29,8 @@ export default function InfoSection() {
   const pfp = 'http://45.63.64.72:8080/ipfs/' + ipfs
 
   const navigation = useNavigation();
+
+  const {item} = props;
 
 
   let [fontsLoaded] = useFonts({
@@ -41,12 +43,17 @@ export default function InfoSection() {
   } else {
     return (
         <View style={styles.container}>
+          <TouchableOpacity style={{backgroundColor: colors.lightest, borderWidth: 1, borderColor: colors.outline, paddingHorizontal: 14, paddingVertical: 2, borderRadius: 50, marginBottom: 16}}>
+              <Text style={{fontFamily: 'Regular', fontSize: 11.5, color: colors.gray}}
+              >
+              0xajk4...2098
+              </Text>
+          </TouchableOpacity>
           <View
             style={{
               flexDirection: 'row',
               justifyContent: 'space-around',
               alignItems: 'center',
-              marginTop: 32,
             }}>
             <View style={{paddingRight: 32}}>
               <TouchableOpacity 
@@ -58,7 +65,7 @@ export default function InfoSection() {
               </TouchableOpacity>
             </View>
             <TouchableOpacity
-            onPress={() => navigation.navigate('ProfilePicModal')}
+            onPress={() => navigation.navigate('ProfilePicModal', {item})}
             >
             <Image
               source={{
@@ -77,18 +84,15 @@ export default function InfoSection() {
               </TouchableOpacity>
             </View>
           </View>
-          <View style={{marginTop: 16}}>
-              <Text style={styles.username}>@{username || wallet.address.toString().substring(0,16)}</Text>
-          </View>
-          <View style={{marginTop: 8, marginHorizontal: 60}}>
-              <Text style={styles.bio}>{bio}</Text>
-          </View>
           <TouchableOpacity 
           style={styles.button}
           onPress={() => navigation.navigate('EditProfile')}
           >
               <Text style={{fontFamily: 'Regular', fontSize: 15, color: colors.dark}}>Edit Profile</Text>
           </TouchableOpacity>
+          <View style={{marginTop: 0, marginHorizontal: 60}}>
+              <Text style={styles.bio}>{bio}</Text>
+          </View>
         </View>
     );
   }
@@ -100,6 +104,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
     alignItems: 'center',
     justifyContent: 'center',
+    paddingBottom: 32,
   },
   numbers: {
     fontFamily: 'Bold',
@@ -133,12 +138,12 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 6,
     borderColor: colors.outline,
-    marginTop: 24,
-    marginBottom: 24,
+    marginTop: 16,
+    marginBottom: 16,
     paddingVertical: 8,
-    width: 180,
-    height: 48,
+    width: 160,
+    height: 42,
     alignItems: 'center',
     justifyContent: 'center',
-  }
+  },
 });

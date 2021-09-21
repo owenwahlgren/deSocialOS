@@ -62,7 +62,7 @@ const Comment = (item) => {
                     <TouchableOpacity style={styles.likeContainer}
                     >
                         <AntDesign name="hearto" size={14} color={colors.gray} />
-                        <Text style={styles.numberText}>1234</Text>
+                        <Text style={styles.numberText}>0</Text>
                     </TouchableOpacity>
                 </View>
             </View>     

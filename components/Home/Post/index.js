@@ -10,8 +10,9 @@ import {useNavigation} from '@react-navigation/native';
 import { SharedElement } from 'react-navigation-shared-element';
 import { useWallet } from '../../../state/hooks'
 import { NFT_Address, NFT_ABI, provider } from '../../../utils/contract';
-const width = Dimensions.get("window").width /2 - 2; 
-const height = width * 1.8;
+
+// const width = Dimensions.get("window").width /2 - 2; 
+// const height = width * 1.8;
 
 import { 
     useFonts,
@@ -63,7 +64,10 @@ const Post = (props) => {
                     style={styles.image}
                 />
                 
- 
+                <SharedElement 
+                id={post.id}
+                style={[StyleSheet.absoluteFillObject]}
+                >
                 <Video 
                     source={{uri: post.videoUri}}
                     // isLooping
@@ -72,6 +76,7 @@ const Post = (props) => {
                     style={styles.video}
                     volume={0}
                 />
+                </SharedElement>
                 
                 <View style={styles.uiContainer}>
                     <View style={styles.topContainer}>
@@ -121,23 +126,23 @@ const styles = StyleSheet.create({
         width: '100%',
         height: '100%',
         position: 'absolute',
-        borderRadius: 2,
+        borderRadius: 0,
     },
     image: {
         width: '100%',
         height: '100%',
         position: 'absolute',
+        borderRadius: 2,
     },
     videoContainer: {
-        width,
-        height,
-        marginHorizontal: 1,
-        marginBottom: 2,
-        backgroundColor: colors.black,
+        width: '100%',
+        height: '100%',
+        backgroundColor: colors.lightest,
+        borderRadius: 2,
     },
     uiContainer: {
-        height,
-        width,
+        height: '100%',
+        width: '100%',
     },
     topContainer: {
         flex: 2,
@@ -154,8 +159,8 @@ const styles = StyleSheet.create({
         marginLeft: 4,
     },
     infoContainer: {
-        marginLeft: 4,
-        marginBottom: 4,
+        marginLeft: 6,
+        marginBottom: 6,
     },
     title: {
         width: 174,

@@ -32,21 +32,26 @@ const Header = () => {
     return (
             <View style={styles.container}>
                 <View style={styles.buttonsContainer}>
-                    {/* <TouchableOpacity>
-                        <Text style={styles.buttonText}>
-                        🔥Hot  
+                    <TouchableOpacity style={{backgroundColor: 'rgba(0,0,0,0.4)', borderWidth: 1, borderColor: colors.dark, paddingHorizontal: 16, paddingVertical: 4, alignItems: 'center', justifyContent: 'center', borderRadius: 50}}>
+                        <Text style={styles.buttonText2}>
+                        New  
                         </Text>
                     </TouchableOpacity>
-                    <TouchableOpacity>
+                    <TouchableOpacity style={{backgroundColor: 'rgba(0,0,0,0.4)', borderWidth: 1, borderColor: colors.dark, paddingHorizontal: 16, paddingVertical: 4, alignItems: 'center', justifyContent: 'center', borderRadius: 50, marginLeft: 8}}>
                         <Text style={styles.buttonText}>
-                        ✨New    
+                        Trending    
                         </Text>
-                    </TouchableOpacity> */}
-                    <Image 
+                    </TouchableOpacity>
+                    <TouchableOpacity style={{backgroundColor: 'rgba(0,0,0,0.4)', borderWidth: 1, borderColor: colors.dark, paddingHorizontal: 16, paddingVertical: 4, alignItems: 'center', justifyContent: 'center', borderRadius: 50, marginLeft: 8}}>
+                        <Text style={styles.buttonText}>
+                        Following    
+                        </Text>
+                    </TouchableOpacity>
+                    {/* <Image 
                         style={{height: 24, marginBottom: 4}}
                         source={require('../../../assets/images/logoBlack.png')}
                         resizeMode={'contain'}
-                    />
+                    /> */}
                 </View>
                 <TouchableOpacity 
                 style={{flex: 1, justifyContent: 'center'}}
@@ -73,20 +78,25 @@ const styles = StyleSheet.create({
         left: 0,
         right: 0,
         marginTop: Constant.statusBarHeight,
-        backgroundColor: colors.white,
     },
     buttonsContainer: {
         flexDirection: 'row',
         alignItems: 'center',
         backgroundColor: 'transparent',
         width: '100%',
-        justifyContent: 'center',
+        justifyContent: 'flex-start',
+        marginLeft: 16,
+        flex: 1,
     },
     buttonText: {
         color: colors.white,
-        fontFamily: 'Black',
-        fontSize: 16,
-        marginHorizontal: 8,
+        fontFamily: 'Regular',
+        fontSize: 14,
+    },
+    buttonText2: {
+        color: colors.white,
+        fontFamily: 'Bold',
+        fontSize: 14,
     },
     searchIcon: {
         width: 24,
@@ -98,7 +108,3 @@ const styles = StyleSheet.create({
         marginRight: 16,
     }
 });
-
-
-
-{/* <Image source={require('../../../assets/images/logowhite.png')} style={{height: 26, width: 180, alignSelf: 'center'}} resizeMode='contain' /> */}

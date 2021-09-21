@@ -3,11 +3,15 @@ import { View, Text, StyleSheet, Dimensions, TouchableWithoutFeedback, Touchable
 import colors from '../../../assets/colors'
 import { useCardAnimation } from '@react-navigation/stack';
 import { PinchGestureHandler, State } from 'react-native-gesture-handler';
+import { useAccountInfo, useWallet } from '../../../state/hooks'
 
 const width = Dimensions.get("window").width / 1.2; 
 const height = width * 1;
 
 export default function ProfilePicModal({navigation}) {
+  
+
+    const info = useAccountInfo()
 
     scale = new Animated.Value(1)
 
@@ -35,7 +39,7 @@ export default function ProfilePicModal({navigation}) {
         <View style={styles.container}>
             <TouchableWithoutFeedback
             onPress={() => navigation.goBack()}
-            >
+            > 
             <View style={styles.touchable} />
             </TouchableWithoutFeedback>
             <TouchableWithoutFeedback>

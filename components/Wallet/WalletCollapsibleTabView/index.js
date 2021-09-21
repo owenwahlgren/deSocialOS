@@ -17,12 +17,16 @@ import LottieView from 'lottie-react-native';
 import {TabView, TabBar} from 'react-native-tab-view';
 import colors from '../../../assets/colors'
 import InfoSection from '../../Profile/InfoSection';
-import TopSection from '../../Wallet/TopSection';
-import Asset from '../Asset';
-import Activity from '../Activity';
+import CreatedPost from '../../Profile/CreatedPost';
+import LikedPost from '../../Profile/LikedPost';
+import CollectionPost from '../../Profile/CollectionPost';
 import posts from '../../../data/posts'; 
 import {useAccountCollection, useAccountCreated, useFeedData, useWallet} from '../../../state/hooks';
 import { NFT } from '../../../utils/contract'
+import {useNavigation} from '@react-navigation/native';
+import Asset from '../Asset'
+import Activity from '../Activity'
+import TopSection from '../TopSection'
 
 import { 
   useFonts,
@@ -34,18 +38,23 @@ import {
   Poppins_900Black as Black,
 } from '@expo-google-fonts/poppins'
 
-const windowHeight = Dimensions.get('window').height + 100;
+const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
+
+const itemWidth = windowWidth / 3 - 1;
+const itemHeight = itemWidth * 1.7;
+
+
 const TabBarHeight = 48;
-const HeaderHeight = 40;
+const HeaderHeight = 240;
 const SafeStatusBar = Platform.select({
   ios: 44,
   android: StatusBar.currentHeight,
 });
-const tab1ItemSize = (windowWidth - 30) / 2;
-const tab2ItemSize = (windowWidth - 40) / 3;
 
 const WalletCollapsibleTabView = () => {
+
+  const navigation = useNavigation();
 
 
   let [fontsLoaded] = useFonts({
@@ -65,8 +74,7 @@ const WalletCollapsibleTabView = () => {
   const [canScroll, setCanScroll] = useState(true);
 
   const tab1Data = useAccountCreated();
-  const tab2Data = useAccountCollection();
-
+  const tab2Data = useAccountCreated();
   /**
    * ref
    */
@@ -237,24 +245,25 @@ const WalletCollapsibleTabView = () => {
       extrapolate: 'clamp',
     });
     return (
-      <View
-        style={styles.header}>
-        {/* <TopSection /> */}
-      </View>
+      <Animated.View
+        {...headerPanResponder.panHandlers}
+        style={[styles.header, {transform: [{translateY: y}]}]}>
+        <TopSection />
+      </Animated.View>
     );
   };
 
   const renderTab1Item = ({item, index}) => {
     return (
-      <View style={{flex: 1, alignItems: 'flex-start', backgroundColor: colors.lightest}}>
-      <Asset post={item} /> 
+      <View style={{flex: 1, alignItems: 'flex-start'}}>
+      <Asset post={item} />
       </View>
     );
   };
 
   const renderTab2Item = ({item, index}) => {
     return (
-      <View style={{flex: 1, alignItems: 'flex-start', backgroundColor: colors.lightest}}>
+      <View style={{flex: 1, alignItems: 'flex-start'}}>
       <Activity post={item} />
       </View>
     );
@@ -262,27 +271,63 @@ const WalletCollapsibleTabView = () => {
 
   const renderLabel = ({route, focused}) => {
     return (
-      <Text style={[styles.label, {color: focused ? colors.dark : colors.lightGray}]}>
+      <Text style={[styles.label, {opacity: focused ? 1 : 0.5}]}>
         {route.title}
       </Text>
     );
   };
+
+  const tab1EmptyComponent = ({item, index}) => {
+    return (
+      <>
+        <View style={styles.emptyCreated}>
+        <Text style={styles.emptyText}>You have no assets in this wallet 😔</Text>
+        <Text style={styles.emptyText2}>They will appear once recieved 😊</Text>
+        </View>
+        {/* <LottieView 
+          style={styles.downLottieCreated}
+          source={require('../../../assets/lottie/66934-tumbleweed-rolling.json')}
+          autoPlay
+          loop 
+        /> */}
+      </>
+    )
+  } 
+
+  const tab2EmptyComponent = ({item, index}) => {
+    return (
+      <>
+          <View style={styles.emptyCreated}>
+          <Text style={styles.emptyText}>No activity yet 😔</Text>
+          </View>
+          {/* <LottieView 
+          style={styles.downLottieCreated}
+          source={require('../../../assets/lottie/66934-tumbleweed-rolling.json')}
+          autoPlay
+          loop 
+        />    */}
+      </>
+    )
+  } 
 
   const renderScene = ({route}) => {
     const focused = route.key === routes[tabIndex].key;
     let numCols;
     let data;
     let renderItem;
+    let renderEmptyComponent;
     switch (route.key) {
       case 'tab1':
-        numCols = 3;
+        numCols = 1;
         data = tab1Data;
         renderItem = renderTab1Item; 
+        renderEmptyComponent = tab1EmptyComponent;
         break;
       case 'tab2':
-        numCols = 3;
+        numCols = 1;
         data = tab2Data;
         renderItem = renderTab2Item;
+        renderEmptyComponent = tab2EmptyComponent;
         break;
       default:
         return null;
@@ -322,11 +367,13 @@ const WalletCollapsibleTabView = () => {
         ListHeaderComponent={() => <View style={{height: 1}} />}
         contentContainerStyle={{
           paddingTop: HeaderHeight + TabBarHeight,
-          minHeight: windowHeight - SafeStatusBar + HeaderHeight,
+          minHeight: 100,
+          paddingBottom: 80,
         }}
         showsHorizontalScrollIndicator={false}
         data={data} 
         renderItem={renderItem}
+        ListEmptyComponent={renderEmptyComponent}
         showsVerticalScrollIndicator={false}
         keyExtractor={(item, index) => index.toString()}
       />
@@ -336,7 +383,7 @@ const WalletCollapsibleTabView = () => {
   const renderTabBar = (props) => {
     const y = scrollY.interpolate({
       inputRange: [0, HeaderHeight],
-      outputRange: [HeaderHeight, 40],
+      outputRange: [HeaderHeight, 0],
       extrapolate: 'clamp',
     });
     return (
@@ -345,7 +392,7 @@ const WalletCollapsibleTabView = () => {
           top: 0,
           zIndex: 1,
           position: 'absolute',
-          transform: [{translateY: y}],
+          transform: [{translateY: y }],
           width: '100%',
         }}>
         <TabBar
@@ -383,14 +430,7 @@ const WalletCollapsibleTabView = () => {
     );
   };
 
-  const [balance, setBalance] = useState(1)
-  const wallet = useWallet()
-  useEffect(() => {
-    (async () => {
-      setBalance(JSON.parse(await NFT.balanceOf(wallet.address.toString())))
-    })()
-  })
-    return (
+  return (
     <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
     <View style={styles.container}>
       {renderTabView()} 
@@ -403,17 +443,19 @@ const WalletCollapsibleTabView = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: 60,
+    width: '100%',
+    marginTop: 34,
     backgroundColor: colors.white
   },
   header: {
     height: HeaderHeight,
     width: '100%',
+    position: 'absolute',
   },
   label: {
     fontSize: 15, 
     color: colors.dark, 
-    fontFamily: 'SemiBold',
+    fontFamily: 'Medium',
   },
   tab: {
     elevation: 0,
@@ -430,20 +472,22 @@ const styles = StyleSheet.create({
   emptyCreated: {
     height: 50,
     alignItems: 'center',
+    marginTop: 32,
   },
   emptyText: {
-    fontFamily: 'Medium',
+    fontFamily: 'Regular',
     fontSize: 15,
     color: colors.dark
   },
   emptyText2: {
     fontFamily: 'Regular',
     fontSize: 13.5,
-    color: colors.dark,
+    color: colors.gray,
     marginTop: 4,
   },
   downLottieCreated: {
-    height: 40,
+    width: 200,
+    marginTop: 16,
     marginBottom: 4,
     alignSelf: 'center',
   },

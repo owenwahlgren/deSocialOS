@@ -6,7 +6,7 @@ import BottomTabNavigator from './BottomTabNavigator';
 import {SafeAreaProvider, SafeAreaView} from 'react-native-safe-area-context';
 import {fetchFeed, loadWallet, useWallet } from '../state/hooks'
 import SearchScreen from '../screens/Search';
-import PostDetails from '../components/Home/PostDetails';
+// import PostDetails from '../components/Home/PostDetails';
 import StartScreen from '../onboarding/StartScreen';
 import CreateWalletScreen from '../onboarding/CreateWalletScreen';
 import ImportWalletScreen from '../onboarding/ImportWalletScreen';
@@ -21,9 +21,12 @@ import HomeScreen from '../screens/Home';
 import PostDeets from '../screens/PostDeets';
 import ProfileOtherUser from '../screens/ProfileOtherUser';
 import TsxPending from '../components/Alerts/TsxPending'
-import SendModal from '../components/Modals/SendModal';
+import AccountModal from '../components/Modals/AccountModal';
 import FollowingFollowers from '../components/Profile/FollowingFollowers';
 import ProfilePicModal from '../components/Modals/ProfilePicModal';
+import PostDetails from '../screens/PostDetails';
+import SendModal from '../components/Modals/SendModal';
+import ScanModal from '../components/Modals/ScanModal';
 
 const height = Dimensions.get("window").height;
 
@@ -54,13 +57,14 @@ const Navigator = ({navigation}) => {
         <Stack.Screen name="ProfileSettings" component={ProfileSettings} />
         <Stack.Screen name="EditProfile" component={EditProfile} options={{gestureEnabled: false}} />
         <Stack.Screen name="SearchScreen" component={SearchScreen} />
-        <Stack.Screen name="PostDetails" component={PostDetails} />
+        {/* <Stack.Screen name="PostDetails" component={PostDetails} /> */}
         <Stack.Screen name="CameraScreen" component={CameraScreen} />
         <Stack.Screen name="VideoPreview" component={VideoPreview} options={{gestureEnabled: false, cardStyleInterpolator: forFade}}/>
         <Stack.Screen name="CreatePost" component={CreatePost} options={{gestureEnabled: false}}/>
         <Stack.Screen name="HomeScreen" component={HomeScreen} />
         <Stack.Screen name="ProfileOtherUser" component={ProfileOtherUser} />
         <Stack.Screen name="FollowingFollowers" component={FollowingFollowers} />
+        
         <Stack.Screen 
         name="PostDeets" 
         component={PostDeets} 
@@ -82,10 +86,28 @@ const Navigator = ({navigation}) => {
         options={{
           ...TransitionPresets.ModalTransition
         }}
+        name='AccountModal' 
+        component={AccountModal} 
+        cardOverlayEnabled={true}
+        /> 
+
+        <Stack.Screen 
+        options={{
+          ...TransitionPresets.ModalTransition
+        }}
         name='SendModal' 
         component={SendModal} 
         cardOverlayEnabled={true}
         /> 
+
+        <Stack.Screen  
+        name="PostDetails" 
+        component={PostDetails} 
+        options={{
+          ...TransitionPresets.SlideFromRightIOS
+        }} 
+        />
+
       </Stack.Group>
       <Stack.Group
       screenOptions={{
@@ -97,9 +119,18 @@ const Navigator = ({navigation}) => {
         }}>
         <Stack.Screen 
           options={{
+            ...TransitionPresets.ModalFadeTransition
           }}
           name='ProfilePicModal' 
           component={ProfilePicModal} 
+          />
+
+          <Stack.Screen 
+          options={{
+            ...TransitionPresets.ModalSlideFromBottomIOS
+          }}
+          name='ScanModal' 
+          component={ScanModal} 
           />
       </Stack.Group>
 
