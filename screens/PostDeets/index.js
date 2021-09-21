@@ -79,7 +79,7 @@ const PostDeets = ({route, navigation}) => {
   
   const [tabIndex, setIndex] = useState(0);
   const [routes] = useState([
-    {key: 'tab1', title: `Comments (${route.params.item.comments.length})`},
+    {key: 'tab1', title: `Comments (${route.params.item.comments})`},
     {key: 'tab2', title: 'History'},
   ]);
   const [canScroll, setCanScroll] = useState(true);
@@ -254,6 +254,7 @@ const PostDeets = ({route, navigation}) => {
   const signer = wallet.connect(provider)
   const NFT = new ethers.Contract(NFT_Address, NFT_ABI, signer)
   const comments = route.params.item.comments
+  console.log(route.params)
 
   useEffect(() => {
     (async () => {

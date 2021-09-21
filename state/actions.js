@@ -6,9 +6,17 @@ import { useEffect } from 'react'
  
 //fetch data from feed util
 export const fetchFeedDataAsync = () => async (dispatch) => {
-	const feed = await fetchFeedData()
-	console.log("feed loaded to state!")
-	return dispatch(setFeedData(feed))
+	// const feed = await fetchFeedData()
+
+	const url = 'https://api.de.social/fetchFeed'
+	console.log('fetching feed')
+	const reponse = await fetch(url, {method: "GET"})
+	const data = await reponse.json()
+	data.shift()
+	data.reverse()
+	return dispatch(setFeedData(data))
+	// console.log('feed fetched', data)
+
 }
 
 //load wallet data from storage into state

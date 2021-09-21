@@ -1,8 +1,8 @@
 import "@ethersproject/shims";
 import { ethers } from "ethers";
-export const provider = new ethers.providers.JsonRpcProvider("https://polygon-mainnet.infura.io/v3/baf69f2094034498b3cc9d94cc83943e");
+export const provider = new ethers.providers.JsonRpcProvider("https://rpc-mainnet.matic.quiknode.pro");
 export const NFT_ABI = [
-  "function requestMint(string memory _title, string memory _videoHash) public",
+  "function requestMint(string memory _title, string memory _ipfs) public",
   "function getMetaData(uint256 _id) public view returns(string memory, string memory, address, uint256, uint256, uint256)",
   "function tokenOfOwnerByIndex(address owner, uint256 index) external view returns (uint256 tokenId)",
   "function balanceOf(address owner) external view returns (uint256 balance)",
@@ -14,7 +14,7 @@ export const NFT_ABI = [
 
 ];
 
-export const NFT_Address = "0x09533472a2A36fbc5A969E75d8f19819bE136Ba1";
+export const NFT_Address = "0x8E3FB61AF20BE85bbB41c71Bce620A4c11F42bC7";
 export const NFT = new ethers.Contract(NFT_Address, NFT_ABI, provider);
 
 
@@ -24,7 +24,7 @@ export const SOCIAL_ABI = [
   "function unfollow(address _user) public",
   "function viewProfile(address _user) public view returns(string memory, string memory, string memory, uint256, uint256)"
 ];
-export const SOCIAL_ADDRESS = '0xF9760484A65F47087b2Afc41ab1af8E97773D95e';
+export const SOCIAL_ADDRESS = '0x65B9fc3Ba215AFf29FBDc24E6668D6919cC1C72d';
 export const SOCIAL = new ethers.Contract(SOCIAL_ADDRESS, SOCIAL_ABI, provider);
 
 

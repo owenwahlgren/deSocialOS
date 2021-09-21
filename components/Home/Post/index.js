@@ -66,8 +66,8 @@ const Post = (props) => {
  
                 <Video 
                     source={{uri: post.videoUri}}
-                    isLooping
-                    shouldPlay 
+                    // isLooping
+                    // shouldPlay 
                     resizeMode={'cover'}
                     style={styles.video}
                     volume={0}
@@ -101,7 +101,7 @@ const Post = (props) => {
                                 source={{uri: post.user.imageUri}} 
                             />
                             <View style={styles.bottomContainer}>
-                                <Text ellipsizeMode='tail' numberOfLines={1} style={styles.handle}>@{post.user.username}</Text>
+                                <Text ellipsizeMode='tail' numberOfLines={1} style={styles.handle}>@{post.user.username? post.user.username: post.user.id.substring(0,9)}</Text>
                             </View> 
                         </View>
                     </View>

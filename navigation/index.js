@@ -38,6 +38,10 @@ const forFade = ({ current }) => ({
 const Navigator = ({navigation}) => {
 
   console.log("Nav index loaded")
+  // useEffect(() => {
+  //   const wallet = useWallet()
+  //   console.log(wallet)
+  // })
   return (
     <NavigationContainer>
       <Stack.Navigator 

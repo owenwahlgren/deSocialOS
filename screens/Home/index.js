@@ -24,7 +24,7 @@ const translateY = diffClamp.interpolate ({
 
 console.log('home refresh')
 const posts = useFeedData()
-console.log(posts.length)
+
 
 // const [selected, setSelected] = useState(false)
 // useEffect(() => {
