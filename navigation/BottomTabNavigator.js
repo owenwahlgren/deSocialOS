@@ -71,7 +71,11 @@ export default function BottomTabNavigator() {
       options={{
         headerShown: false,
         tabBarStyle: {
-          backgroundColor: colors.white,
+          // backgroundColor: colors.white,
+          backgroundColor: 'rgba(255, 255, 255, 1)',
+          borderTopRightRadius: 20,
+          borderTopLeftRadius: 20,
+          borderTopWidth: 0,
           position: 'absolute',
         }
       }}
@@ -82,6 +86,12 @@ export default function BottomTabNavigator() {
       component={MessagesScreen} 
       options={{
         headerShown: false,
+        tabBarStyle: {
+          // backgroundColor: colors.white,
+          backgroundColor: colors.white,
+          position: 'absolute',
+          borderTopWidth: 0,
+        }
       }} 
       />
       <Tab.Screen 
@@ -93,19 +103,32 @@ export default function BottomTabNavigator() {
           backgroundColor: 'transparent', 
           position: 'absolute',
           borderTopColor: 'transparent',
+          borderTopWidth: 0,
         },
       }} />
       <Tab.Screen 
       name="Wallet" 
       component={WalletScreen} 
       options={{
-        headerShown: false
+        headerShown: false,
+        tabBarStyle: {
+          // backgroundColor: colors.white,
+          backgroundColor: colors.white,
+          position: 'absolute',
+          borderTopWidth: 0,
+        }
       }} />
       <Tab.Screen 
       name="Profile" 
       component={ProfileScreen}
       options={{
-        headerShown: false
+        headerShown: false,
+        tabBarStyle: {
+          // backgroundColor: colors.white,
+          backgroundColor: colors.white,
+          position: 'absolute',
+          borderTopWidth: 0,
+        }
         }} />
     </Tab.Navigator>
 );

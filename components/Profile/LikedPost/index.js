@@ -20,7 +20,7 @@ import {
     Poppins_900Black as Black,
   } from '@expo-google-fonts/poppins'
 
-const CreatedPost = (props) => {
+const LikedPost = (props) => {
 
     const navigation = useNavigation();
 
@@ -61,7 +61,7 @@ const CreatedPost = (props) => {
     }
 }
 
-export default CreatedPost;
+export default LikedPost;
 
 const styles = StyleSheet.create({
     video: {

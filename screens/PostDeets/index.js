@@ -61,7 +61,7 @@ const tab1ItemSize = (windowWidth - 30) / 2;
 const tab2ItemSize = (windowWidth - 40) / 3;
 
 const width = Dimensions.get("window").width;
-const height = Dimensions.get("window").height - 80;
+const height = Dimensions.get("window").height - 80 ;
 
 const PostDeets = ({route, navigation}) => {
 
@@ -328,12 +328,12 @@ const PostDeets = ({route, navigation}) => {
             </SharedElement>
         </View>
       </Animated.View>
-      <View style={{flex: 1, position: 'absolute', width: '100%'}}>
+      <View style={{flex: 1, position: 'absolute', width: '100%'}}> 
       <PostDeetsHeader />
       </View>
       <KeyboardAvoidingView
       behavior={behavior}
-      style={{backgroundColor: colors.white, height: 80}}
+      style={{backgroundColor: colors.white, height: 80}} 
       >
         <View style={styles.bottomBar}>
           <Image 

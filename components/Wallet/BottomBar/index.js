@@ -41,7 +41,7 @@ export default function BottomBar() {
             <View style={styles.container}>
                 <View style={styles.buttonsContainer}>
                   <TouchableOpacity 
-                  onPress={() => navigation.navigate('SendModal') }
+                  onPress={() => navigation.navigate('AccountModal') }
                   style={styles.button}
                   >
                     <Text style={styles.buttonText}>Send</Text>
@@ -51,7 +51,7 @@ export default function BottomBar() {
                   </TouchableOpacity>
                 </View>
             </View>
-    )
+    ) 
     }
 }
 
@@ -69,23 +69,16 @@ const styles = StyleSheet.create({
       flexDirection: 'row',
     },
     button: {
-      width: 160,
-      height: 46,
+      width: 152,
+      height: 42,
       backgroundColor: colors.dark,
-      borderRadius: 10,
+      borderRadius: 6,
+      borderWidth: 1,
+      borderColor: colors.outline,
       alignItems: 'center',
       justifyContent: 'center',
       marginLeft: 8,
-      marginRight: 8, 
-      shadowColor: "#000",
-      shadowOffset: {
-        width: 0,
-        height: 1,
-      },
-      shadowOpacity: 0.3,
-      shadowRadius: 2,
-  
-      elevation: 5,
+      marginRight: 8,
     },
     bigText: {
       fontFamily: 'Medium',
@@ -95,7 +88,7 @@ const styles = StyleSheet.create({
     },
     buttonText: {
       fontFamily: 'Medium',
-      color: colors.lightest,
+      color: colors.white,
       fontSize: 15,
     }
 })

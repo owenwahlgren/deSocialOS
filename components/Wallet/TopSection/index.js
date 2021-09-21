@@ -39,78 +39,73 @@ export default function TopSection() {
   });
   if (!fontsLoaded) {
     return <AppLoading />;
-  } else {
+  } else { 
     return (
-        <SafeAreaView style={{backgroundColor: 'red'}}>
         <View style={styles.container}>
-            <Text style={styles.usernameText}>@{username || wallet.address.toString().substring(0,16)}</Text>
-            <Text style={styles.bigText}>$30,204.09</Text>
+            <View style={styles.card}>
+            <View> 
+            <TouchableOpacity style={{backgroundColor: colors.lightest, borderWidth: 1, borderColor: colors.outline, paddingHorizontal: 14, paddingVertical: 2, borderRadius: 50, marginTop: 8}}>
+              <Text style={{fontFamily: 'Regular', fontSize: 11.5, color: colors.gray}}>0xajk4...2098</Text>
+            </TouchableOpacity>
+            </View>
+            <Text style={styles.total}>Total Balance:</Text>
+            <Text style={styles.bigText}>$41,025.75</Text>
+            </View>
+            <TouchableOpacity 
+              style={styles.button}
+              onPress={() => navigation.navigate('SendModal')}
+              >
+                <Text style={{fontFamily: 'Regular', color: colors.white, fontSize: 15}}>Send</Text>
+              </TouchableOpacity>
         </View>
-        </SafeAreaView>
     );
   }
 }
 
 const styles = StyleSheet.create({
   container: {
-    height: 100,
+    paddingLeft: 40,
+    paddingRight: 40,
     backgroundColor: colors.white,
-    paddingLeft: 12,
-    paddingTop: 10,
-    paddingRight: 12,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  leftContainer: {
     flex: 1,
-  },
-  rightContainer: {
-    flex: 1,
-  },
-  buttonsContainer: {
-    flexDirection: 'row',
-  },
-  button: {
-    width: 160,
-    height: 48,
-    backgroundColor: colors.dark,
-    borderRadius: 6,
     alignItems: 'center',
-    justifyContent: 'center',
-    marginLeft: 8,
-    marginRight: 8, 
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 1,
-    },
-    shadowOpacity: 0.3,
-    shadowRadius: 5,
-
-    elevation: 5,
   },
   bigText: {
     fontFamily: 'Medium',
-    fontSize: 28,
+    fontSize: 32,
     color: colors.dark,
+    marginTop: 4,
   },
-  buttonText: {
-    fontFamily: 'Medium',
-    color: colors.lightest,
-    fontSize: 15,
+  card: {
+    width: '100%',
+    backgroundColor: colors.white,
+    height: 140,
+    marginTop: 12,
+    borderRadius: 8,
+    alignItems: 'center',
   },
-  usernameText: {
-    fontFamily: 'Medium',
-    color: colors.dark,
-    fontSize: 15,
-    marginBottom: 12,
+  total: {
+    fontFamily: 'Regular',
+    fontSize: 13.5,
+    marginTop: 26,
+    color: colors.gray,
   },
-  profileImage: {
-    width: 52,
-    height: 52,
-    borderRadius: 50,
-    resizeMode: 'cover',
-    alignSelf: 'flex-end',
-    backgroundColor: colors.outline,
-  },
+  button: {
+    backgroundColor: colors.primary, 
+    width: 140, 
+    height: 42, 
+    marginTop: 16,
+    alignItems: 'center', 
+    justifyContent: 'center', 
+    borderRadius: 6,
+    shadowColor: colors.primary,
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: .25,
+    shadowRadius: 3,
+
+    elevation: 4,
+  }
 });

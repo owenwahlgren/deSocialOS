@@ -18,10 +18,12 @@ import {TabView, TabBar} from 'react-native-tab-view';
 import colors from '../../../assets/colors'
 import InfoSection from '../InfoSection';
 import CreatedPost from '../CreatedPost';
+import LikedPost from '../LikedPost';
 import CollectionPost from '../CollectionPost';
 import posts from '../../../data/posts'; 
 import {useAccountCollection, useAccountCreated, useFeedData, useWallet} from '../../../state/hooks';
 import { NFT } from '../../../utils/contract'
+import {useNavigation} from '@react-navigation/native';
 
 import { 
   useFonts,
@@ -35,16 +37,21 @@ import {
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
+
+const itemWidth = windowWidth / 3 - 1;
+const itemHeight = itemWidth * 1.9;
+
+
 const TabBarHeight = 48;
-const HeaderHeight = 340;
+const HeaderHeight = 300;
 const SafeStatusBar = Platform.select({
   ios: 44,
   android: StatusBar.currentHeight,
 });
-const tab1ItemSize = (windowWidth - 30) / 2;
-const tab2ItemSize = (windowWidth - 40) / 3;
 
 const CollapsibleTabView = () => {
+
+  const navigation = useNavigation();
 
 
   let [fontsLoaded] = useFonts({
@@ -58,13 +65,16 @@ const CollapsibleTabView = () => {
    */
   const [tabIndex, setIndex] = useState(0);
   const [routes] = useState([
-    {key: 'tab1', title: '🎥 Created'},
-    {key: 'tab2', title: '👀 Collection'},
+    {key: 'tab1', title: 'Created'},
+    {key: 'tab2', title: 'Liked'},
+    // {key: 'tab3', title: 'Collected'},
   ]);
   const [canScroll, setCanScroll] = useState(true);
 
   const tab1Data = useAccountCreated();
-  const tab2Data = useAccountCollection();
+  const tab2Data = useFeedData();
+
+  // const tab3Data = useAccountCollection();
 
   /**
    * ref
@@ -246,29 +256,39 @@ const CollapsibleTabView = () => {
 
   const renderTab1Item = ({item, index}) => {
     return (
-      <View style={{alignItems: 'flex-start'}}>
-      <CreatedPost post={item} />
-      </View>
+      <TouchableOpacity
+      onPress={() => navigation.navigate('PostDeets', {item})}
+      >
+        <View
+          style={{
+            marginLeft: index % 3 === 0 ? 0 : 1.5,
+            marginBottom: 1.5,
+            // borderRadius: 16, 
+            width: itemWidth,
+            height: itemHeight,
+          }}>    
+        <CreatedPost post={item} />
+        </View>
+      </TouchableOpacity>
     );
   };
 
   const renderTab2Item = ({item, index}) => {
     return (
-      // <View
-      //   style={{
-      //     marginLeft: index % 3 === 0 ? 0 : 10,
-      //     borderRadius: 16,
-      //     width: tab2ItemSize,
-      //     height: tab2ItemSize,
-      //     backgroundColor: '#aaa',
-      //     justifyContent: 'center',
-      //     alignItems: 'center', 
-      //   }}>
-      //   <Text>{index}</Text>
-      // </View>
-      <View style={{flex: 1, alignItems: 'flex-start'}}>
-      <CollectionPost post={item} />
-      </View>
+      <TouchableOpacity
+      onPress={() => navigation.navigate('PostDeets', {item})}
+      >
+        <View
+          style={{
+            marginLeft: index % 3 === 0 ? 0 : 1.5,
+            marginBottom: 1.5,
+            // borderRadius: 16, 
+            width: itemWidth,
+            height: itemHeight,
+          }}>    
+        <LikedPost post={item} />
+        </View>
+      </TouchableOpacity>
     );
   };
 
@@ -280,25 +300,63 @@ const CollapsibleTabView = () => {
     );
   };
 
+  const tab1EmptyComponent = ({item, index}) => {
+    return (
+      <>
+        <View style={styles.emptyCreated}>
+        <Text style={styles.emptyText}>You haven't created anything yet 😔</Text>
+        <Text style={styles.emptyText2}>Record your first video 😊</Text>
+        </View>
+        {/* <LottieView 
+          style={styles.downLottieCreated}
+          source={require('../../../assets/lottie/16234-down-arrow.json')}
+          autoPlay
+          loop 
+        /> */}
+      </>
+    )
+  } 
+
+  const tab2EmptyComponent = ({item, index}) => {
+    return (
+      <>
+          <View style={styles.emptyCreated}>
+          <Text style={styles.emptyText}>You haven't liked anything yet 😔</Text>
+          <Text style={styles.emptyText2}>Start exploring content 😊</Text>
+          </View>
+          {/* <LottieView 
+            style={styles.downLottieCreated2}
+            source={require('../../../assets/lottie/16234-down-arrow.json')}
+            autoPlay
+            loop
+          /> */}
+      </>
+    )
+  } 
+
   const renderScene = ({route}) => {
     const focused = route.key === routes[tabIndex].key;
     let numCols;
     let data;
     let renderItem;
+    let renderEmptyComponent;
     switch (route.key) {
       case 'tab1':
         numCols = 3;
         data = tab1Data;
         renderItem = renderTab1Item; 
+        renderEmptyComponent = tab1EmptyComponent;
         break;
       case 'tab2':
         numCols = 3;
         data = tab2Data;
         renderItem = renderTab2Item;
+        renderEmptyComponent = tab2EmptyComponent;
         break;
       default:
         return null;
     }
+
     return (
       <Animated.FlatList
         // scrollEnabled={canScroll}
@@ -334,11 +392,13 @@ const CollapsibleTabView = () => {
         ListHeaderComponent={() => <View style={{height: 1}} />}
         contentContainerStyle={{
           paddingTop: HeaderHeight + TabBarHeight,
-          minHeight: windowHeight - SafeStatusBar + HeaderHeight,
+          paddingBottom: 80,
+          minHeight: 100,
         }}
         showsHorizontalScrollIndicator={false}
         data={data} 
         renderItem={renderItem}
+        ListEmptyComponent={renderEmptyComponent}
         showsVerticalScrollIndicator={false}
         keyExtractor={(item, index) => index.toString()}
       />
@@ -357,7 +417,7 @@ const CollapsibleTabView = () => {
           top: 0,
           zIndex: 1,
           position: 'absolute',
-          transform: [{translateY: y}],
+          transform: [{translateY: y }],
           width: '100%',
         }}>
         <TabBar
@@ -402,47 +462,7 @@ const CollapsibleTabView = () => {
       setBalance(JSON.parse(await NFT.balanceOf(wallet.address.toString())))
     })()
   })
-  if (balance == 0 ) {
-    return (
-    <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
-    <View style={styles.container}>
-      {renderTabView()} 
-      {renderHeader()}
-    </View>
-
-    {/* Render 'created component' if user has not created anything and
-    render 'collection component' if user has not collected anything*/}
-
-     {/* BEGIN EMPTY CREATED COMPONENT*/}
-      <View style={styles.emptyCreated}>
-        <Text style={styles.emptyText}>You haven't created anything yet!</Text>
-        <Text style={styles.emptyText2}>Tap to create a new video</Text>
-      </View>
-      <LottieView 
-        style={styles.downLottieCreated}
-        source={require('../../../assets/lottie/16234-down-arrow.json')}
-        autoPlay
-        loop 
-      />
-      {/* END EMPTY CREATED COMPONENT */}
-
-      {/* BEGIN EMPTY COLLECTION COMPONENT */}
-      <View style={styles.emptyCreated}>
-        <Text style={styles.emptyText}>Your collection is empty!</Text>
-        <Text style={styles.emptyText2}>Tap to explore unique NFTs</Text>
-      </View>
-      <LottieView 
-        style={styles.downLottieCreated2}
-        source={require('../../../assets/lottie/16234-down-arrow.json')}
-        autoPlay
-        loop
-      />
-      {/* END EMPTY COLLECTION COMPONENT */}
-      
-    </SafeAreaView>
-  );
-  } else {
-    return (
+  return (
     <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
     <View style={styles.container}>
       {renderTabView()} 
@@ -450,13 +470,13 @@ const CollapsibleTabView = () => {
     </View>
     </SafeAreaView>
     )
-  }
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: 40,
+    width: '100%',
+    marginTop: 34,
     backgroundColor: colors.white
   },
   header: {
@@ -467,33 +487,34 @@ const styles = StyleSheet.create({
   label: {
     fontSize: 15, 
     color: colors.dark, 
-    fontFamily: 'SemiBold',
+    fontFamily: 'Medium',
   },
   tab: {
     elevation: 0,
     shadowOpacity: 0,
-    borderBottomWidth: 1,
+    borderBottomWidth: 0,
     borderBottomColor: colors.outline,
     borderTopColor: colors.outline,
     backgroundColor: colors.white,
     height: TabBarHeight,
   },
   indicator: {
-    backgroundColor: colors.dark
+    backgroundColor: colors.dark,
   },
   emptyCreated: {
     height: 50,
     alignItems: 'center',
+    marginTop: 32,
   },
   emptyText: {
-    fontFamily: 'Medium',
+    fontFamily: 'Regular',
     fontSize: 15,
     color: colors.dark
   },
   emptyText2: {
     fontFamily: 'Regular',
     fontSize: 13.5,
-    color: colors.dark,
+    color: colors.gray,
     marginTop: 4,
   },
   downLottieCreated: {

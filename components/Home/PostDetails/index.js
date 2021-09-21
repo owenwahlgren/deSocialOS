@@ -31,16 +31,15 @@ const PostDetails = ({route, navigation}) => {
         <HeaderBar />
         </View> */
         // <PostCollapsibleTabView />
-        /* </> */
+        /* </>
 
-        // {/* 
-        //     <>
-        //     <View style={{position: 'absolute', flex: 1, width: '100%', zIndex: 100}}>
-        //     <HeaderBar />
-        //     </View>
-        //     <CollapsibleTabView />
-        //     </> 
-        // */}
+
+            <>
+            <View style={{position: 'absolute', flex: 1, width: '100%', zIndex: 100}}>
+            <HeaderBar />
+            </View>
+            <CollapsibleTabView />
+            </> 
     )
 }
 

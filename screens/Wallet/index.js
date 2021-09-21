@@ -5,6 +5,7 @@ import BottomBar from '../../components/Wallet/BottomBar'
 import TopSection from '../../components/Wallet/TopSection';
 import { useWallet } from '../../state/hooks'
 import { provider } from '../../utils/contract'
+import HeaderBar from '../../components/Wallet/HeaderBar';
 
 import WalletCollapsibleTabView from '../../components/Wallet/WalletCollapsibleTabView';
 
@@ -34,10 +35,8 @@ export default function WalletScreen() {
     return (
         <>
         <View style={{position: 'absolute', flex: 1, width: '100%', zIndex: 100}}>
-        <TopSection />
-        </View>
-        <View style={{position: 'absolute', bottom: 0, width: '100%', zIndex: 100, justifyContent: 'flex-end'}}>
-        <BottomBar />
+        <HeaderBar />
+        {/* <TopSection /> */}
         </View>
         <WalletCollapsibleTabView />
         </>
