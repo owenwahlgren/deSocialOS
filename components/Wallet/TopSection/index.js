@@ -8,6 +8,9 @@ import {useNavigation} from '@react-navigation/native';
 import { useAccountInfo, useWallet } from '../../../state/hooks'
 import { SOCIAL } from '../../../utils/contract'
 import tokenIcons from '../../../assets/tokenIcons';
+import { Feather } from '@expo/vector-icons'; 
+import { Ionicons } from '@expo/vector-icons'; 
+
 
 import { 
   useFonts,
@@ -43,20 +46,29 @@ export default function TopSection() {
     return (
         <View style={styles.container}>
             <View style={styles.card}>
-            <View> 
-            <TouchableOpacity style={{backgroundColor: colors.lightest, borderWidth: 1, borderColor: colors.outline, paddingHorizontal: 14, paddingVertical: 2, borderRadius: 50, marginTop: 8}}>
-              <Text style={{fontFamily: 'Regular', fontSize: 11.5, color: colors.gray}}>0xajk4...2098</Text>
-            </TouchableOpacity>
+              <Text style={styles.total}>Balance</Text>
+              <Text style={styles.bigText}>$41,025.75</Text>
             </View>
-            <Text style={styles.total}>Total Balance:</Text>
-            <Text style={styles.bigText}>$41,025.75</Text>
-            </View>
+            <View style={styles.bottomButtons}>
             <TouchableOpacity 
               style={styles.button}
-              onPress={() => navigation.navigate('SendModal')}
+              onPress={() => navigation.navigate('SendToScreen')}
               >
-                <Text style={{fontFamily: 'Regular', color: colors.white, fontSize: 15}}>Send</Text>
-              </TouchableOpacity>
+              <View style={styles.innerButton}>
+                <Feather name="send" size={22} color={colors.dark} />
+                <Text style={styles.buttonText}>Send</Text>
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity 
+              style={styles.button}
+              onPress={() => navigation.navigate('AccountModal')}
+              >
+              <View style={styles.innerButton}>
+                <Ionicons name="qr-code" size={22} color={colors.dark} />
+                <Text style={styles.buttonText}>Receive</Text>
+              </View>
+            </TouchableOpacity>
+            </View>
         </View>
     );
   }
@@ -64,48 +76,56 @@ export default function TopSection() {
 
 const styles = StyleSheet.create({
   container: {
-    paddingLeft: 40,
-    paddingRight: 40,
+    paddingLeft: 38,
+    paddingRight: 38,
     backgroundColor: colors.white,
     flex: 1,
     alignItems: 'center',
   },
   bigText: {
-    fontFamily: 'Medium',
+    fontFamily: 'SemiBold',
     fontSize: 32,
     color: colors.dark,
-    marginTop: 4,
+    marginTop: 2,
   },
   card: {
     width: '100%',
     backgroundColor: colors.white,
-    height: 140,
-    marginTop: 12,
-    borderRadius: 8,
+    height: 86,
+    marginTop: 16,
+    borderRadius: 4,
     alignItems: 'center',
+    justifyContent: 'center',
   },
   total: {
     fontFamily: 'Regular',
     fontSize: 13.5,
-    marginTop: 26,
     color: colors.gray,
   },
   button: {
-    backgroundColor: colors.primary, 
-    width: 140, 
-    height: 42, 
-    marginTop: 16,
+    backgroundColor: colors.white, 
+    width: 148, 
+    height: 52, 
     alignItems: 'center', 
     justifyContent: 'center', 
     borderRadius: 6,
-    shadowColor: colors.primary,
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: .25,
-    shadowRadius: 3,
-
-    elevation: 4,
+    borderWidth: 1,
+    borderColor: colors.outline,
+  },
+  bottomButtons: {
+    flexDirection: 'row',
+    marginTop: 16,
+    width: '100%',
+    justifyContent: 'space-between',
+  },
+  innerButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  buttonText: {
+  fontFamily: 'Regular', 
+  color: colors.dark, 
+  fontSize: 13.5,
+  marginLeft: 8,
   }
 });

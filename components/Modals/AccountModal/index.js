@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, StyleSheet, TouchableWithoutFeedback, TouchableOpacity, Animated } from 'react-native'
+import { View, Text, StyleSheet, TouchableWithoutFeedback, TouchableOpacity, Animated, Image } from 'react-native'
 import colors from '../../../assets/colors'
 import { useCardAnimation } from '@react-navigation/stack';
 import { current } from '@reduxjs/toolkit';
@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
       justifyContent: 'flex-end',
     },
     innerContainer: {
-        height: '40%', 
+        height: '50%', 
         width: '100%', 
         borderTopRightRadius: 10,
         borderTopLeftRadius: 10,

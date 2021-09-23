@@ -46,7 +46,7 @@ const itemHeight = itemWidth * 1.7;
 
 
 const TabBarHeight = 48;
-const HeaderHeight = 240;
+const HeaderHeight = 200;
 const SafeStatusBar = Platform.select({
   ios: 44,
   android: StatusBar.currentHeight,
@@ -256,7 +256,7 @@ const WalletCollapsibleTabView = () => {
   const renderTab1Item = ({item, index}) => {
     return (
       <View style={{flex: 1, alignItems: 'flex-start'}}>
-      <Asset post={item} />
+      <Asset post={item} /> 
       </View>
     );
   };
@@ -445,7 +445,7 @@ const styles = StyleSheet.create({
     flex: 1,
     width: '100%',
     marginTop: 34,
-    backgroundColor: colors.white
+    backgroundColor: colors.white,
   },
   header: {
     height: HeaderHeight,

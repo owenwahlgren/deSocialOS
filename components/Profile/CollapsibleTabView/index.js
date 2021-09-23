@@ -12,6 +12,7 @@ import {
   StatusBar,
   SafeAreaView,
   Image,
+  ImageBackground,
 } from 'react-native';
 import LottieView from 'lottie-react-native';
 import {TabView, TabBar} from 'react-native-tab-view';
@@ -488,6 +489,10 @@ const styles = StyleSheet.create({
     fontSize: 15, 
     color: colors.dark, 
     fontFamily: 'Medium',
+  },
+  labelIcon: {
+    width: 40,
+    height: 40,
   },
   tab: {
     elevation: 0,

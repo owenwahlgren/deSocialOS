@@ -75,6 +75,10 @@ return (
             extraData={useFeedData()}
             numColumns={2}
             initialNumToRender={4}
+            // contentContainerStyle={{
+            //     paddingBottom: 86,
+            //     paddingTop: 40,
+            // }}
             showsVerticalScrollIndicator={false}
             renderItem={({item, index}) => (
                 <TouchableOpacity

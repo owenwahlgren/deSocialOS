@@ -25,8 +25,10 @@ import AccountModal from '../components/Modals/AccountModal';
 import FollowingFollowers from '../components/Profile/FollowingFollowers';
 import ProfilePicModal from '../components/Modals/ProfilePicModal';
 import PostDetails from '../screens/PostDetails';
-import SendModal from '../components/Modals/SendModal';
 import ScanModal from '../components/Modals/ScanModal';
+import SendToScreen from '../screens/SendTo';
+import SendAssetScreen from '../screens/SendAsset';
+import SendAmountScreen from '../screens/SendAmount';
 
 const height = Dimensions.get("window").height;
 
@@ -64,6 +66,9 @@ const Navigator = ({navigation}) => {
         <Stack.Screen name="HomeScreen" component={HomeScreen} />
         <Stack.Screen name="ProfileOtherUser" component={ProfileOtherUser} />
         <Stack.Screen name="FollowingFollowers" component={FollowingFollowers} />
+        <Stack.Screen name="SendToScreen" component={SendToScreen} />
+        <Stack.Screen name="SendAssetScreen" component={SendAssetScreen} />
+        <Stack.Screen name="SendAmountScreen" component={SendAmountScreen} />
         
         <Stack.Screen 
         name="PostDeets" 
@@ -88,15 +93,6 @@ const Navigator = ({navigation}) => {
         }}
         name='AccountModal' 
         component={AccountModal} 
-        cardOverlayEnabled={true}
-        /> 
-
-        <Stack.Screen 
-        options={{
-          ...TransitionPresets.ModalTransition
-        }}
-        name='SendModal' 
-        component={SendModal} 
         cardOverlayEnabled={true}
         /> 
 

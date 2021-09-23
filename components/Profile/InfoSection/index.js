@@ -4,9 +4,10 @@ import { StyleSheet, Text, View, Image, Button, TouchableOpacity } from 'react-n
 import AppLoading from 'expo-app-loading';
 import colors from '../../../assets/colors'
 import {useFeedData} from '../../../state/hooks'
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, useRoute} from '@react-navigation/native';
 import { useAccountInfo, useWallet } from '../../../state/hooks'
 import { SOCIAL } from '../../../utils/contract'
+
 
 import { 
   useFonts,
@@ -65,7 +66,7 @@ export default function InfoSection(props) {
               </TouchableOpacity>
             </View>
             <TouchableOpacity
-            onPress={() => navigation.navigate('ProfilePicModal', {item})}
+            onPress={() => navigation.navigate('AccountModal')} 
             >
             <Image
               source={{
@@ -126,11 +127,11 @@ const styles = StyleSheet.create({
   username: {
     fontFamily: 'SemiBold',
     fontSize: 16,
-    color: colors.dark
+    color: colors.dark 
   },
   bio: {
     fontFamily: 'Regular',
-    fontSize: 13,
+    fontSize: 13.5,
     color: colors.dark,
     textAlign: 'center',
   },
@@ -142,7 +143,7 @@ const styles = StyleSheet.create({
     marginBottom: 16,
     paddingVertical: 8,
     width: 160,
-    height: 42,
+    height: 46,
     alignItems: 'center',
     justifyContent: 'center',
   },

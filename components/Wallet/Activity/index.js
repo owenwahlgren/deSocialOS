@@ -116,14 +116,14 @@ const styles = StyleSheet.create({
     activitycontainer: {
         flex: 1,
         width: '100%',
-        paddingLeft: 12,
-        paddingTop: 10, 
+        paddingLeft: 16,
+        paddingTop: 14, 
         marginTop: 2,
-        paddingBottom: 10,  
-        paddingRight: 12,
-        backgroundColor: colors.white
-        // borderBottomWidth: 1,
-        // borderBottomColor: colors.outline
+        paddingBottom: 14,  
+        paddingRight: 16,
+        backgroundColor: colors.white,
+        borderBottomColor: colors.outline,
+        borderBottomWidth: 1,
     },
     tokenName: {
         fontFamily: 'Regular',

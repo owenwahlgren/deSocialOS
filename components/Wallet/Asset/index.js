@@ -8,6 +8,7 @@ import {useNavigation} from '@react-navigation/native';
 import LottieView from 'lottie-react-native';
 
 
+
 const width = Dimensions.get("window").width;
 const height = width * 1.618;
 
@@ -39,14 +40,10 @@ const Asset = () => {
         <>
         <TouchableOpacity style={styles.assetContainer}>
             <View style={styles.innerLeftContainer}>
-                <TouchableOpacity
-                onPress={() => navigation.navigate('ProfileOtherUser')}
-                >
                 <Image 
                     style={styles.tokenImage}
                     source={{uri: 'https://assets.coingecko.com/coins/images/4713/large/matic-token-icon.png?1624446912'}}
                 />
-                </TouchableOpacity>
                 <View style={styles.textContainer}>
                     <View style={styles.horizontalBox}>
                     <Text style={styles.tokenName}>Polygon</Text>
@@ -62,14 +59,10 @@ const Asset = () => {
 
         <TouchableOpacity style={styles.assetContainer}>
             <View style={styles.innerLeftContainer}>
-                <TouchableOpacity
-                onPress={() => navigation.navigate('ProfileOtherUser')}
-                >
                 <Image 
                     style={styles.tokenImage}
                     source={{uri: tokenIcons.usdt}}
                 />
-                </TouchableOpacity>
                 <View style={styles.textContainer}>
                     <View style={styles.horizontalBox}>
                     <Text style={styles.tokenName}>Tether</Text>
@@ -83,14 +76,10 @@ const Asset = () => {
             </View>     
         </TouchableOpacity><TouchableOpacity style={styles.assetContainer}>
             <View style={styles.innerLeftContainer}>
-                <TouchableOpacity
-                onPress={() => navigation.navigate('ProfileOtherUser')}
-                >
                 <Image 
                     style={styles.tokenImage}
                     source={{uri: tokenIcons.usdc}}
                 />
-                </TouchableOpacity>
                 <View style={styles.textContainer}>
                     <View style={styles.horizontalBox}>
                     <Text style={styles.tokenName}>USD Coin</Text>
@@ -105,14 +94,10 @@ const Asset = () => {
         </TouchableOpacity>
         <TouchableOpacity style={styles.assetContainer}>
             <View style={styles.innerLeftContainer}>
-                <TouchableOpacity
-                onPress={() => navigation.navigate('ProfileOtherUser')}
-                >
                 <Image 
                     style={styles.tokenImage}
                     source={{uri: tokenIcons.dai}}
                 />
-                </TouchableOpacity>
                 <View style={styles.textContainer}>
                     <View style={styles.horizontalBox}>
                     <Text style={styles.tokenName}>Dai</Text>
@@ -127,14 +112,10 @@ const Asset = () => {
         </TouchableOpacity>
         <TouchableOpacity style={styles.assetContainer}>
             <View style={styles.innerLeftContainer}>
-                <TouchableOpacity
-                onPress={() => navigation.navigate('ProfileOtherUser')}
-                >
                 <Image 
                     style={styles.tokenImage}
                     source={{uri: tokenIcons.weth}}
                 />
-                </TouchableOpacity>
                 <View style={styles.textContainer}>
                     <View style={styles.horizontalBox}>
                     <Text style={styles.tokenName}>Wrapped ETH</Text>
@@ -158,17 +139,19 @@ const styles = StyleSheet.create({
     assetContainer: {
         flex: 1,
         width: '100%',
-        paddingLeft: 12,
-        paddingTop: 10, 
+        paddingLeft: 16,
+        paddingTop: 14, 
         marginTop: 1,
-        paddingBottom: 10,  
-        paddingRight: 12,
+        paddingBottom: 14,  
+        paddingRight: 16,
         backgroundColor: colors.white,
+        borderBottomColor: colors.outline,
+        borderBottomWidth: 1,
     },
     tokenName: {
         fontFamily: 'Regular',
         color: colors.dark,
-        fontSize: 16,
+        fontSize: 15,
         marginBottom: 2,
     },
     ticker: {

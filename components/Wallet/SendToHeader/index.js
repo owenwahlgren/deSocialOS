@@ -2,7 +2,6 @@ import React, {useState} from 'react'
 import { View, Text, StyleSheet, SafeAreaView, TouchableHighlight, Modal, TouchableWithoutFeedback, Image, useWindowDimensions, TouchableOpacity} from 'react-native'
 import colors from '../../../assets/colors'
 import {useNavigation} from '@react-navigation/native';
-import * as Clipboard from 'expo-clipboard';
 
 import AppLoading from 'expo-app-loading';
 
@@ -20,33 +19,13 @@ import { color } from 'react-native-reanimated';
 import { MaterialCommunityIcons } from '@expo/vector-icons'; 
 import { Ionicons } from '@expo/vector-icons'; 
 import { Feather } from '@expo/vector-icons'; 
-import { useAccountInfo, useWallet } from '../../../state/hooks'
 
 
-export default function HeaderBar() {
-    const [copiedText, setCopiedText] = React.useState('');
+export default function SendToHeader() {
 
-    const navigation = useNavigation();
+  const navigation = useNavigation();
 
-    const wallet = useWallet() 
-    const info = useAccountInfo()
-    const username = info[0] || wallet.address.toString().substring(0,12);
-    const bio = info[1] || ""
-    const ipfs = info[2] || ""
-    const following = info[3] || 0 
-    const followers = info[4] || 0
-    const pfp = 'http://45.63.64.72:8080/ipfs/' + ipfs
-
-
-    const copyToClipboard = () => {
-        const fulladdress = wallet.address.toString();
-        Clipboard.setString(fulladdress);
-    };
-    
-    const fetchCopiedText = async () => {
-        const text = await Clipboard.getStringAsync();
-        setCopiedText(text);
-    };
+    const [modalVisible, setModalVisible] = useState(false);
 
     let [fontsLoaded] = useFonts({
         Bold,
@@ -61,33 +40,14 @@ export default function HeaderBar() {
         <SafeAreaView style={{backgroundColor: colors.white}}>
             <View style={styles.container}>
                 <TouchableOpacity 
-                onPress={() => navigation.navigate('AccountModal')}
-                style={{flex: 1, alignItems: 'flex-start', position: 'absolute', left: 0}}
+                style={{flex: 1, marginLeft: 16}}
+                onPress={() => navigation.goBack()}
                 >
-                <Image
-                    source={{
-                        uri: pfp
-                    }}
-                    style={styles.profileImage}
-                />
+                    <Ionicons name="ios-chevron-back-sharp" size={24} color={colors.dark} />
                 </TouchableOpacity>
-                <TouchableOpacity  
-                onPress={copyToClipboard}
-                style={{
-                  flexDirection: 'row',  
-                  alignItems: 'center', 
-                }}
-                >
-                <View style={styles.addressContainer}>
-                <Text style={styles.adressText}>{wallet.address.toString().substring(0,12)}</Text>
+                <View style={{flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', position: 'absolute', alignSelf: 'center'}}>
+                        <Text style={styles.adressText}>Send to</Text>
                 </View>
-                </TouchableOpacity>
-                <TouchableOpacity 
-                style={{flex: 1, alignItems: 'flex-end', position: 'absolute', right: 0}}
-                onPress={() => navigation.navigate('ProfileSettings')}
-                >
-                    <Feather name="menu" size={24} color={colors.dark} />
-                </TouchableOpacity>
             </View>
         </SafeAreaView>
     )
@@ -99,21 +59,20 @@ const styles = StyleSheet.create({
         height: 40,
         backgroundColor: colors.white,
         flexDirection: 'row',
-        marginRight: 16,
-        marginLeft: 16,
         alignItems: 'center',
         justifyContent: 'center',
     },
     adressText: {
-        color: colors.gray,
-        fontFamily: 'Regular',
-        fontSize: 12,
+        color: colors.dark,
+        fontFamily: 'SemiBold',
+        fontSize: 16,
     },
     modalView: {
         backgroundColor: colors.white,
         borderRadius: 0,
-        height: 300,
+        flex: 0,
         alignItems: 'center',
+        paddingBottom: 24,
       },
       textStyle: {
         color: colors.dark,
@@ -134,8 +93,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
       },
       profileImage: {
-        width: 32,
-        height: 32,
+        width: 56,
+        height: 56,
         borderRadius: 50,
         resizeMode: 'cover',
       },
@@ -158,13 +117,5 @@ const styles = StyleSheet.create({
         fontFamily: 'Regular',
         color: colors.dark,
         fontSize: 14,
-      },
-      addressContainer: {
-        backgroundColor: colors.lightest,
-        paddingVertical: 3,
-        paddingHorizontal: 16,
-        borderRadius: 50,
-        borderWidth: 1,
-        borderColor: colors.outline,
       },
 })
