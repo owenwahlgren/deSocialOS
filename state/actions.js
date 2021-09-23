@@ -6,16 +6,15 @@ import { useEffect } from 'react'
  
 //fetch data from feed util
 export const fetchFeedDataAsync = () => async (dispatch) => {
-	// const feed = await fetchFeedData()
+	const feed = await fetchFeedData()
 
 	const url = 'https://api.de.social/fetchFeed'
 	console.log('fetching feed')
 	const reponse = await fetch(url, {method: "GET"})
 	const data = await reponse.json()
-	data.shift()
-	data.reverse()
+	// console.log(data)
 	return dispatch(setFeedData(data))
-	// console.log('feed fetched', data)
+	// return dispatch(setFeedData(feed))
 
 }
 

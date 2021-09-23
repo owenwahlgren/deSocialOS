@@ -25,7 +25,7 @@ import {
   } from '@expo-google-fonts/poppins'
 
 const Post = (props) => {
-
+    // console.log('props!', props)
     const navigation = useNavigation();
     const wallet = useWallet()
     const signer = wallet.connect(provider)
@@ -103,10 +103,10 @@ const Post = (props) => {
                         <View style={{flexDirection: 'row', alignItems: 'center'}}>
                             <Image 
                                 style={styles.profilePictue} 
-                                source={{uri: post.user.imageUri}} 
+                                source={{uri: post.owner.imageUri}} 
                             />
                             <View style={styles.bottomContainer}>
-                                <Text ellipsizeMode='tail' numberOfLines={1} style={styles.handle}>@{post.user.username? post.user.username: post.user.id.substring(0,9)}</Text>
+                                <Text ellipsizeMode='tail' numberOfLines={1} style={styles.handle}>@{post.owner.username? post.owner.username: post.user.id.substring(0,9)}</Text>
                             </View> 
                         </View>
                     </View>

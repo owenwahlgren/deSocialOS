@@ -254,7 +254,7 @@ const PostDeets = ({route, navigation}) => {
   const signer = wallet.connect(provider)
   const NFT = new ethers.Contract(NFT_Address, NFT_ABI, signer)
   const comments = route.params.item.comments
-  console.log(route.params)
+  // console.log(route.params)
 
   useEffect(() => {
     (async () => {
@@ -301,10 +301,10 @@ const PostDeets = ({route, navigation}) => {
                         >
                             <Image 
                                 style={styles.profilePictue} 
-                                source={{uri: item.user.imageUri}} 
+                                source={{uri: item.owner.imageUri}} 
                             />
                             <View style={styles.bottomContainer}>
-                                <Text ellipsizeMode='tail' style={styles.handle}>@{item.user.username}</Text>
+                                <Text ellipsizeMode='tail' style={styles.handle}>@{item.owner.username }</Text>
                             </View> 
                         </TouchableOpacity>
                       </View>
@@ -338,7 +338,7 @@ const PostDeets = ({route, navigation}) => {
         <View style={styles.bottomBar}>
           <Image 
           style={styles.profilePic}
-          source={{uri: route.params.item.user.imageUri}}
+          source={{uri: route.params.item.owner.imageUri}}
           />
           <TextInput 
             style={styles.TextInput}
