@@ -25,7 +25,7 @@ import {
   } from '@expo-google-fonts/poppins'
 
 const Post = (props) => {
-
+    // console.log('props!', props)
     const navigation = useNavigation();
     const wallet = useWallet()
     const signer = wallet.connect(provider)
@@ -82,11 +82,6 @@ const Post = (props) => {
                     <View style={styles.topContainer}>
                         <Text style={styles.likes}>{likes}</Text>
                         <AntDesign name="heart" size={16} color={color} style={{marginTop: 1}} onPress={async () => {
-                            setColor('blue')
-                            const tx = await NFT.like(props.post.id)
-                            console.log('post liked!\t waiting tx...')
-                            await tx.wait()
-                            console.log('tx mined')
                             if (color == 'red') {
                                 setColor('white')
                                 setLikes(likes - 1)
@@ -95,6 +90,10 @@ const Post = (props) => {
                                 setColor('red')
                                 setLikes(likes + 1)
                               }
+                            const tx = await NFT.like(props.post.id)
+                            console.log('post liked!\t waiting tx...')
+                            await tx.wait()
+                            console.log('tx mined')
                         }}/>
 
 
@@ -104,10 +103,10 @@ const Post = (props) => {
                         <View style={{flexDirection: 'row', alignItems: 'center'}}>
                             <Image 
                                 style={styles.profilePictue} 
-                                source={{uri: post.user.imageUri}} 
+                                source={{uri: post.owner.imageUri}} 
                             />
                             <View style={styles.bottomContainer}>
-                                <Text ellipsizeMode='tail' numberOfLines={1} style={styles.handle}>@{post.user.username}</Text>
+                                <Text ellipsizeMode='tail' numberOfLines={1} style={styles.handle}>@{post.owner.username? post.owner.username: post.user.id.substring(0,9)}</Text>
                             </View> 
                         </View>
                     </View>

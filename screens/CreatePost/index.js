@@ -71,9 +71,10 @@ export default function CreatePost(props) {
                 // this onpress should mint and upload the video and then return the user back to their profile screen
                 onPress={async () => {
                     await FileSystem.moveAsync({'from': uri, 'to': uri.replace('.mov','.mp4')})
+                    console.log('pinning to ipfs...')
                     const hash = await pinToIPFS("myvideo", uri.replace('.mov', '.mp4'))
-                    console.log('recieved hash!', hash)
-                    const tx = await NFT.requestMint(text, hash, {gasLimit: 2500000})
+                    console.log('recieved ipfs hash: ', hash)
+                    const tx = await NFT.requestMint(text, hash)
                     console.log('waiting for tx to confirm', tx.hash)
                     await tx.wait()
                     console.log('tx confirmed')

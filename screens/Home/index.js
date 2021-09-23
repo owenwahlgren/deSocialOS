@@ -33,7 +33,8 @@ const translateY = diffClamp.interpolate ({
 
 console.log('home refresh')
 const posts = useFeedData()
-console.log(posts.length)
+// console.log(posts)
+
 
 // const [selected, setSelected] = useState(false)
 // useEffect(() => {
@@ -71,7 +72,7 @@ return (
             }}>
             <FlatList 
             // ListHeaderComponent={ListHeader}
-            data={useFeedData()} 
+            data={posts} 
             extraData={useFeedData()}
             numColumns={2}
             initialNumToRender={4}
@@ -96,7 +97,6 @@ return (
             )}
             onScroll={(e) => {
                 scrollY.setValue(e.nativeEvent.contentOffset.y)
-
             }}
             />
         </View>    

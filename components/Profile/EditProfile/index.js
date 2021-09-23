@@ -32,7 +32,7 @@ export default function EditProfile({route}) {
     const [username, setUsername] = useState(data[0] || "Enter your username")
     const [bio, setBio] = useState(data[1] || "Enter your bio")
     const [ipfs, setIPFS] = useState(data[2] || "")
-    const [image, setImage] = useState('http://45.63.64.72:8080/ipfs/' + ipfs);
+    const [image, setImage] = useState('https://api.de.social/ipfs/' + ipfs);
     const wallet = useWallet()
     const signer = wallet.connect(provider)
     const SOCIAL = new ethers.Contract(SOCIAL_ADDRESS, SOCIAL_ABI, signer)
@@ -112,7 +112,7 @@ export default function EditProfile({route}) {
                 {image &&
                     
                     <Image
-                    source={{uri: "http://45.63.64.72:8080/ipfs/" + ipfs}}
+                    source={{uri: "https://api.de.social/ipfs/" + ipfs}}
                     style={styles.profileImage}
                     />
                 }
@@ -156,7 +156,7 @@ export default function EditProfile({route}) {
                 />
                 </TouchableOpacity>
             </View>
-            {/* <View style={styles.bottomContainer}>
+            <View style={styles.bottomContainer}>
             <TouchableOpacity 
             style={styles.button}
             onPress={async () => {
@@ -170,7 +170,7 @@ export default function EditProfile({route}) {
             >
                 <Text style={{fontFamily: 'Medium', fontSize: 16, color: colors.white}}>Done</Text>
             </TouchableOpacity>
-            </View> */}
+            </View>
             </View>
             </ScrollView>
             </TouchableWithoutFeedback>

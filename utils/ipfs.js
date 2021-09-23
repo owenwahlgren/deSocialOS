@@ -3,7 +3,6 @@ import { PINATA_KEY, PINATA_SECRET } from "@env"
 // note: api key must be changed and added to env by production
 export const pinToIPFS = async (filename, fileURI, type="mp4") => {
 
-	let hash;
 	let formData = new FormData()
 	if (type == "jpg") {
 		formData.append(filename, {
@@ -19,19 +18,16 @@ export const pinToIPFS = async (filename, fileURI, type="mp4") => {
 		type: 'video/mp4'
 		})
 	}
-	const pinUrl = "http://45.63.64.72/api/pinToIPFS?filename=" + filename
-	await fetch(pinUrl, {
+	const pinUrl = "https://api.de.social/pinToIPFS?filename=" + filename
+	const response = await fetch(pinUrl, {
 		method: "post",
 		headers: {
 			'Content-Type': 'multipart/form-data',
 			key: "apikey",
 			},
 		body: formData,
-	}).then(async function(response) {
-		const js = await response.json()
-		hash = js
 	})
 
-	return hash;
+	return await response.json();
 
 }

@@ -79,7 +79,7 @@ const PostDeets = ({route, navigation}) => {
   
   const [tabIndex, setIndex] = useState(0);
   const [routes] = useState([
-    {key: 'tab1', title: `Comments (${route.params.item.comments.length})`},
+    {key: 'tab1', title: `Comments (${route.params.item.comments})`},
     {key: 'tab2', title: 'History'},
   ]);
   const [canScroll, setCanScroll] = useState(true);
@@ -254,6 +254,7 @@ const PostDeets = ({route, navigation}) => {
   const signer = wallet.connect(provider)
   const NFT = new ethers.Contract(NFT_Address, NFT_ABI, signer)
   const comments = route.params.item.comments
+  // console.log(route.params)
 
   useEffect(() => {
     (async () => {
@@ -300,27 +301,26 @@ const PostDeets = ({route, navigation}) => {
                         >
                             <Image 
                                 style={styles.profilePictue} 
-                                source={{uri: item.user.imageUri}} 
+                                source={{uri: item.owner.imageUri}} 
                             />
                             <View style={styles.bottomContainer}>
-                                <Text ellipsizeMode='tail' style={styles.handle}>@{item.user.username}</Text>
+                                <Text ellipsizeMode='tail' style={styles.handle}>@{item.owner.username }</Text>
                             </View> 
                         </TouchableOpacity>
                       </View>
                       <TouchableOpacity style={styles.rightContainer}>
                         <Text style={styles.likes}>{item.likes}</Text>
                         <AntDesign name="heart" size={24} color={color} onPress={async () => {
-                            setColor('blue')
-                            const tx = await NFT.like(item.id)
-                            console.log('post liked!\t waiting tx...')
-                            await tx.wait()
-                            console.log('tx mined')
                             if (color == 'red') {
                               setColor('white')
                             }
                             else {
                               setColor('red')
                             }
+                            const tx = await NFT.like(item.id)
+                            console.log('post liked!\t waiting tx...')
+                            await tx.wait()
+                            console.log('tx mined')
                         }}/>
                       </TouchableOpacity>
                     </View>
@@ -338,7 +338,7 @@ const PostDeets = ({route, navigation}) => {
         <View style={styles.bottomBar}>
           <Image 
           style={styles.profilePic}
-          source={{uri: route.params.item.user.imageUri}}
+          source={{uri: route.params.item.owner.imageUri}}
           />
           <TextInput 
             style={styles.TextInput}
