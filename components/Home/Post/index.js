@@ -28,6 +28,9 @@ const Post = (props) => {
     // console.log('props!', props)
     const navigation = useNavigation();
     const wallet = useWallet()
+    // if (wallet != null) {
+
+    // }
     const signer = wallet.connect(provider)
     const NFT = new ethers.Contract(NFT_Address, NFT_ABI, signer)
     const [color, setColor] = useState('white')

@@ -1,4 +1,3 @@
-import { PINATA_KEY, PINATA_SECRET } from "@env"
 
 // note: api key must be changed and added to env by production
 export const pinToIPFS = async (filename, fileURI, type="mp4") => {

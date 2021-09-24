@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {View, Text, StyleSheet, Dimensions, TouchableOpacity, Image} from 'react-native';
 import { Video, AVPlaybackStatus } from 'expo-av';
 import colors from '../../../assets/colors'
@@ -6,7 +6,6 @@ import AppLoading from 'expo-app-loading';
 import { AntDesign } from '@expo/vector-icons'; 
 import {useNavigation} from '@react-navigation/native';
 import LottieView from 'lottie-react-native';
-
 
 
 const width = Dimensions.get("window").width;
