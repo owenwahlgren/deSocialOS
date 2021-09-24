@@ -26,21 +26,20 @@ import { TabBarItem } from 'react-native-tab-view';
 
 const Activity = (props) => {
 
-    const navigation = useNavigation();
-    const item = props.post
-
-    // NOT FOR PROD
-    // const address = useWallet().address
-    const address = '0x94debc57081c4c58dd69f4dfce589b82fc3c2866'
-    // console.log(item, address)
-    // 
-    
     var dict = {
         'WETH': tokenIcons.weth,
         "MATIC": tokenIcons.matic,
         "USDC": tokenIcons.usdc,
         'USDT': tokenIcons.usdt
     }
+
+    const navigation = useNavigation();
+    const item = props.post
+    // NOT FOR PROD
+    // const address = useWallet().address
+    const address = '0x94debc57081c4c58dd69f4dfce589b82fc3c2866'
+    const [price, setPrice] = useState(0.00)
+
 
     let [fontsLoaded] = useFonts({
         Bold,
@@ -65,11 +64,11 @@ const Activity = (props) => {
                     <View style={styles.iconBox}>
                     <Text style={styles.tokenName}>Sent</Text>
                     </View>
-                    <Text style={styles.tokenName2}>$</Text>
+                    <Text style={styles.tokenName2}>- {(parseInt(item.value) / (10 ** parseInt(item.tokenDecimal))).toString().substring(0,10)} {item.tokenSymbol}</Text>
                     </View>
                     <View style={styles.horizontalBox}>
-                    <Text style={styles.ticker}>{item.tokenSymbol}</Text>
-                    <Text style={styles.ticker}>{parseInt(item.value) / (10 ** parseInt(item.tokenDecimal)) }</Text>
+                    {/* <Text style={styles.ticker}>{item.tokenSymbol}</Text> */}
+                    <Text style={styles.ticker}>{item.to.substring(0,16)}</Text>
                     </View>
                 </View>
             </View>     
@@ -86,11 +85,11 @@ const Activity = (props) => {
                 <View style={styles.iconBox}>
                 <Text style={styles.tokenName}>Recieved</Text>
                 </View>
-                <Text style={styles.recievedText}>$</Text>
+                <Text style={styles.recievedText}>+ {(parseInt(item.value) / (10 ** parseInt(item.tokenDecimal))).toString().substring(0,10)} {item.tokenSymbol}</Text>
                 </View>
                 <View style={styles.horizontalBox}>
-                <Text style={styles.ticker}>{item.tokenSymbol}</Text>
-                <Text style={styles.ticker}>{parseInt(item.value) / (10 ** parseInt(item.tokenDecimal)) }</Text>
+                {/* <Text style={styles.ticker}>{item.tokenSymbol}</Text> */}
+                <Text style={styles.ticker}>{item.from.substring(0,16)}</Text>
                 </View>
             </View>
         </View>     
@@ -155,6 +154,11 @@ const styles = StyleSheet.create({
     recievedText: {
         fontFamily: 'Regular',
         color: colors.green,
+        fontSize: 16,
+    },
+    sentText: {
+        fontFamily: 'Regular',
+        color: colors.red,
         fontSize: 16,
     },
     lightText: {
