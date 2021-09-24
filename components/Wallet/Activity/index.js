@@ -1,5 +1,5 @@
-import React from 'react';
-import {View, Text, StyleSheet, Dimensions, TouchableOpacity, Image, TouchableHighlight} from 'react-native';
+import React, {useState, useEffect } from 'react';
+import {View, Text, StyleSheet, Dimensions, TouchableOpacity, Image, TouchableHighlight, FlatList} from 'react-native';
 import { Video, AVPlaybackStatus } from 'expo-av';
 import colors from '../../../assets/colors'
 import AppLoading from 'expo-app-loading';
@@ -8,7 +8,9 @@ import {useNavigation} from '@react-navigation/native';
 import LottieView from 'lottie-react-native';
 import { Ionicons } from '@expo/vector-icons'; 
 import tokenIcons from '../../../assets/tokenIcons';
-
+import { POLYGONSCAN } from "@env"
+import { useWallet } from '../../../state/hooks' 
+import { getPrice } from '../../../utils/tokenPrice'
 const width = Dimensions.get("window").width;
 const height = width * 1.618;
 
@@ -21,10 +23,31 @@ import {
     Poppins_800ExtraBold as ExtraBold,
     Poppins_900Black as Black,
   } from '@expo-google-fonts/poppins'
+import { TabBarItem } from 'react-native-tab-view';
 
 const Activity = () => {
 
     const navigation = useNavigation();
+    const wallet = useWallet()
+    const [ERC20Data, setData] = useState({})
+
+    const debugWallet = '0x94debc57081c4c58dd69f4dfce589b82fc3c2866'
+    useEffect(() => {
+        const url = `https://api.polygonscan.com/api?module=account&action=tokentx&address=${debugWallet}&startblock=0&endblock=19999999&sort=asc&apikey=${POLYGONSCAN}`
+        fetch(url, {method: "GET"})
+        .then(response => response.json())
+        .then(data => {
+            setData(data.result)
+        
+        })
+    }, [])
+
+    var dict = {
+        'WETH': tokenIcons.weth,
+        "MATIC": tokenIcons.matic,
+        "USDC": tokenIcons.usdc,
+        'USDT': tokenIcons.usdt
+    }
 
     let [fontsLoaded] = useFonts({
         Bold,
@@ -37,53 +60,69 @@ const Activity = () => {
       } else {
     return (
         <>
-        {/* SENT COMPONENT  */}
-        <TouchableOpacity style={styles.activitycontainer}>
-            <View style={styles.innerLeftContainer}>
-                <Image 
-                    style={styles.tokenImage}
-                    source={{uri: tokenIcons.matic}}
-                />
-                <View style={styles.textContainer}>
-                    <View style={styles.horizontalBox}>
-                    <View style={styles.iconBox}>
-                    <Text style={styles.tokenName}>Sent</Text>
-                    </View>
-                    <Text style={styles.tokenName2}>- $20,938.14</Text>
-                    </View>
-                    <View style={styles.horizontalBox}>
-                    <Text style={styles.ticker}>Matic</Text>
-                    <Text style={styles.ticker}>15,033.01 MATIC</Text>
-                    </View>
-                </View>
-            </View>     
-        </TouchableOpacity>
+        <View style = {styles.activitycontainer}>
+        <FlatList 
+            data={ERC20Data} 
+            // numColumns={1}
+            initialNumToRender={12}
+            // extraData={ERC20Data}
+            showsVerticalScrollIndicator={false}
+            renderItem={({item}) => (
+                
+                    item.from.toLowerCase() == debugWallet.toLowerCase() ? 
+                    <TouchableOpacity style={styles.activitycontainer}>
+                        <View style={styles.innerLeftContainer}>
+                            <Image 
+                                style={styles.tokenImage}
+                                source={{uri: dict[item.tokenSymbol] ? dict[item.tokenSymbol] : tokenIcons.matic}}
+                            />
+                            <View style={styles.textContainer}>
+                                <View style={styles.horizontalBox}>
+                                <View style={styles.iconBox}>
+                                <Text style={styles.tokenName}>Sent</Text>
+                                </View>
+                                <Text style={styles.tokenName2}>{'$' + getPrice(item.contractAddress) * ((parseInt(item.value) / (10 ** parseInt(item.tokenDecimal))))}</Text>
+                                </View>
+                                <View style={styles.horizontalBox}>
+                                <Text style={styles.ticker}>{item.tokenSymbol}</Text>
+                                <Text style={styles.ticker}>{(parseInt(item.value) / (10 ** parseInt(item.tokenDecimal)))}</Text>
+                                </View>
+                            </View>
+                        </View>     
+                    </TouchableOpacity>
+                    :
+                    <TouchableOpacity style={styles.activitycontainer}>
+                    <View style={styles.innerLeftContainer}>
+                        <Image 
+                            style={styles.tokenImage}
+                            source={{uri: dict[item.tokenSymbol] ? dict[item.tokenSymbol] : tokenIcons.matic}}
+                        />
+                        <View style={styles.textContainer}>
+                            <View style={styles.horizontalBox}>
+                            <View style={styles.iconBox}>
+                            <Text style={styles.tokenName}>Recieved</Text>
+                            </View>
+                            <Text style={styles.recievedText}>{'$' + getPrice(item.contractAddress) * ((parseInt(item.value) / (10 ** parseInt(item.tokenDecimal))))}</Text>
+                            </View>
+                            <View style={styles.horizontalBox}>
+                            <Text style={styles.ticker}>{item.tokenSymbol}</Text>
+                            <Text style={styles.ticker}>{(parseInt(item.value) / (10 ** parseInt(item.tokenDecimal)))}</Text>
+                            </View>
+                        </View>
+                    </View>     
+                </TouchableOpacity>    
+            
+            )}
+            keyExtractor={(item, index) => index.toString()}
+            // onScroll={(e) => {
+            //     scrollY.setValue(e.nativeEvent.contentOffset.y)
+            // }}
+            />
+            </View>
 
 
-        {/* RECIEVED COMPONENT  */}
-        <TouchableOpacity style={styles.activitycontainer}>
-            <View style={styles.innerLeftContainer}>
-                <Image 
-                    style={styles.tokenImage}
-                    source={{uri: tokenIcons.usdc}}
-                />
-                <View style={styles.textContainer}>
-                    <View style={styles.horizontalBox}>
-                    <View style={styles.iconBox}>
-                    <Text style={styles.tokenName}>Recieved</Text>
-                    </View>
-                    <Text style={styles.recievedText}>$12,472.12</Text>
-                    </View>
-                    <View style={styles.horizontalBox}>
-                    <Text style={styles.ticker}>USD Coin</Text>
-                    <Text style={styles.ticker}>12,472.12 USDC</Text>
-                    </View>
-                </View>
-            </View>     
-        </TouchableOpacity>
 
-
-        {/* FAILED COMPONENT  */}
+        {/* FAILED COMPONENT 
         <TouchableOpacity style={styles.activitycontainer}>
             <View style={styles.innerLeftContainer}>
                 <Image 
@@ -103,7 +142,7 @@ const Activity = () => {
                     </View>
                 </View>
             </View>     
-        </TouchableOpacity>
+        </TouchableOpacity> */}
 
         </>
     )

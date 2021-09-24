@@ -30,10 +30,17 @@ const translateY = diffClamp.interpolate ({
     outputRange:[0,-80],
 })
 
+const [posts, setPosts] = useState({})
+useEffect(() => {
+    const url = 'https://api.de.social/fetchFeed'
+	fetch(url, {method: "GET"})
+    .then(reponse => reponse.json())
+    .then(data => setPosts(data))
 
+
+}, [])
 console.log('home refresh')
-const posts = useFeedData()
-// console.log(posts)
+
 
 
 // const [selected, setSelected] = useState(false)
