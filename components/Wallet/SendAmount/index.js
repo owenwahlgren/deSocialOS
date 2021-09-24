@@ -64,22 +64,42 @@ export default function SendAmount() {
                         />
                         <View style={{marginLeft: 8}}>
                             <Text style={styles.tokenText}>Tether </Text>
-                            <Text style={styles.subTokenText}>1.234 available</Text>
+                            <Text style={styles.subTokenText}>$123.23 available</Text>
                         </View>
                     </View>
+                    
                 {[0, ].map((i) => (
-                    <Display 
-                    value={0}
-                    key={i} 
-                    cursor={false}
-                    cursrStyle={styles.cursrStyle}
-                    autofocus={true}
-                    value={0}
-                    style={styles.numberContainer}
-                    activeStyle={styles.activeStyle}
-                    textStyle={styles.number}
-                    placeholderTextStyle={styles.numberInactive}
-                    />
+                    <>
+                    <View style={{flexDirection: 'row', alignItems: 'center', width: '90%', justifyContent: 'center', alignSelf: 'center', marginTop: 20}}>
+                        <TouchableOpacity style={styles.sideButton}>
+                            <Text style={{fontFamily: 'SemiBold', fontSize: 11.5, color: colors.gray}}>
+                                Max
+                            </Text>
+                        </TouchableOpacity>
+                        <View style={{marginRight: 10, marginLeft: 10, flex: 1}}>
+                            <View style={styles.currency}>
+                                    <Text style={styles.currencyText}>USD </Text>
+                            </View>
+                            <Display 
+                            key={i} 
+                            cursor={false}
+                            cursrStyle={styles.cursrStyle}
+                            autofocus={true}
+                            value={0}
+                            style={styles.numberContainer}
+                            activeStyle={styles.activeStyle}
+                            textStyle={styles.number}
+                            placeholderTextStyle={styles.numberInactive}
+                            />
+                            <View style={styles.currencyBottom}>
+                                    <Text style={styles.currencyBottomText}>12345.67890 USDT</Text>
+                            </View>
+                        </View>
+                        <TouchableOpacity style={styles.sideButton}>
+                            <Ionicons name="ios-swap-vertical" size={20} color={colors.gray} />
+                        </TouchableOpacity>
+                    </View>
+                    </>
                 ))}
                 <Input
                 style={{backgroundColor: 'red', justifyContent: 'center'}}
@@ -94,7 +114,7 @@ export default function SendAmount() {
                     onPress={() => Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light)}
                     style={styles.button}
                     >
-                        <Text style={styles.buttonText}>Review</Text>
+                        <Text style={styles.buttonText}>Next</Text>
                     </TouchableOpacity>
             </SafeAreaView>
         </>
@@ -106,15 +126,33 @@ const styles = StyleSheet.create({
     assetContainer: {
         flexDirection: 'row', 
         alignItems: 'center', 
-        backgroundColor: colors.lightest, 
+        backgroundColor: colors.white, 
         marginLeft: 20,
         marginRight: 20,
         marginTop: 10,
         paddingHorizontal: 8,
         paddingVertical: 8,
+        borderRadius: 4,
         borderWidth: 1,
         borderColor: colors.outline,
-        borderRadius: 4,
+    },
+    currency: {
+        alignItems: 'center', 
+        marginBottom: 10,
+    },
+    currencyText: {
+        color: colors.dark,
+        fontFamily: 'Medium',
+        fontSize: 15,
+    },
+    currencyBottom: {
+        alignItems: 'center', 
+        marginTop: 16,
+    },
+    currencyBottomText: {
+        alignItems: 'center', 
+        fontFamily: 'Medium',
+        color: colors.lightGray
     },
     number: {
         fontFamily: 'SemiBold',
@@ -127,10 +165,9 @@ const styles = StyleSheet.create({
         color: colors.dark,
     },
     numberContainer: {
-        marginTop: 40,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: colors.white,
+        alignSelf: 'center',
     },
     activeStyle: {
         backgroundColor: colors.white,
@@ -175,9 +212,18 @@ const styles = StyleSheet.create({
     },
     subTokenText: {
         fontFamily: 'Regular',
-        color: colors.lightGray,
+        color: colors.gray,
         fontSize: 13.5
 
     },
+    sideButton: {
+        borderWidth: 1,
+        borderColor: colors.outline,
+        width: 42,
+        height: 42,
+        borderRadius: 100,
+        alignItems: 'center',
+        justifyContent: 'center',
+    }
   });
   
