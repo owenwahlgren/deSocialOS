@@ -27,6 +27,7 @@ import {useNavigation} from '@react-navigation/native';
 import Asset from '../Asset'
 import Activity from '../Activity'
 import TopSection from '../TopSection'
+import { fetchWalletActivity } from '../../../utils/walletActivity'
 
 import { 
   useFonts,
@@ -73,8 +74,19 @@ const WalletCollapsibleTabView = () => {
   ]);
   const [canScroll, setCanScroll] = useState(true);
 
+
+  // get data about user wallet here, will use a debug wallet for now
+  const wallet = useWallet()
+  const debugWallet = '0x94debc57081c4c58dd69f4dfce589b82fc3c2866'
+  
   const tab1Data = useAccountCreated();
-  const tab2Data = useAccountCreated();
+  const [tab2Data, setTab2Data] = useState([])
+
+  useEffect(() => {
+    fetchWalletActivity(debugWallet)
+    .then(data => setTab2Data(data))
+  }, [])
+
   /**
    * ref
    */
