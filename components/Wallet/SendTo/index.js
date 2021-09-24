@@ -86,7 +86,7 @@ export default function SendTo() {
     const MyWallets = ({item}) => {
         return (
             <TouchableOpacity 
-            onPress={() => navigation.navigate('SendAssetScreen', {username: item.title, address: item.id, uri: item.url})}
+            onPress={() => navigation.navigate('SendAmountScreen', {username: item.title, address: item.id, uri: item.url})}
             style={styles.mywallet}
             >
             <Image
@@ -106,7 +106,7 @@ export default function SendTo() {
       const Recent = ({item}) => {
         return (
             <TouchableOpacity 
-            onPress={() => navigation.navigate('SendAssetScreen', {username: item.title, address: item.id, uri: item.url})}
+            onPress={() => navigation.navigate('SendAmountScreen', {username: item.title, address: item.id, uri: item.url})}
             style={styles.recent}
             >
                 <Image

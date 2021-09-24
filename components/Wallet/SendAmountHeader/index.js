@@ -21,7 +21,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { Feather } from '@expo/vector-icons'; 
 
 
-export default function SendAssetHeader() {
+export default function SendAmountHeader() {
 
   const navigation = useNavigation();
 
@@ -67,55 +67,4 @@ const styles = StyleSheet.create({
         fontFamily: 'SemiBold',
         fontSize: 16,
     },
-    modalView: {
-        backgroundColor: colors.white,
-        borderRadius: 0,
-        flex: 0,
-        alignItems: 'center',
-        paddingBottom: 24,
-      },
-      textStyle: {
-        color: colors.dark,
-        fontWeight: 'bold',
-        textAlign: 'center',
-      },
-      accountText: {
-        color: colors.dark,
-        fontFamily: 'SemiBold',
-        fontSize: 15,
-        marginTop: 12,
-        marginBottom: 32,
-      },
-      modalSection: {
-        width: '100%',
-        flexDirection: 'row',
-        padding: 12,
-        alignItems: 'center',
-      },
-      profileImage: {
-        width: 56,
-        height: 56,
-        borderRadius: 50,
-        resizeMode: 'cover',
-      },
-      nameContainer: {
-        marginLeft: 16,
-        height: 42,
-        justifyContent: 'space-between',
-      },
-      addAccountContainer: {
-        marginLeft: 16,
-        height: 42,
-        justifyContent: 'center',
-      },
-      usernameText: {
-        fontFamily: 'SemiBold',
-        color: colors.dark,
-        fontSize: 15,
-      },
-      addressText: {
-        fontFamily: 'Regular',
-        color: colors.dark,
-        fontSize: 14,
-      },
 })

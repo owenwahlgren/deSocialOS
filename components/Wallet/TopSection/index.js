@@ -52,7 +52,7 @@ export default function TopSection() {
             <View style={styles.bottomButtons}>
             <TouchableOpacity 
               style={styles.button}
-              onPress={() => navigation.navigate('SendToScreen')}
+              onPress={() => navigation.navigate('SendAssetScreen')}
               >
               <View style={styles.innerButton}>
                 <Feather name="send" size={22} color={colors.dark} />

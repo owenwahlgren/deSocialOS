@@ -9,6 +9,7 @@ import HeaderBar from '../../components/Wallet/HeaderBar';
 import SendTo from '../../components/Wallet/SendTo';
 import SendAssetHeader from '../../components/Wallet/SendAssetHeader';
 import SendAmount from '../../components/Wallet/SendAmount';
+import SendAmountHeader from '../../components/Wallet/SendAmountHeader';
 
 import WalletCollapsibleTabView from '../../components/Wallet/WalletCollapsibleTabView';
 
@@ -29,7 +30,7 @@ export default function SendAmountScreen() {
     return (
         <>
         <View style={{flex: 1, backgroundColor: colors.white}}>
-        <SendAssetHeader />
+        <SendAmountHeader />
         <SendAmount />
         </View>
         </>

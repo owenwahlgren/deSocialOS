@@ -41,18 +41,18 @@ import {
   ];
 
 
-  const Recent = ({ username, uri, address}) => ( 
-    <TouchableOpacity style={styles.recent}>
-        <Image
-        style={styles.walletImage}
-        source={{uri: uri}}
-        />
-      <View style={styles.recentTextContainer}>
-        <Text style={styles.username}>{username}</Text>
-        <Text style={styles.address}>{address}</Text>
-      </View>
-    </TouchableOpacity>
-  );
+//   const Recent = ({ username, uri, address}) => ( 
+//     <TouchableOpacity style={styles.recent}>
+//         <Image
+//         style={styles.walletImage}
+//         source={{uri: uri}}
+//         />
+//       <View style={styles.recentTextContainer}>
+//         <Text style={styles.username}>{username}</Text>
+//         <Text style={styles.address}>{address}</Text>
+//       </View>
+//     </TouchableOpacity>
+//   );
 
 
 
@@ -60,8 +60,8 @@ export default function SendAsset() {
 
     const navigation = useNavigation();
     const route = useRoute();
-    const {username, uri, address} = route.params;
-    console.log({username, uri, address})
+    // const {username, uri, address} = route.params;
+    // console.log({username, uri, address})
 
     const renderAsset = ({ item }) => 
     ( 
@@ -87,20 +87,10 @@ export default function SendAsset() {
                         showsVerticalScrollIndicator={false}
                         keyboardDismissMode='on-drag'
                         ListHeaderComponent={
-                            <>
                             <TouchableOpacity 
-                            onPress={() => navigation.navigate('SendAmountScreen')}
-                            style={styles.toContainer}
-                            > 
-                                <Text numberOfLines={1} style={styles.forText}>
-                                For {username}
-                                </Text>
-                                <Image 
-                                    style={styles.profPic}
-                                    source={{uri: uri}}
-                                />
-                            </TouchableOpacity>
-                            </>
+                                style={{height: 20}}
+                                onPress={() => navigation.navigate('SendAmountScreen')}
+                            />
                         }
                     />
         </SafeAreaView>
@@ -185,8 +175,8 @@ const styles = StyleSheet.create({
         marginTop: 4,
     },
     profPic: {
-        width: 60,
-        height: 60,
+        width: 40,
+        height: 40,
         borderRadius: 60,
     },
     forText: {

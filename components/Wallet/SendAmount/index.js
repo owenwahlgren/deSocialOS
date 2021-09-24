@@ -22,6 +22,8 @@ import {useNavigation, useRoute} from '@react-navigation/native';
 import { MaterialCommunityIcons } from '@expo/vector-icons'; 
 import { Feather } from '@expo/vector-icons'; 
 import Asset from '../Asset';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import * as Haptics from 'expo-haptics';
 
 import NumberPad, { Input, Display } from '../../../lib/index';
 
@@ -36,11 +38,13 @@ import {
   } from '@expo-google-fonts/poppins'
 
 export default function SendAmount() {
+    const insets = useSafeAreaInsets();
 
     const navigation = useNavigation();
     const route = useRoute();
     // const {username, uri, address} = route.params;
     // console.log({username, uri, address})
+    
 
     let [fontsLoaded] = useFonts({
     Bold,
@@ -51,130 +55,129 @@ export default function SendAmount() {
     return <AppLoading />;
     } else {
     return (
+        <>
             <NumberPad>
-                <SafeAreaView>
-                <View>
-                    <Text>sending to: </Text>
-                </View>
+                    <View style={styles.assetContainer}>
+                        <Image 
+                            source={{uri: 'https://s2.coinmarketcap.com/static/img/coins/200x200/825.png'}}
+                            style={styles.tokenImage}
+                        />
+                        <View style={{marginLeft: 8}}>
+                            <Text style={styles.tokenText}>Tether </Text>
+                            <Text style={styles.subTokenText}>1.234 available</Text>
+                        </View>
+                    </View>
                 {[0, ].map((i) => (
                     <Display 
+                    value={0}
                     key={i} 
-                    cursor
+                    cursor={false}
+                    cursrStyle={styles.cursrStyle}
                     autofocus={true}
                     value={0}
                     style={styles.numberContainer}
+                    activeStyle={styles.activeStyle}
                     textStyle={styles.number}
                     placeholderTextStyle={styles.numberInactive}
                     />
                 ))}
-                </SafeAreaView>
                 <Input
-                style={{backgroundColor: colors.primary}}
-                height={400}
-                backspaceIcon={<Ionicons name="ios-backspace" {...Input.iconStyle} />}
+                style={{backgroundColor: 'red', justifyContent: 'center'}}
+                height={372}
+                backspaceIcon={<Ionicons name="ios-backspace" size={24} style={{color: colors.dark}} />}
                 // hideIcon={<Ionicons name="ios-arrow-down" {...Input.iconStyle} />}
-                hideIcon={<View style={{backgroundColor: 'red', height: 1, width: 10}}></View>}
+                // hideIcon={<View style={{backgroundColor: 'red', height: 10, width: 100}}></View>}
                 />
             </NumberPad>
+            <SafeAreaView style={styles.safeArea}>
+                    <TouchableOpacity 
+                    onPress={() => Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light)}
+                    style={styles.button}
+                    >
+                        <Text style={styles.buttonText}>Review</Text>
+                    </TouchableOpacity>
+            </SafeAreaView>
+        </>
     );
     }
 }
 
 const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: colors.white,
+    assetContainer: {
+        flexDirection: 'row', 
+        alignItems: 'center', 
+        backgroundColor: colors.lightest, 
+        marginLeft: 20,
+        marginRight: 20,
+        marginTop: 10,
+        paddingHorizontal: 8,
+        paddingVertical: 8,
+        borderWidth: 1,
+        borderColor: colors.outline,
+        borderRadius: 4,
     },
     number: {
-        fontFamily: 'Regular',
-        fontSize: 32,
+        fontFamily: 'SemiBold',
+        fontSize: 42,
         color: colors.dark,
     },
     numberInactive: {
-        fontFamily: 'Regular',
-        fontSize: 32,
-        color: colors.lightGray,
+        fontFamily: 'SemiBold',
+        fontSize: 42,
+        color: colors.dark,
     },
     numberContainer: {
-        height: 100,
+        marginTop: 40,
         justifyContent: 'center',
         alignItems: 'center',
+        backgroundColor: colors.white,
     },
-    toContainer: {
-        marginTop: 20,
-        marginBottom: 20,
-        flexDirection: 'row',
-        alignItems: 'center',
-        marginRight: 20,
-        marginLeft: 20,
+    activeStyle: {
+        backgroundColor: colors.white,
     },
-    textInput: {
-        fontFamily: 'Regular',
-        fontSize: 14,
-        marginLeft: 8,
-        color: colors.dark,
-    },
-    leftTo: {
-        flexDirection: 'row',
-        flex: 1,
-    },
-    sectionTitle: {
-        fontFamily: 'SemiBold',
-        fontSize: 16,
-        color: colors.dark,
-        marginTop: 32,
-        marginLeft: 20,
-        marginBottom: 16,
-    },
-    walletImage: {
-        height: 60,
-        width: 60,
-        borderRadius: 100,
-    },
-    mywallet: {
-        left: 20,
-        marginRight: 8,
-        width: 100,
-        paddingTop: 10,
-        alignItems: 'center',
-    },
-    recent : {
-        paddingVertical: 10,
-        paddingLeft: 20,
-        paddingRight: 20,
-        flexDirection: 'row',
-    },
-    recentTextContainer: {
-        marginLeft: 16,
+    safeArea: {
         width: '100%',
+        backgroundColor: colors.white,
+        position: 'absolute',
+        bottom: 20,
+        alignItems: 'center',
+    },
+    button: {
+        backgroundColor: colors.dark,
+        width: '72%',
+        height: 48,
+        borderRadius: 4,
+        alignItems: 'center',
         justifyContent: 'center',
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 0,
+        },
+        shadowOpacity: 0.1,
+        shadowRadius: 5,
+
+        elevation: 9,
     },
-    username: {
-        fontFamily: 'Regular',
-        fontSize: 16,
+    buttonText: {
+        fontFamily: 'Medium',
+        color: colors.white,
+        fontSize: 15,
+    },
+    tokenImage: {
+        height: 42,
+        width: 42,
+    },
+    tokenText: {
+        fontFamily: 'Medium',
         color: colors.dark,
+        fontSize: 15,
     },
-    address: {
+    subTokenText: {
         fontFamily: 'Regular',
-        fontSize: 13.5,
-        color: colors.gray,
-        marginTop: 2,
+        color: colors.lightGray,
+        fontSize: 13.5
+
     },
-    myWalletName: {
-        fontFamily: 'Regular',
-        fontSize: 13.5,
-        color: colors.gray,
-        marginTop: 4,
-    },
-    profPic: {
-        width: 60,
-        height: 60,
-        borderRadius: 60,
-    },
-    forText: {
-        fontFamily: 'Regular',
-        color: colors.dark,
-        fontSize: 15
-    }
   });
   
