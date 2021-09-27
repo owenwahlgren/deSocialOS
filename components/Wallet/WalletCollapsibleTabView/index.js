@@ -28,6 +28,7 @@ import Asset from '../Asset'
 import Activity from '../Activity'
 import TopSection from '../TopSection'
 import { fetchWalletActivity } from '../../../utils/walletActivity'
+import { getPrice } from '../../../utils/tokenPrice'
 
 import { 
   useFonts,
@@ -274,6 +275,14 @@ const WalletCollapsibleTabView = () => {
   };
 
   const renderTab2Item = ({item, index}) => {
+    var tokens = ['WETH', 'MATIC', 'USDC', 'USDT']
+    if (tokens.includes(item.tokenSymbol)) {
+      return (
+        <View style={{flex: 1, alignItems: 'flex-start'}}>
+        <Activity post={item} />
+        </View>
+      );
+  }
     return (
       <TouchableOpacity 
       onPress={() => navigation.navigate('ActivityModal')}
@@ -352,6 +361,7 @@ const WalletCollapsibleTabView = () => {
         // scrollEnabled={canScroll}
         {...listPanResponder.panHandlers}
         numColumns={numCols}
+        initialNumToRender={8}
         ref={(ref) => {
           if (ref) {
             const found = listRefArr.current.find((e) => e.key === route.key);
