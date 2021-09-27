@@ -37,96 +37,41 @@ const Asset = () => {
       } else {
     return (
         <>
-        <TouchableOpacity style={styles.assetContainer}>
+        <View style={styles.assetContainer}>
             <View style={styles.innerLeftContainer}>
                 <Image 
                     style={styles.tokenImage}
-                    source={{uri: 'https://assets.coingecko.com/coins/images/4713/large/matic-token-icon.png?1624446912'}}
+                    source={{uri: tokenIcons.matic}}
                 />
                 <View style={styles.textContainer}>
-                    <View style={styles.horizontalBox}>
-                    <Text style={styles.tokenName}>Polygon</Text>
-                    <Text style={styles.tokenName}>$30,204.09</Text>
+                    <View style={styles.leftBox}>
+                        <Text style={styles.tokenName}>Polygon</Text>
+                        <Text style={styles.ticker}>26,038.52 MATIC</Text>
                     </View>
-                    <View style={styles.horizontalBox}>
-                    <Text style={styles.ticker}>MATIC</Text>
-                    <Text style={styles.ticker}>26,038.52</Text>
+                    <View style={styles.rightBox}>
+                        <Text style={styles.amount}>$30,204.09</Text>
                     </View>
                 </View>
             </View>     
-        </TouchableOpacity>
+        </View>
 
-        <TouchableOpacity style={styles.assetContainer}>
-            <View style={styles.innerLeftContainer}>
-                <Image 
-                    style={styles.tokenImage}
-                    source={{uri: tokenIcons.usdt}}
-                />
-                <View style={styles.textContainer}>
-                    <View style={styles.horizontalBox}>
-                    <Text style={styles.tokenName}>Tether</Text>
-                    <Text style={styles.tokenName}>$3,507.97</Text>
-                    </View>
-                    <View style={styles.horizontalBox}>
-                    <Text style={styles.ticker}>USDT</Text>
-                    <Text style={styles.ticker}>3,500.00</Text>
-                    </View>
-                </View>
-            </View>     
-        </TouchableOpacity><TouchableOpacity style={styles.assetContainer}>
+        <View style={styles.assetContainer}>
             <View style={styles.innerLeftContainer}>
                 <Image 
                     style={styles.tokenImage}
                     source={{uri: tokenIcons.usdc}}
                 />
                 <View style={styles.textContainer}>
-                    <View style={styles.horizontalBox}>
-                    <Text style={styles.tokenName}>USD Coin</Text>
-                    <Text style={styles.tokenName}>$4,103.67</Text>
+                    <View style={styles.leftBox}>
+                        <Text style={styles.tokenName}>USD Coin</Text>
+                        <Text style={styles.ticker}>26,038.52 USDC</Text>
                     </View>
-                    <View style={styles.horizontalBox}>
-                    <Text style={styles.ticker}>USDC</Text>
-                    <Text style={styles.ticker}>4,103.60</Text>
-                    </View>
-                </View>
-            </View>     
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.assetContainer}>
-            <View style={styles.innerLeftContainer}>
-                <Image 
-                    style={styles.tokenImage}
-                    source={{uri: tokenIcons.dai}}
-                />
-                <View style={styles.textContainer}>
-                    <View style={styles.horizontalBox}>
-                    <Text style={styles.tokenName}>Dai</Text>
-                    <Text style={styles.tokenName}>$4,103.67</Text>
-                    </View>
-                    <View style={styles.horizontalBox}>
-                    <Text style={styles.ticker}>DAI</Text>
-                    <Text style={styles.ticker}>4,103.60</Text>
+                    <View style={styles.rightBox}>
+                        <Text style={styles.amount}>$26,034.09</Text>
                     </View>
                 </View>
             </View>     
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.assetContainer}>
-            <View style={styles.innerLeftContainer}>
-                <Image 
-                    style={styles.tokenImage}
-                    source={{uri: tokenIcons.weth}}
-                />
-                <View style={styles.textContainer}>
-                    <View style={styles.horizontalBox}>
-                    <Text style={styles.tokenName}>Wrapped ETH</Text>
-                    <Text style={styles.tokenName}>$3,210.02</Text>
-                    </View>
-                    <View style={styles.horizontalBox}>
-                    <Text style={styles.ticker}>WETH</Text>
-                    <Text style={styles.ticker}>1.00</Text>
-                    </View>
-                </View>
-            </View>     
-        </TouchableOpacity>
+        </View>
         </>
     )
     }
@@ -138,17 +83,21 @@ const styles = StyleSheet.create({
     assetContainer: {
         flex: 1,
         width: '100%',
-        paddingLeft: 16,
-        paddingTop: 14, 
+        paddingLeft: 20,
+        paddingTop: 12, 
         marginTop: 1,
-        paddingBottom: 14,  
-        paddingRight: 16,
+        paddingBottom: 12,  
+        paddingRight: 20,
         backgroundColor: colors.white,
-        borderBottomColor: colors.outline,
-        borderBottomWidth: 1,
     },
     tokenName: {
         fontFamily: 'Regular',
+        color: colors.dark,
+        fontSize: 15,
+        marginBottom: 2,
+    },
+    amount: {
+        fontFamily: 'Medium',
         color: colors.dark,
         fontSize: 15,
         marginBottom: 2,
@@ -172,11 +121,17 @@ const styles = StyleSheet.create({
         flex: 1,
         marginLeft: 10,
         justifyContent: 'center',
+        flexDirection: 'row',
     },
     horizontalBox: {
         flex: 1, 
-        flexDirection: 'row', 
         justifyContent: 'space-between',
         alignItems: 'center',
     },
+    leftBox: {
+        flex: 1,
+    },
+    rightBox: {
+        justifyContent: 'center',
+    }
   });

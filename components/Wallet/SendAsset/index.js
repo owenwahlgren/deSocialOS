@@ -22,6 +22,8 @@ import {useNavigation, useRoute} from '@react-navigation/native';
 import { MaterialCommunityIcons } from '@expo/vector-icons'; 
 import { Feather } from '@expo/vector-icons'; 
 import Asset from '../Asset';
+import Activity from '../Activity';
+import { fetchWalletActivity } from '../../../utils/walletActivity'
 
 import { 
     useFonts,
@@ -41,21 +43,6 @@ import {
   ];
 
 
-//   const Recent = ({ username, uri, address}) => ( 
-//     <TouchableOpacity style={styles.recent}>
-//         <Image
-//         style={styles.walletImage}
-//         source={{uri: uri}}
-//         />
-//       <View style={styles.recentTextContainer}>
-//         <Text style={styles.username}>{username}</Text>
-//         <Text style={styles.address}>{address}</Text>
-//       </View>
-//     </TouchableOpacity>
-//   );
-
-
-
 export default function SendAsset() {
 
     const navigation = useNavigation();
@@ -72,7 +59,7 @@ export default function SendAsset() {
 
     let [fontsLoaded] = useFonts({
     Bold,
-    Regular,
+    Regular, 
     SemiBold
     });
     if (!fontsLoaded) {
@@ -90,7 +77,9 @@ export default function SendAsset() {
                             <TouchableOpacity 
                                 style={{height: 20}}
                                 onPress={() => navigation.navigate('SendAmountScreen')}
-                            />
+                            >
+                                <Text>(go to next screen)</Text>
+                            </TouchableOpacity>
                         }
                     />
         </SafeAreaView>

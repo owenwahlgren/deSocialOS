@@ -29,6 +29,8 @@ import ScanModal from '../components/Modals/ScanModal';
 import SendToScreen from '../screens/SendTo';
 import SendAssetScreen from '../screens/SendAsset';
 import SendAmountScreen from '../screens/SendAmount';
+import ActivityModal from '../components/Modals/ActivityModal';
+import SendModal from '../components/Modals/SendModal';
 
 const height = Dimensions.get("window").height;
 
@@ -99,6 +101,24 @@ const Navigator = ({navigation}) => {
         component={AccountModal} 
         cardOverlayEnabled={true}
         /> 
+
+        <Stack.Screen 
+        options={{
+          ...TransitionPresets.ModalTransition
+        }}
+        name='SendModal' 
+        component={SendModal} 
+        cardOverlayEnabled={true}
+        /> 
+
+        <Stack.Screen 
+        options={{
+          ...TransitionPresets.ModalTransition
+        }}
+        name='ActivityModal' 
+        component={ActivityModal} 
+        cardOverlayEnabled={true}
+        />
 
         <Stack.Screen  
         name="PostDetails" 

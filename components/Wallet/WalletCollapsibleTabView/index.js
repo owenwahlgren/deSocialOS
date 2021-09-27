@@ -275,9 +275,12 @@ const WalletCollapsibleTabView = () => {
 
   const renderTab2Item = ({item, index}) => {
     return (
-      <View style={{flex: 1, alignItems: 'flex-start'}}>
+      <TouchableOpacity 
+      onPress={() => navigation.navigate('ActivityModal')}
+      style={{flex: 1, alignItems: 'flex-start'}}
+      >
       <Activity post={item} />
-      </View>
+      </TouchableOpacity>
     );
   };
 

@@ -41,9 +41,9 @@ export default function SendAssetHeader() {
             <View style={styles.container}>
                 <TouchableOpacity 
                 style={{flex: 1, marginLeft: 16}}
-                onPress={() => navigation.goBack()}
+                onPress={() => navigation.navigate('Wallet')}
                 >
-                    <Ionicons name="ios-chevron-back-sharp" size={24} color={colors.dark} />
+                    <Ionicons name="close" size={24} color={colors.dark} />
                 </TouchableOpacity>
                 <View style={{flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', position: 'absolute', alignSelf: 'center'}}>
                         <Text style={styles.adressText}>Send</Text>
