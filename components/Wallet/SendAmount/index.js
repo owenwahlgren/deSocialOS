@@ -55,7 +55,7 @@ export default function SendAmount() {
             <TouchableOpacity 
             onPress={() => 
                 Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light,
-                navigation.navigate('SendModal'),
+                navigation.navigate('SendToScreen'),
                 
                 )}
             style={styles.button1}
