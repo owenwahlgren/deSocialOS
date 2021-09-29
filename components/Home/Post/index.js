@@ -67,10 +67,6 @@ const Post = (props) => {
                     style={styles.image}
                 />
                 
-                <SharedElement 
-                id={post.id}
-                style={[StyleSheet.absoluteFillObject]}
-                >
                 <Video 
                     source={{uri: post.videoUri}}
                     // isLooping
@@ -79,7 +75,6 @@ const Post = (props) => {
                     style={styles.video}
                     volume={0}
                 />
-                </SharedElement>
                 
                 <View style={styles.uiContainer}>
                     <View style={styles.topContainer}>

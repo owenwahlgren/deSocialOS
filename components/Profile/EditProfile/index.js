@@ -110,11 +110,12 @@ export default function EditProfile({route}) {
             <ScrollView>
             <View style={{flex: 1}}>
                 {image &&
-                    
+                  <TouchableOpacity onPress={pickImage}>
                     <Image
                     source={{uri: "https://api.de.social/ipfs/" + ipfs}}
                     style={styles.profileImage}
                     />
+                  </TouchableOpacity>
                 }
             <TouchableOpacity onPress={pickImage}>
                 <Text style={{fontFamily: 'Regular', color: colors.primary, fontSize: 13, alignSelf: 'center', marginBottom: 16}}>
@@ -149,7 +150,7 @@ export default function EditProfile({route}) {
                     placeholder={bio} 
                     multiline
                     maxLength={50}
-                    style={styles.sectionText2}
+                    style={styles.sectionText}
                     keyboardType='default'
                     onChangeText={setBio}
                     height={120}
@@ -157,7 +158,7 @@ export default function EditProfile({route}) {
                 </TouchableOpacity>
             </View>
             <View style={styles.bottomContainer}>
-            <TouchableOpacity 
+            {/* <TouchableOpacity 
             style={styles.button}
             onPress={async () => {
                 let tx = await SOCIAL.editProfile(username, bio, ipfs, {gasLimit: 2500000})
@@ -169,7 +170,7 @@ export default function EditProfile({route}) {
             }}
             >
                 <Text style={{fontFamily: 'Medium', fontSize: 16, color: colors.white}}>Done</Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
             </View>
             </View>
             </ScrollView>
@@ -184,6 +185,7 @@ const styles = StyleSheet.create({
         height: 24,
         flexDirection: 'row',
         flex: 1,
+        marginTop: 6,
     },
     sectionText: {
         fontFamily: 'Medium',
@@ -191,25 +193,27 @@ const styles = StyleSheet.create({
         color: colors.dark,
     },
     sectionText2: {
-        fontFamily: 'Medium',
+        fontFamily: 'Regular',
         fontSize: 15,
         color: colors.dark,
         width: '100%',
     },
     sectionContainer: { 
         paddingBottom: 10,
-        marginRight: 16,
-        marginLeft: 16,
+        marginRight: 20,
+        marginLeft: 20,
         flex: 1,
+        borderBottomWidth: 1,
+        borderBottomColor: colors.outline
     },
     sectionHeader: {
         marginTop: 16,
         marginBottom: 2,
     },
     sectionHeaderText: {
-        fontFamily: 'Medium',
-        fontSize: 13.5,
-        color: colors.gray,
+        fontFamily: 'Regular',
+        fontSize: 14,
+        color: colors.dark,
     },
     button: {
     borderRadius: 6,

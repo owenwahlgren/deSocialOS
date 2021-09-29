@@ -20,7 +20,7 @@ import {
 } from '@expo-google-fonts/poppins'
 
 export default function InfoSection(props) {
-  const wallet = useWallet()
+  const wallet = useWallet() 
   const info = useAccountInfo()
   const username = info[0] || wallet.address.toString().substring(0,12);
   const bio = info[1] || ""
@@ -44,12 +44,6 @@ export default function InfoSection(props) {
   } else {
     return (
         <View style={styles.container}>
-          <TouchableOpacity style={{backgroundColor: colors.lightest, borderWidth: 1, borderColor: colors.outline, paddingHorizontal: 14, paddingVertical: 2, borderRadius: 50, marginBottom: 16}}>
-              <Text style={{fontFamily: 'Regular', fontSize: 11.5, color: colors.gray}}
-              >
-              0xajk4...2098
-              </Text>
-          </TouchableOpacity>
           <View
             style={{
               flexDirection: 'row',
@@ -66,7 +60,7 @@ export default function InfoSection(props) {
               </TouchableOpacity>
             </View>
             <TouchableOpacity
-            onPress={() => navigation.navigate('AccountModal')} 
+            onPress={() => navigation.navigate('ProfilePicModal')} 
             >
             <Image
               source={{

@@ -139,7 +139,7 @@ const Navigator = ({navigation}) => {
         }}>
         <Stack.Screen 
           options={{
-            ...TransitionPresets.ModalFadeTransition
+            ...TransitionPresets.ModalTransition
           }}
           name='ProfilePicModal' 
           component={ProfilePicModal} 

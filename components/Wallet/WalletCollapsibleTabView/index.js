@@ -48,7 +48,7 @@ const itemHeight = itemWidth * 1.7;
 
 
 const TabBarHeight = 48;
-const HeaderHeight = 200;
+const HeaderHeight = 140;
 const SafeStatusBar = Platform.select({
   ios: 44,
   android: StatusBar.currentHeight,
@@ -492,7 +492,8 @@ const styles = StyleSheet.create({
     height: TabBarHeight,
   },
   indicator: {
-    backgroundColor: colors.dark
+    backgroundColor: colors.dark,
+    height: 1,
   },
   emptyCreated: {
     height: 50,

@@ -46,28 +46,19 @@ export default function TopSection() {
     return (
         <View style={styles.container}>
             <View style={styles.card}>
-              <Text style={styles.total}>Balance</Text>
+              <Text style={styles.balanceText}>Balance:</Text>
               <Text style={styles.bigText}>$41,025.75</Text>
             </View>
-            <View style={styles.bottomButtons}>
-            <TouchableOpacity 
-              style={styles.button}
-              onPress={() => navigation.navigate('SendAssetScreen')}
-              >
-              <View style={styles.innerButton}>
-                <Feather name="send" size={22} color={colors.dark} />
-                <Text style={styles.buttonText}>Send</Text>
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity 
-              style={styles.button}
-              onPress={() => navigation.navigate('AccountModal')}
-              >
-              <View style={styles.innerButton}>
-                <Ionicons name="qr-code" size={22} color={colors.dark} />
-                <Text style={styles.buttonText}>Receive</Text>
-              </View>
-            </TouchableOpacity>
+            <View style={styles.sendButton}>
+              <TouchableOpacity 
+                style={styles.button}
+                onPress={() => navigation.navigate('SendAssetScreen')}
+                >
+                <View style={styles.innerButton}>
+                  <Feather name="send" size={22} color={colors.dark} />
+                  <Text style={styles.buttonText}>Send</Text>
+                </View>
+              </TouchableOpacity>
             </View>
         </View>
     );
@@ -76,47 +67,44 @@ export default function TopSection() {
 
 const styles = StyleSheet.create({
   container: {
-    paddingLeft: 38,
-    paddingRight: 38,
-    backgroundColor: colors.white,
-    flex: 1,
+    paddingLeft: 20,
+    paddingRight: 20,
+    height: '100%',
     alignItems: 'center',
+    flexDirection: 'row',
+    backgroundColor: colors.white
   },
   bigText: {
     fontFamily: 'SemiBold',
-    fontSize: 32,
+    fontSize: 26,
     color: colors.dark,
     marginTop: 2,
   },
   card: {
-    width: '100%',
     backgroundColor: colors.white,
-    height: 86,
-    marginTop: 16,
     borderRadius: 4,
-    alignItems: 'center',
-    justifyContent: 'center',
+    flex: 2,
   },
-  total: {
+  balanceText: {
     fontFamily: 'Regular',
     fontSize: 13.5,
-    color: colors.gray,
+    color: colors.lightGray,
   },
   button: {
     backgroundColor: colors.white, 
-    width: 148, 
+    width: 140, 
     height: 52, 
     alignItems: 'center', 
     justifyContent: 'center', 
-    borderRadius: 6,
+    borderRadius: 4,
     borderWidth: 1,
     borderColor: colors.outline,
   },
-  bottomButtons: {
-    flexDirection: 'row',
-    marginTop: 16,
-    width: '100%',
-    justifyContent: 'space-between',
+  sendButton: {
+    flex: 2,
+    alignItems: 'flex-end',
+    borderLeftWidth: 1,
+    borderColor: colors.lightGray,
   },
   innerButton: {
     flexDirection: 'row',
@@ -125,7 +113,7 @@ const styles = StyleSheet.create({
   buttonText: {
   fontFamily: 'Regular', 
   color: colors.dark, 
-  fontSize: 13.5,
+  fontSize: 15,
   marginLeft: 8,
   }
 });

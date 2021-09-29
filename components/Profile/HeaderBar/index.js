@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
     adressText: {
         color: colors.dark,
         fontFamily: 'SemiBold',
-        fontSize: 16,
+        fontSize: 15,
     },
     modalView: {
         backgroundColor: colors.white,

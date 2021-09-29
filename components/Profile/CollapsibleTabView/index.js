@@ -497,7 +497,7 @@ const styles = StyleSheet.create({
   tab: {
     elevation: 0,
     shadowOpacity: 0,
-    borderBottomWidth: 0,
+    borderBottomWidth: 1,
     borderBottomColor: colors.outline,
     borderTopColor: colors.outline,
     backgroundColor: colors.white,
@@ -505,6 +505,7 @@ const styles = StyleSheet.create({
   },
   indicator: {
     backgroundColor: colors.dark,
+    height: 1,
   },
   emptyCreated: {
     height: 50,

@@ -72,21 +72,28 @@ export default function HeaderBar() {
                 />
                 </TouchableOpacity>
                 <TouchableOpacity  
-                onPress={copyToClipboard}
+                onPress={copyToClipboard} 
                 style={{
                   flexDirection: 'row',  
                   alignItems: 'center', 
                 }}
                 >
-                <View style={styles.addressContainer}>
-                <Text style={styles.adressText}>{wallet.address.toString().substring(0,12)}</Text>
-                </View>
+                <TouchableOpacity  
+                  style={{
+                    flexDirection: 'row', 
+                    alignItems: 'center', 
+                  }}
+                  onPress={() => navigation.navigate('AccountModal')}
+                  >
+                    <Text style={styles.usernameText}>@{username || wallet.address.toString().substring(0,12)}</Text>
+                    <Ionicons name="caret-down" size={18} color={colors.dark} />
+                </TouchableOpacity>
                 </TouchableOpacity>
                 <TouchableOpacity 
                 style={{flex: 1, alignItems: 'flex-end', position: 'absolute', right: 0}}
-                onPress={() => navigation.navigate('ProfileSettings')}
+                onPress={() => navigation.navigate('ScanModal')}
                 >
-                    <Feather name="menu" size={24} color={colors.dark} />
+                    <Ionicons name="scan-sharp" size={24} color={colors.dark} />
                 </TouchableOpacity>
             </View>
         </SafeAreaView>
@@ -99,15 +106,10 @@ const styles = StyleSheet.create({
         height: 40,
         backgroundColor: colors.white,
         flexDirection: 'row',
-        marginRight: 16,
-        marginLeft: 16,
+        marginRight: 20,
+        marginLeft: 20,
         alignItems: 'center',
         justifyContent: 'center',
-    },
-    adressText: {
-        color: colors.gray,
-        fontFamily: 'Regular',
-        fontSize: 12,
     },
     modalView: {
         backgroundColor: colors.white,

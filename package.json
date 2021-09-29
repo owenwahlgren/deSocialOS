@@ -54,6 +54,7 @@
     "react-native-mov-to-mp4": "^0.2.2",
     "react-native-numpad": "^0.3.0",
     "react-native-pager-view": "5.0.12",
+    "react-native-qrcode-svg": "^6.1.1",
     "react-native-reanimated": "~2.2.0",
     "react-native-redash": "^16.2.2",
     "react-native-safe-area-context": "3.2.0",
@@ -75,6 +76,7 @@
     "react-navigation-shared-element": "^5.0.0-alpha1",
     "react-navigation-stack": "^2.10.4",
     "react-redux": "^7.2.4",
+    "rn-qr-generator": "^1.1.7",
     "use-memo-one": "^1.1.2"
   },
   "devDependencies": {
